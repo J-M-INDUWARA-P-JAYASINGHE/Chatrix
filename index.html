@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatrix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Calibri', 'Candara', 'Segoe', 'Segoe UI', 'Optima', 'Arial', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              msblue: '#0078d4',
+              msbluehover: '#005a9e',
+              msbluedark: '#106ebe'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Firebase SDKs (v8) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  
+  <!-- EmojiMart Picker -->
+  <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+
+  <style>
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    .dark ::-webkit-scrollbar-thumb { background: #334155; }
+    .msg-content { break-word: break-all; word-break: break-word; overflow-wrap: anywhere; }
+    .msg-content a { color: #0078d4; text-decoration: underline; }
+    .dark .msg-content a { color: #60a5fa; text-decoration: underline; }
+
+    /* Sent Message Gradient: Light Blue -> Pink -> Green */
+    .bg-gradient-sent {
+      background: linear-gradient(135deg, #a5f3fc 0%, #fbcfe8 50%, #bbf7d0 100%);
+      color: #0f172a;
+    }
+
+    .bg-msblue {
+      background-color: #0078d4;
+    }
+    .text-msblue {
+      color: #0078d4;
+    }
+    
+    #emoji-picker-container em-emoji-picker {
+      width: 100%;
+      height: 350px;
+      max-width: 360px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans h-screen overflow-hidden transition-colors duration-200">
+
+  <!-- ENLARGED IMAGE MODAL -->
+  <div id="lightbox-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden">
+    <button id="lightbox-close-btn" class="absolute top-4 right-4 text-white text-3xl font-bold p-2 hover:opacity-75 cursor-pointer">&times;</button>
+    <img id="lightbox-img" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl" src="" alt="Enlarged preview">
+  </div>
+
+  <!-- MESSAGE CONTEXT MENU MODAL -->
+  <div id="message-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl w-full max-w-xs shadow-2xl overflow-hidden divide-y divide-slate-100 dark:divide-slate-700/50">
+      <div class="p-3 bg-slate-50 dark:bg-slate-900/50 text-center text-xs font-semibold text-slate-400">Message Options</div>
+      <button id="modal-reply-btn" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
+        <svg class="w-4 h-4 text-brand-msblue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+        <span>Reply</span>
+      </button>
+      <button id="modal-copy-btn" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
+        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        <span>Copy Text</span>
+      </button>
+      <button id="modal-forward-btn" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
+        <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <span>Forward</span>
+      </button>
+      <button id="modal-delete-me-btn" class="w-full text-left px-4 py-3 text-sm text-amber-600 dark:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        <span>Delete for Me</span>
+      </button>
+      <button id="modal-delete-everyone-btn" class="w-full text-left px-4 py-3 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center space-x-3">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        <span>Delete for Everyone</span>
+      </button>
+      <button id="modal-close-btn" class="w-full text-center px-4 py-2.5 text-xs font-semibold text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700">Cancel</button>
+    </div>
+  </div>
+
+  <!-- CHAT ITEM ACTION MODAL (Delete Chat, Archive, Mark Unread, Lock Chat) -->
+  <div id="chat-item-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl w-full max-w-xs shadow-2xl overflow-hidden divide-y divide-slate-100 dark:divide-slate-700/50">
+      <div id="chat-item-modal-title" class="p-3 bg-slate-50 dark:bg-slate-900/50 text-center text-xs font-semibold text-slate-400">Chat Options</div>
+      <button id="chat-opt-lock" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
+        <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        <span id="chat-opt-lock-label">Lock Chat</span>
+      </button>
+      <button id="chat-opt-archive" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
+        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v1a2 2 0 01-2 2M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+        <span id="chat-opt-archive-label">Archive Chat</span>
+      </button>
+      <button id="chat-opt-unread" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
+        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <span id="chat-opt-unread-label">Mark as Unread</span>
+      </button>
+      <button id="chat-opt-delete" class="w-full text-left px-4 py-3 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center space-x-3">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        <span>Delete Chat</span>
+      </button>
+      <button id="chat-opt-cancel" class="w-full text-center px-4 py-2.5 text-xs font-semibold text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700">Cancel</button>
+    </div>
+  </div>
+
+  <!-- FORWARD SELECTION MODAL -->
+  <div id="forward-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl w-full max-w-sm shadow-2xl flex flex-col max-h-[80vh]">
+      <div class="p-3 border-b border-slate-200 dark:border-slate-700 font-bold text-sm text-center">Forward Message To</div>
+      <div id="forward-users-container" class="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-700/50"></div>
+      <button id="forward-cancel-btn" class="p-3 border-t border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700">Cancel</button>
+    </div>
+  </div>
+
+  <!-- MOBILE SIDEBAR DRAWER OVERLAY -->
+  <div id="drawer-overlay" class="fixed inset-0 bg-slate-900/50 z-40 hidden transition-opacity"></div>
+  <div id="drawer-menu" class="fixed top-0 left-0 bottom-0 w-64 bg-white dark:bg-slate-900 z-50 transform -translate-x-full transition-transform duration-300 p-4 flex flex-col justify-between">
+    <div>
+      <div class="flex items-center space-x-3 mb-6 p-2 bg-slate-100 dark:bg-slate-800 rounded-xl">
+        <img id="drawer-avatar" class="w-12 h-12 rounded-full object-cover" src="" />
+        <div class="min-w-0 flex-1">
+          <h3 id="drawer-name" class="font-bold text-sm truncate">User</h3>
+          <p id="drawer-username" class="text-xs text-brand-msblue truncate">@user</p>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <div class="p-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 flex items-center space-x-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg cursor-pointer">
+          <svg class="w-5 h-5 text-brand-msblue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          <span>Chatrix Profile</span>
+        </div>
+        <div id="drawer-archived-chats-btn" class="p-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 flex items-center space-x-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg cursor-pointer">
+          <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v1a2 2 0 01-2 2M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+          <span>Archived Chats</span>
+        </div>
+        <div class="p-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 flex items-center space-x-3 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg cursor-pointer">
+          <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/></svg>
+          <span>Settings</span>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-slate-200 dark:border-slate-800 pt-3 text-xs text-slate-400 text-center">
+      Chatrix Web Messenger v3.0
+    </div>
+  </div>
+
+  <!-- MAIN APPLICATION LAYOUT -->
+  <div class="flex h-screen w-full">
+    
+    <!-- LEFT SIDEBAR -->
+    <div id="sidebar-panel" class="w-full md:w-80 lg:w-96 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col h-full z-10">
+      
+      <!-- Top Navigation Bar -->
+      <div class="p-3 bg-slate-100 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <button id="drawer-toggle-btn" class="p-1.5 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <span class="font-black text-lg tracking-wider text-brand-msblue">CHATRIX</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <button id="theme-btn" class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition" title="Toggle Theme">
+            <svg id="theme-icon-sun" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z"/></svg>
+            <svg id="theme-icon-moon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+          </button>
+          <button id="logout-btn" class="text-xs text-slate-500 dark:text-slate-400 hover:text-red-500 border border-slate-300 dark:border-slate-800 px-2 py-1 rounded-lg transition">Log Out</button>
+        </div>
+      </div>
+
+      <!-- WHATSAPP-STYLE LOCKED CHATS FOLDER BAR -->
+      <div id="locked-chats-bar" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/30 border-b border-emerald-200 dark:border-emerald-800/50 flex items-center justify-between cursor-pointer hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition">
+        <div class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <div>
+            <p class="text-xs font-bold text-emerald-900 dark:text-emerald-200">Locked Chats</p>
+            <p class="text-[10px] text-emerald-600 dark:text-emerald-400">Protected conversations</p>
+          </div>
+        </div>
+        <span id="locked-chats-count" class="text-xs font-bold bg-emerald-200 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-100 px-2 py-0.5 rounded-full">0</span>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="p-2.5 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <div class="relative flex items-center">
+          <svg class="w-4 h-4 absolute left-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" id="search-input" placeholder="Search name, username, email..." class="w-full pl-9 pr-4 py-1.5 bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 text-xs rounded-full border border-transparent focus:border-brand-msblue focus:outline-none transition">
+        </div>
+      </div>
+
+      <!-- User List -->
+      <div id="users-container" class="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/50"></div>
+    </div>
+
+    <!-- MAIN CHAT PANEL -->
+    <div id="chat-panel" class="hidden md:flex flex-1 flex-col h-full bg-slate-50 dark:bg-slate-950 relative">
+      <div id="chat-header" class="p-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-slate-400 text-sm">
+        <span>Select a conversation to start messaging</span>
+      </div>
+
+      <!-- SEARCH IN CHAT BAR (Telegram Tool Feature) -->
+      <div id="chat-search-bar" class="hidden p-2 bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center space-x-2">
+        <input type="text" id="chat-search-input" placeholder="Search messages in this chat..." class="flex-1 bg-white dark:bg-slate-800 px-3 py-1 text-xs rounded-lg border border-slate-300 dark:border-slate-700 focus:outline-none">
+        <button id="chat-search-close" class="text-xs font-semibold text-slate-400 hover:text-slate-600 px-2">Close</button>
+      </div>
+
+      <div id="messages-container" class="flex-1 overflow-y-auto p-4 space-y-3 flex flex-col"></div>
+
+      <!-- Reply Preview Bar -->
+      <div id="reply-preview-bar" class="hidden px-4 py-2 bg-slate-200 dark:bg-slate-800 border-t border-slate-300 dark:border-slate-700 flex items-center justify-between">
+        <div class="border-l-2 border-brand-msblue pl-2">
+          <p class="text-[10px] font-bold text-brand-msblue">Replying to message</p>
+          <p id="reply-preview-text" class="text-xs text-slate-600 dark:text-slate-300 truncate max-w-md"></p>
+        </div>
+        <button id="cancel-reply-btn" class="text-slate-400 hover:text-slate-600 font-bold text-sm">&times;</button>
+      </div>
+
+      <!-- Image Upload Preview Bar -->
+      <div id="image-preview-bar" class="hidden p-2 bg-slate-200 dark:bg-slate-800 border-t border-slate-300 dark:border-slate-700 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <img id="image-preview-thumb" class="w-10 h-10 object-cover rounded" src="" />
+          <span class="text-xs text-slate-600 dark:text-slate-300">Photo attached</span>
+        </div>
+        <button id="cancel-image-btn" class="text-red-500 hover:text-red-700 text-xs font-bold px-2">Remove</button>
+      </div>
+
+      <!-- EMOJI PICKER POPUP CONTAINER -->
+      <div id="emoji-picker-container" class="hidden absolute bottom-16 left-4 z-40"></div>
+
+      <!-- Message Input Form -->
+      <form id="message-form" class="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center space-x-2 hidden">
+        <button type="button" id="emoji-picker-btn" class="p-2 text-slate-400 hover:text-brand-msblue transition" title="Insert Emoji">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </button>
+
+        <label for="image-upload-input" class="p-2 text-slate-400 hover:text-brand-msblue cursor-pointer transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+        </label>
+        <input type="file" id="image-upload-input" accept="image/*" class="hidden">
+        
+        <input type="text" id="message-input" placeholder="Write a message..." class="flex-1 bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-slate-200 text-sm rounded-full px-4 py-2.5 focus:outline-none focus:border-brand-msblue">
+        
+        <button type="submit" class="bg-brand-msblue hover:bg-brand-msbluehover text-white rounded-full p-2.5 transition transform active:scale-95 shadow">
+          <svg class="w-5 h-5 transform rotate-90" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBO2Um_hyje276BKf96Alae-5_UmbbLDN4",
+      authDomain: "cavexa-2009.firebaseapp.com",
+      databaseURL: "https://cavexa-2009-default-rtdb.firebaseio.com",
+      projectId: "cavexa-2009",
+      storageBucket: "cavexa-2009.firebasestorage.app",
+      messagingSenderId: "159385487748",
+      appId: "1:159385487748:web:10e6a4ed33aca2aee5f5d1",
+      measurementId: "G-0F7NN4J58V"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const firestore = firebase.firestore();
+    const realtimeDB = firebase.database();
+
+    const DEFAULT_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='%230078d4'><circle cx='12' cy='8' r='4'/><path d='M12 14c-6.1 0-8 4-8 4v2h16v-2s-1.9-4-8-4z'/></svg>";
+
+    let currentSession = null;
+    let selectedUser = null;
+    let unsubscribeMessages = null;
+    let chatListeners = [];
+    let allUsersList = [];
+    let globalUserMap = new Map();
+    let attachedImageBase64 = null;
+    let typingTimeout = null;
+    let activeMessageContext = null;
+    let replyingMessageData = null;
+
+    // Chat states: locked, archived, unread override
+    let lockedChatUids = new Set(JSON.parse(localStorage.getItem('chatrix_locked_chats') || '[]'));
+    let archivedChatUids = new Set(JSON.parse(localStorage.getItem('chatrix_archived_chats') || '[]'));
+    let manualUnreadUids = new Set(JSON.parse(localStorage.getItem('chatrix_unread_chats') || '[]'));
+    let mutedChatUids = new Set(JSON.parse(localStorage.getItem('chatrix_muted_chats') || '[]'));
+
+    let activeChatItemUser = null;
+    let isShowingLockedFolder = false;
+
+    const sidebarPanel = document.getElementById("sidebar-panel");
+    const chatPanel = document.getElementById("chat-panel");
+    const usersContainer = document.getElementById("users-container");
+    const chatHeader = document.getElementById("chat-header");
+    const messagesContainer = document.getElementById("messages-container");
+    const messageForm = document.getElementById("message-form");
+    const messageInput = document.getElementById("message-input");
+    const searchInput = document.getElementById("search-input");
+    const themeBtn = document.getElementById("theme-btn");
+    const imageUploadInput = document.getElementById("image-upload-input");
+    const imagePreviewBar = document.getElementById("image-preview-bar");
+    const imagePreviewThumb = document.getElementById("image-preview-thumb");
+    const cancelImageBtn = document.getElementById("cancel-image-btn");
+
+    const lightboxModal = document.getElementById("lightbox-modal");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxCloseBtn = document.getElementById("lightbox-close-btn");
+
+    const messageModal = document.getElementById("message-modal");
+    const modalCloseBtn = document.getElementById("modal-close-btn");
+    const modalCopyBtn = document.getElementById("modal-copy-btn");
+    const modalReplyBtn = document.getElementById("modal-reply-btn");
+    const modalForwardBtn = document.getElementById("modal-forward-btn");
+    const modalDeleteMeBtn = document.getElementById("modal-delete-me-btn");
+    const modalDeleteEveryoneBtn = document.getElementById("modal-delete-everyone-btn");
+
+    const chatItemModal = document.getElementById("chat-item-modal");
+    const chatOptLock = document.getElementById("chat-opt-lock");
+    const chatOptLockLabel = document.getElementById("chat-opt-lock-label");
+    const chatOptArchive = document.getElementById("chat-opt-archive");
+    const chatOptArchiveLabel = document.getElementById("chat-opt-archive-label");
+    const chatOptUnread = document.getElementById("chat-opt-unread");
+    const chatOptUnreadLabel = document.getElementById("chat-opt-unread-label");
+    const chatOptDelete = document.getElementById("chat-opt-delete");
+    const chatOptCancel = document.getElementById("chat-opt-cancel");
+
+    const lockedChatsBar = document.getElementById("locked-chats-bar");
+    const lockedChatsCount = document.getElementById("locked-chats-count");
+
+    const forwardModal = document.getElementById("forward-modal");
+    const forwardUsersContainer = document.getElementById("forward-users-container");
+    const forwardCancelBtn = document.getElementById("forward-cancel-btn");
+
+    const replyPreviewBar = document.getElementById("reply-preview-bar");
+    const replyPreviewText = document.getElementById("reply-preview-text");
+    const cancelReplyBtn = document.getElementById("cancel-reply-btn");
+
+    const drawerToggleBtn = document.getElementById("drawer-toggle-btn");
+    const drawerOverlay = document.getElementById("drawer-overlay");
+    const drawerMenu = document.getElementById("drawer-menu");
+
+    const emojiPickerBtn = document.getElementById("emoji-picker-btn");
+    const emojiPickerContainer = document.getElementById("emoji-picker-container");
+
+    const chatSearchBar = document.getElementById("chat-search-bar");
+    const chatSearchInput = document.getElementById("chat-search-input");
+    const chatSearchClose = document.getElementById("chat-search-close");
+
+    // Initialize EmojiMart
+    let picker = null;
+    if (window.EmojiMart) {
+      picker = new EmojiMart.Picker({
+        onEmojiSelect: (emoji) => {
+          messageInput.value += emoji.native;
+          emojiPickerContainer.classList.add("hidden");
+        }
+      });
+      emojiPickerContainer.appendChild(picker);
+    }
+
+    emojiPickerBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      emojiPickerContainer.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!emojiPickerContainer.contains(e.target) && e.target !== emojiPickerBtn) {
+        emojiPickerContainer.classList.add("hidden");
+      }
+    });
+
+    function playNotificationSound(type) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'receive') {
+          osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+          osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.1, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.25);
+        } else {
+          osc.frequency.setValueAtTime(440, ctx.currentTime);
+          gain.gain.setValueAtTime(0.05, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.12);
+        }
+      } catch (e) {}
+    }
+
+    window.addEventListener("load", () => {
+      const savedSession = localStorage.getItem("hw_session");
+      if (!savedSession) {
+        localStorage.setItem("redirect_after_login", window.location.href);
+        window.location.href = "signin";
+        return;
+      }
+      currentSession = JSON.parse(savedSession);
+      initAppUI();
+      setupPresence();
+    });
+
+    function setupPresence() {
+      const userStatusRef = realtimeDB.ref('status/' + currentSession.uid);
+      const isOfflineForDatabase = { state: 'offline', last_seen: firebase.database.ServerValue.TIMESTAMP };
+      const isOnlineForDatabase = { state: 'online', last_seen: firebase.database.ServerValue.TIMESTAMP };
+
+      realtimeDB.ref('.info/connected').on('value', (snapshot) => {
+        if (snapshot.val() === false) return;
+        userStatusRef.onDisconnect().set(isOfflineForDatabase).then(() => {
+          userStatusRef.set(isOnlineForDatabase);
+        });
+      });
+    }
+
+    drawerToggleBtn.addEventListener("click", () => {
+      drawerOverlay.classList.remove("hidden");
+      drawerMenu.classList.remove("-translate-x-full");
+    });
+
+    drawerOverlay.addEventListener("click", () => {
+      drawerOverlay.classList.add("hidden");
+      drawerMenu.classList.add("-translate-x-full");
+    });
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+      document.getElementById("theme-icon-sun").classList.remove("hidden");
+      document.getElementById("theme-icon-moon").classList.add("hidden");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.getElementById("theme-icon-sun").classList.add("hidden");
+      document.getElementById("theme-icon-moon").classList.remove("hidden");
+    }
+
+    themeBtn.addEventListener("click", () => {
+      if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+        document.getElementById("theme-icon-sun").classList.add("hidden");
+        document.getElementById("theme-icon-moon").classList.remove("hidden");
+      } else {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+        document.getElementById("theme-icon-sun").classList.remove("hidden");
+        document.getElementById("theme-icon-moon").classList.add("hidden");
+      }
+    });
+
+    function parseAvatarFromSnapshot(snapVal) {
+      if (!snapVal) return DEFAULT_AVATAR;
+      if (typeof snapVal === 'string' && snapVal.startsWith("data:image")) return snapVal;
+      if (typeof snapVal === 'object') {
+        if (snapVal.avatarUrl && snapVal.avatarUrl.startsWith("data:image")) return snapVal.avatarUrl;
+        if (snapVal.avatar && snapVal.avatar.startsWith("data:image")) return snapVal.avatar;
+      }
+      return DEFAULT_AVATAR;
+    }
+
+    function formatChatTime(timestamp) {
+      if (!timestamp) return "";
+      const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function getChatRoomId(uid1, uid2) {
+      return uid1 < uid2 ? `${uid1}_${uid2}` : `${uid2}_${uid1}`;
+    }
+
+    function initAppUI() {
+      document.getElementById("drawer-name").innerText = currentSession.displayName || currentSession.username;
+      document.getElementById("drawer-username").innerText = "@" + (currentSession.username || "chatrix");
+      
+      realtimeDB.ref("avatars/" + currentSession.uid).once("value", (snap) => {
+        const avatarVal = parseAvatarFromSnapshot(snap.exists() ? snap.val() : null);
+        document.getElementById("drawer-avatar").src = avatarVal;
+      });
+
+      listenForUsersList();
+    }
+
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      realtimeDB.ref('status/' + currentSession.uid).set({ state: 'offline', last_seen: firebase.database.ServerValue.TIMESTAMP });
+      localStorage.removeItem("hw_session");
+      window.location.href = "signin";
+    });
+
+    searchInput.addEventListener("input", () => {
+      renderSortedUsersMap();
+    });
+
+    function listenForUsersList() {
+      firestore.collection("users").onSnapshot((snapshot) => {
+        allUsersList = [];
+        snapshot.forEach((doc) => {
+          const uData = doc.data();
+          if (uData.uid !== currentSession.uid) {
+            allUsersList.push(uData);
+          }
+        });
+        setupRealtimeChatList(allUsersList);
+      });
+    }
+
+    function setupRealtimeChatList(users) {
+      chatListeners.forEach(unsub => unsub());
+      chatListeners = [];
+
+      users.forEach((user) => {
+        const roomId = getChatRoomId(currentSession.uid, user.uid);
+        
+        const unsub = firestore.collection('chats')
+          .doc(roomId)
+          .collection('messages')
+          .orderBy('timestamp', 'desc')
+          .limit(1)
+          .onSnapshot(async (msgSnap) => {
+            let lastMsg = null;
+            let lastTimestamp = 0;
+
+            if (!msgSnap.empty) {
+              lastMsg = msgSnap.docs[0].data();
+              lastTimestamp = lastMsg.timestamp ? lastMsg.timestamp.toMillis() : 0;
+            }
+
+            let unreadCount = 0;
+            if (!selectedUser || selectedUser.uid !== user.uid) {
+              const unreadSnap = await firestore.collection('chats')
+                .doc(roomId)
+                .collection('messages')
+                .where('receiverId', '==', currentSession.uid)
+                .where('read', '==', false)
+                .get();
+              unreadCount = unreadSnap.size;
+            }
+
+            if (manualUnreadUids.has(user.uid) && unreadCount === 0) {
+              unreadCount = 1;
+            }
+
+            globalUserMap.set(user.uid, {
+              user,
+              lastMsg,
+              lastTimestamp,
+              unreadCount
+            });
+
+            renderSortedUsersMap();
+          });
+
+        chatListeners.push(unsub);
+      });
+    }
+
+    // SEARCH LOGIC & PRIORITY FILTERING: Started chats display on top when searching!
+    function renderSortedUsersMap() {
+      const query = searchInput.value.toLowerCase().trim();
+      const allChatItems = Array.from(globalUserMap.values());
+
+      // Update locked bar
+      const lockedCount = lockedChatUids.size;
+      if (lockedCount > 0) {
+        lockedChatsBar.classList.remove("hidden");
+        lockedChatsCount.innerText = lockedCount;
+      } else {
+        lockedChatsBar.classList.add("hidden");
+      }
+
+      let itemsToDisplay = [];
+
+      if (query !== "") {
+        // Filter users matching query
+        const matched = allChatItems.filter(({ user }) => {
+          const dName = (user.displayName || "").toLowerCase();
+          const uName = (user.username || "").toLowerCase();
+          const email = (user.email || "").toLowerCase();
+          return dName.includes(query) || uName.includes(query) || email.includes(query);
+        });
+
+        // Split into started/chatted vs unchatted, then rank started chats on top
+        const startedChats = matched.filter(item => item.lastMsg !== null);
+        const unchatted = matched.filter(item => item.lastMsg === null);
+
+        startedChats.sort((a, b) => b.lastTimestamp - a.lastTimestamp);
+        unchatted.sort((a, b) => (a.user.displayName || '').localeCompare(b.user.displayName || ''));
+
+        itemsToDisplay = [...startedChats, ...unchatted];
+      } else {
+        // Normal state: exclude archived & locked unless viewing locked folder
+        itemsToDisplay = allChatItems.filter(({ user }) => {
+          if (isShowingLockedFolder) return lockedChatUids.has(user.uid);
+          return !lockedChatUids.has(user.uid) && !archivedChatUids.has(user.uid);
+        });
+
+        const activeChats = itemsToDisplay.filter(item => item.lastMsg !== null);
+        if (activeChats.length > 0) {
+          itemsToDisplay = activeChats;
+        }
+
+        itemsToDisplay.sort((a, b) => b.lastTimestamp - a.lastTimestamp);
+      }
+
+      usersContainer.innerHTML = '';
+
+      if (itemsToDisplay.length === 0) {
+        usersContainer.innerHTML = `<div class="p-4 text-xs text-center text-slate-400">No matching contacts found</div>`;
+        return;
+      }
+
+      itemsToDisplay.forEach(({ user, lastMsg, unreadCount }) => {
+        const userEl = document.createElement('div');
+        userEl.className = `flex items-center space-x-3 p-3 hover:bg-slate-100 dark:hover:bg-slate-800/60 cursor-pointer transition ${selectedUser && selectedUser.uid === user.uid ? 'bg-blue-50 dark:bg-slate-800/80 border-l-4 border-brand-msblue' : ''}`;
+        
+        let lastMsgText = user.email || "@" + (user.username || "chatrix");
+        if (lastMsg) {
+          lastMsgText = lastMsg.deleted ? "<i>Message deleted</i>" : (lastMsg.image ? "📷 Photo" : escapeHTML(lastMsg.text || ''));
+        }
+        const msgTime = lastMsg && lastMsg.timestamp ? formatChatTime(lastMsg.timestamp) : "";
+
+        userEl.innerHTML = `
+          <div class="relative">
+            <img id="avatar-${user.uid}" class="w-11 h-11 rounded-full object-cover bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700" src="${DEFAULT_AVATAR}" />
+            <span id="status-dot-${user.uid}" class="w-3 h-3 bg-gray-400 border-2 border-white dark:border-slate-900 rounded-full absolute bottom-0 right-0 hidden"></span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-baseline mb-0.5">
+              <p class="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate flex items-center gap-1">
+                ${user.displayName || user.username}
+                ${lockedChatUids.has(user.uid) ? '<svg class="w-3 h-3 text-emerald-500 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>' : ''}
+              </p>
+              <span class="text-[10px] text-slate-400 dark:text-slate-500 ml-1 whitespace-nowrap">${msgTime}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <p class="text-xs text-slate-500 dark:text-slate-400 truncate pr-2">${lastMsgText}</p>
+              ${unreadCount > 0 ? `<span class="bg-brand-msblue text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">${unreadCount}</span>` : ''}
+            </div>
+          </div>
+        `;
+
+        realtimeDB.ref("status/" + user.uid).on("value", (snap) => {
+          const dot = document.getElementById(`status-dot-${user.uid}`);
+          if (dot && snap.exists()) {
+            dot.classList.remove("hidden");
+            if (snap.val().state === "online") {
+              dot.className = "w-3 h-3 bg-emerald-500 border-2 border-white dark:border-slate-900 rounded-full absolute bottom-0 right-0";
+            } else {
+              dot.className = "w-3 h-3 bg-slate-400 border-2 border-white dark:border-slate-900 rounded-full absolute bottom-0 right-0";
+            }
+          }
+        });
+
+        realtimeDB.ref("avatars/" + user.uid).on("value", (snap) => {
+          const avatarVal = parseAvatarFromSnapshot(snap.exists() ? snap.val() : null);
+          const avatarImg = document.getElementById(`avatar-${user.uid}`);
+          if (avatarImg) avatarImg.src = avatarVal;
+        });
+
+        userEl.addEventListener('click', () => openChatWithUser(user));
+
+        // Long press / Context menu for Delete Chat, Archive, Mark Unread, Lock Chat
+        userEl.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+          openChatItemModal(user);
+        });
+
+        usersContainer.appendChild(userEl);
+      });
+    }
+
+    // Toggle Locked Folder View
+    lockedChatsBar.addEventListener("click", () => {
+      isShowingLockedFolder = !isShowingLockedFolder;
+      renderSortedUsersMap();
+    });
+
+    function openChatItemModal(user) {
+      activeChatItemUser = user;
+      document.getElementById("chat-item-modal-title").innerText = `Options: ${user.displayName || user.username}`;
+      
+      chatOptLockLabel.innerText = lockedChatUids.has(user.uid) ? "Unlock Chat" : "Lock Chat";
+      chatOptArchiveLabel.innerText = archivedChatUids.has(user.uid) ? "Unarchive Chat" : "Archive Chat";
+      chatOptUnreadLabel.innerText = manualUnreadUids.has(user.uid) ? "Mark as Read" : "Mark as Unread";
+
+      chatItemModal.classList.remove("hidden");
+    }
+
+    chatOptCancel.addEventListener("click", () => chatItemModal.classList.add("hidden"));
+
+    chatOptLock.addEventListener("click", () => {
+      if (!activeChatItemUser) return;
+      if (lockedChatUids.has(activeChatItemUser.uid)) {
+        lockedChatUids.delete(activeChatItemUser.uid);
+      } else {
+        lockedChatUids.add(activeChatItemUser.uid);
+      }
+      localStorage.setItem('chatrix_locked_chats', JSON.stringify([...lockedChatUids]));
+      chatItemModal.classList.add("hidden");
+      renderSortedUsersMap();
+    });
+
+    chatOptArchive.addEventListener("click", () => {
+      if (!activeChatItemUser) return;
+      if (archivedChatUids.has(activeChatItemUser.uid)) {
+        archivedChatUids.delete(activeChatItemUser.uid);
+      } else {
+        archivedChatUids.add(activeChatItemUser.uid);
+      }
+      localStorage.setItem('chatrix_archived_chats', JSON.stringify([...archivedChatUids]));
+      chatItemModal.classList.add("hidden");
+      renderSortedUsersMap();
+    });
+
+    chatOptUnread.addEventListener("click", () => {
+      if (!activeChatItemUser) return;
+      if (manualUnreadUids.has(activeChatItemUser.uid)) {
+        manualUnreadUids.delete(activeChatItemUser.uid);
+      } else {
+        manualUnreadUids.add(activeChatItemUser.uid);
+      }
+      localStorage.setItem('chatrix_unread_chats', JSON.stringify([...manualUnreadUids]));
+      chatItemModal.classList.add("hidden");
+      renderSortedUsersMap();
+    });
+
+    chatOptDelete.addEventListener("click", async () => {
+      if (!activeChatItemUser) return;
+      if (confirm(`Are you sure you want to delete chat history with ${activeChatItemUser.displayName || activeChatItemUser.username}?`)) {
+        const roomId = getChatRoomId(currentSession.uid, activeChatItemUser.uid);
+        const msgs = await firestore.collection('chats').doc(roomId).collection('messages').get();
+        const batch = firestore.batch();
+        msgs.forEach(doc => {
+          batch.update(doc.ref, {
+            deletedFor: firebase.firestore.FieldValue.arrayUnion(currentSession.uid)
+          });
+        });
+        await batch.commit();
+        if (selectedUser && selectedUser.uid === activeChatItemUser.uid) {
+          selectedUser = null;
+          chatPanel.classList.add("hidden");
+          sidebarPanel.classList.remove("hidden");
+        }
+      }
+      chatItemModal.classList.add("hidden");
+      renderSortedUsersMap();
+    });
+
+    async function openChatWithUser(user) {
+      if (manualUnreadUids.has(user.uid)) {
+        manualUnreadUids.delete(user.uid);
+        localStorage.setItem('chatrix_unread_chats', JSON.stringify([...manualUnreadUids]));
+      }
+
+      selectedUser = user;
+      messageForm.classList.remove('hidden');
+
+      sidebarPanel.classList.add("hidden", "md:flex");
+      chatPanel.classList.remove("hidden");
+      chatPanel.classList.add("flex");
+
+      // TELEGRAM STYLE HEADER WITH 3-DOTS TOOLS MENU
+      chatHeader.innerHTML = `
+        <div class="flex items-center space-x-3 min-w-0">
+          <button id="back-to-users-btn" class="md:hidden p-1 text-slate-500 hover:text-slate-800 dark:hover:text-slate-100">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <img id="chat-header-avatar" class="w-10 h-10 rounded-full object-cover bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700" src="${DEFAULT_AVATAR}" />
+          <div class="flex-1 min-w-0">
+            <h2 class="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">${user.displayName || user.username}</h2>
+            <p id="chat-header-status" class="text-xs text-slate-400">offline</p>
+          </div>
+        </div>
+        <div class="relative">
+          <button id="chat-tools-btn" class="p-2 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/></svg>
+          </button>
+          <div id="chat-tools-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl z-50 py-1 divide-y divide-slate-100 dark:divide-slate-700">
+            <button id="tool-search-chat" class="w-full text-left px-4 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-2">
+              <svg class="w-4 h-4 text-brand-msblue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <span>Search Messages</span>
+            </button>
+            <button id="tool-mute-chat" class="w-full text-left px-4 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-2">
+              <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+              <span>${mutedChatUids.has(user.uid) ? 'Unmute Notifications' : 'Mute Notifications'}</span>
+            </button>
+            <button id="tool-export-chat" class="w-full text-left px-4 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-2">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Export History</span>
+            </button>
+            <button id="tool-clear-chat" class="w-full text-left px-4 py-2.5 text-xs text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center space-x-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              <span>Clear History</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Header 3-Dots Listener
+      const toolsBtn = document.getElementById("chat-tools-btn");
+      const toolsMenu = document.getElementById("chat-tools-menu");
+      toolsBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toolsMenu.classList.toggle("hidden");
+      });
+      document.addEventListener("click", () => toolsMenu.classList.add("hidden"));
+
+      document.getElementById("tool-search-chat").addEventListener("click", () => {
+        chatSearchBar.classList.remove("hidden");
+        chatSearchInput.focus();
+      });
+
+      document.getElementById("tool-mute-chat").addEventListener("click", () => {
+        if (mutedChatUids.has(user.uid)) {
+          mutedChatUids.delete(user.uid);
+          alert("Notifications unmuted for this chat");
+        } else {
+          mutedChatUids.add(user.uid);
+          alert("Notifications muted for this chat");
+        }
+        localStorage.setItem('chatrix_muted_chats', JSON.stringify([...mutedChatUids]));
+      });
+
+      document.getElementById("tool-export-chat").addEventListener("click", async () => {
+        const roomId = getChatRoomId(currentSession.uid, user.uid);
+        const msgs = await firestore.collection('chats').doc(roomId).collection('messages').orderBy('timestamp','asc').get();
+        let exportData = `Chat History with ${user.displayName || user.username}\n=============================\n\n`;
+        msgs.forEach(doc => {
+          const d = doc.data();
+          if (!d.deletedFor || !d.deletedFor.includes(currentSession.uid)) {
+            exportData += `[${d.timestamp ? new Date(d.timestamp.toMillis()).toLocaleString() : ''}] ${d.senderId === currentSession.uid ? 'Me' : user.username}: ${d.text || (d.image ? '[Photo]' : '')}\n`;
+          }
+        });
+        const blob = new Blob([exportData], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `chat_export_${user.username}.txt`;
+        a.click();
+      });
+
+      document.getElementById("tool-clear-chat").addEventListener("click", async () => {
+        if (confirm("Clear all chat messages for yourself?")) {
+          const roomId = getChatRoomId(currentSession.uid, user.uid);
+          const msgs = await firestore.collection('chats').doc(roomId).collection('messages').get();
+          const batch = firestore.batch();
+          msgs.forEach(doc => {
+            batch.update(doc.ref, {
+              deletedFor: firebase.firestore.FieldValue.arrayUnion(currentSession.uid)
+            });
+          });
+          await batch.commit();
+        }
+      });
+
+      document.getElementById("back-to-users-btn").addEventListener("click", () => {
+        selectedUser = null;
+        chatPanel.classList.add("hidden");
+        sidebarPanel.classList.remove("hidden");
+        renderSortedUsersMap();
+      });
+
+      realtimeDB.ref("avatars/" + user.uid).once("value", (snap) => {
+        const avatarVal = parseAvatarFromSnapshot(snap.exists() ? snap.val() : null);
+        const avatarImg = document.getElementById('chat-header-avatar');
+        if (avatarImg) avatarImg.src = avatarVal;
+      });
+
+      realtimeDB.ref("status/" + user.uid).on("value", (snap) => {
+        const statusEl = document.getElementById("chat-header-status");
+        if (statusEl && snap.exists()) {
+          if (snap.val().state === "online") {
+            statusEl.innerText = "online";
+            statusEl.className = "text-xs text-brand-msblue font-medium";
+          } else {
+            statusEl.innerText = "last seen recently";
+            statusEl.className = "text-xs text-slate-400";
+          }
+        }
+      });
+
+      const roomId = getChatRoomId(currentSession.uid, user.uid);
+      realtimeDB.ref(`typing/${roomId}/${user.uid}`).on("value", (snap) => {
+        const statusEl = document.getElementById("chat-header-status");
+        if (statusEl && snap.exists() && snap.val() === true) {
+          statusEl.innerText = "typing...";
+          statusEl.className = "text-xs text-brand-msblue font-bold animate-pulse";
+        }
+      });
+
+      // Clear unread state on open
+      const unreadMsgs = await firestore.collection('chats')
+        .doc(roomId)
+        .collection('messages')
+        .where('receiverId', '==', currentSession.uid)
+        .where('read', '==', false)
+        .get();
+
+      unreadMsgs.forEach((doc) => doc.ref.update({ read: true }));
+
+      renderSortedUsersMap();
+      listenForMessages();
+    }
+
+    chatSearchClose.addEventListener("click", () => {
+      chatSearchBar.classList.add("hidden");
+      chatSearchInput.value = "";
+      renderMessagesFiltered("");
+    });
+
+    chatSearchInput.addEventListener("input", (e) => {
+      renderMessagesFiltered(e.target.value.toLowerCase().trim());
+    });
+
+    let currentChatMessagesDocs = [];
+
+    function listenForMessages() {
+      if (unsubscribeMessages) unsubscribeMessages();
+
+      const roomId = getChatRoomId(currentSession.uid, selectedUser.uid);
+      messagesContainer.innerHTML = '';
+
+      let initialLoad = true;
+
+      unsubscribeMessages = firestore.collection('chats')
+        .doc(roomId)
+        .collection('messages')
+        .orderBy('timestamp', 'asc')
+        .onSnapshot((snapshot) => {
+          currentChatMessagesDocs = snapshot.docs;
+
+          snapshot.docChanges().forEach((change) => {
+            if (change.type === "added" && !initialLoad) {
+              const newMsg = change.doc.data();
+              if (newMsg.senderId !== currentSession.uid) {
+                if (!mutedChatUids.has(selectedUser.uid)) {
+                  playNotificationSound('receive');
+                }
+                if (change.doc.ref) {
+                  change.doc.ref.update({ read: true });
+                }
+              }
+            }
+          });
+
+          initialLoad = false;
+          renderMessagesFiltered(chatSearchInput.value.toLowerCase().trim());
+        });
+    }
+
+    // Auto-detect links and turn them clickable
+    function linkifyText(text) {
+      const urlPattern = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+      return escapeHTML(text).replace(urlPattern, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    }
+
+    function renderMessagesFiltered(filterText) {
+      messagesContainer.innerHTML = '';
+
+      currentChatMessagesDocs.forEach((doc) => {
+        const msg = doc.data();
+        const msgId = doc.id;
+        const isMe = msg.senderId === currentSession.uid;
+
+        if (msg.deletedFor && msg.deletedFor.includes(currentSession.uid)) {
+          return;
+        }
+
+        if (filterText !== "") {
+          const textMatch = msg.text && msg.text.toLowerCase().includes(filterText);
+          if (!textMatch) return;
+        }
+
+        const msgWrapper = document.createElement('div');
+        msgWrapper.className = `flex ${isMe ? 'justify-end' : 'justify-start'} select-none`;
+
+        const msgBubble = document.createElement('div');
+        msgBubble.className = `max-w-[82%] md:max-w-md px-3.5 py-2 rounded-2xl text-sm relative shadow-sm transition ${
+          isMe 
+            ? 'bg-gradient-sent rounded-br-none' 
+            : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-bl-none'
+        }`;
+
+        const timeStr = msg.timestamp ? formatChatTime(msg.timestamp) : "";
+        const statusTicks = isMe ? (msg.read ? '<span class="text-blue-600 font-bold ml-1">✓✓</span>' : '<span class="text-slate-500 ml-1">✓</span>') : '';
+
+        let contentHTML = '';
+
+        if (msg.deleted) {
+          contentHTML = `<div class="italic text-xs opacity-75">This message was deleted</div>`;
+        } else {
+          // WHATSAPP STYLE REPLY HEADER WITH @ ICON
+          if (msg.replyTo) {
+            contentHTML += `
+              <div class="mb-1 text-xs p-1.5 rounded border-l-2 ${isMe ? 'bg-black/10 border-blue-600 text-slate-900' : 'bg-slate-100 dark:bg-slate-700/50 border-brand-msblue text-slate-600 dark:text-slate-300'} truncate flex items-center space-x-1">
+                <span class="font-bold text-brand-msblue mr-1">@</span>
+                <span class="truncate">${msg.replyTo.text || '📷 Photo'}</span>
+              </div>
+            `;
+          }
+
+          if (msg.image) {
+            contentHTML += `<img src="${msg.image}" class="chat-img-thumb rounded-lg max-w-full h-auto mb-1 max-h-60 object-cover cursor-pointer hover:opacity-90 transition" />`;
+          }
+
+          if (msg.text) {
+            contentHTML += `<div class="msg-content whitespace-pre-wrap">${linkifyText(msg.text)}</div>`;
+          }
+        }
+
+        msgBubble.innerHTML = `
+          ${contentHTML}
+          <div class="text-[9px] ${isMe ? 'text-slate-600' : 'text-slate-400'} text-right mt-1 flex items-center justify-end">
+            <span>${timeStr}</span>
+            ${statusTicks}
+          </div>
+        `;
+
+        msgBubble.addEventListener('click', (e) => {
+          if (e.target.tagName === 'A') return; // Allow link clicks
+          if (e.target.classList.contains('chat-img-thumb')) {
+            lightboxImg.src = e.target.src;
+            lightboxModal.classList.remove("hidden");
+            e.stopPropagation();
+            return;
+          }
+          openMessageModal(msgId, msg);
+        });
+
+        msgWrapper.appendChild(msgBubble);
+        messagesContainer.appendChild(msgWrapper);
+      });
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    lightboxCloseBtn.addEventListener("click", () => lightboxModal.classList.add("hidden"));
+    lightboxModal.addEventListener("click", (e) => {
+      if (e.target === lightboxModal) lightboxModal.classList.add("hidden");
+    });
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    function openMessageModal(msgId, msgData) {
+      activeMessageContext = { id: msgId, data: msgData };
+      
+      if (msgData.senderId === currentSession.uid) {
+        modalDeleteEveryoneBtn.classList.remove("hidden");
+      } else {
+        modalDeleteEveryoneBtn.classList.add("hidden");
+      }
+
+      messageModal.classList.remove("hidden");
+    }
+
+    modalCloseBtn.addEventListener("click", () => messageModal.classList.add("hidden"));
+
+    modalCopyBtn.addEventListener("click", () => {
+      if (activeMessageContext && activeMessageContext.data.text) {
+        navigator.clipboard.writeText(activeMessageContext.data.text);
+      }
+      messageModal.classList.add("hidden");
+    });
+
+    modalReplyBtn.addEventListener("click", () => {
+      if (activeMessageContext) {
+        replyingMessageData = activeMessageContext.data;
+        replyPreviewText.innerText = replyingMessageData.text || '📷 Photo';
+        replyPreviewBar.classList.remove("hidden");
+      }
+      messageModal.classList.add("hidden");
+    });
+
+    cancelReplyBtn.addEventListener("click", () => {
+      replyingMessageData = null;
+      replyPreviewBar.classList.add("hidden");
+    });
+
+    modalForwardBtn.addEventListener("click", () => {
+      messageModal.classList.add("hidden");
+      forwardUsersContainer.innerHTML = '';
+
+      const chattedUsers = Array.from(globalUserMap.values())
+        .filter(item => item.lastMsg !== null)
+        .map(item => item.user);
+
+      if (chattedUsers.length === 0) {
+        forwardUsersContainer.innerHTML = `<div class="p-4 text-xs text-center text-slate-400">No existing chats found to forward to</div>`;
+      } else {
+        chattedUsers.forEach(user => {
+          const item = document.createElement("div");
+          item.className = "p-3 flex items-center space-x-3 hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer";
+          item.innerHTML = `
+            <img class="w-8 h-8 rounded-full object-cover" src="${DEFAULT_AVATAR}" />
+            <span class="text-sm font-semibold">${user.displayName || user.username}</span>
+          `;
+          item.addEventListener("click", async () => {
+            const roomId = getChatRoomId(currentSession.uid, user.uid);
+            await firestore.collection('chats').doc(roomId).collection('messages').add({
+              text: activeMessageContext.data.text || '',
+              image: activeMessageContext.data.image || null,
+              senderId: currentSession.uid,
+              receiverId: user.uid,
+              read: false,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            forwardModal.classList.add("hidden");
+          });
+          forwardUsersContainer.appendChild(item);
+        });
+      }
+
+      forwardModal.classList.remove("hidden");
+    });
+
+    forwardCancelBtn.addEventListener("click", () => forwardModal.classList.add("hidden"));
+
+    modalDeleteMeBtn.addEventListener("click", async () => {
+      if (activeMessageContext && selectedUser) {
+        const roomId = getChatRoomId(currentSession.uid, selectedUser.uid);
+        const msgRef = firestore.collection('chats').doc(roomId).collection('messages').doc(activeMessageContext.id);
+        
+        await msgRef.update({
+          deletedFor: firebase.firestore.FieldValue.arrayUnion(currentSession.uid)
+        });
+      }
+      messageModal.classList.add("hidden");
+    });
+
+    modalDeleteEveryoneBtn.addEventListener("click", async () => {
+      if (activeMessageContext && selectedUser) {
+        const roomId = getChatRoomId(currentSession.uid, selectedUser.uid);
+        const msgRef = firestore.collection('chats').doc(roomId).collection('messages').doc(activeMessageContext.id);
+        
+        await msgRef.update({
+          deleted: true,
+          text: "",
+          image: null
+        });
+      }
+      messageModal.classList.add("hidden");
+    });
+
+    imageUploadInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        attachedImageBase64 = event.target.result;
+        imagePreviewThumb.src = attachedImageBase64;
+        imagePreviewBar.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    });
+
+    cancelImageBtn.addEventListener("click", () => {
+      attachedImageBase64 = null;
+      imageUploadInput.value = "";
+      imagePreviewBar.classList.add("hidden");
+    });
+
+    messageInput.addEventListener("input", () => {
+      if (!selectedUser) return;
+      const roomId = getChatRoomId(currentSession.uid, selectedUser.uid);
+      const typingRef = realtimeDB.ref(`typing/${roomId}/${currentSession.uid}`);
+      
+      typingRef.set(true);
+      clearTimeout(typingTimeout);
+      typingTimeout = setTimeout(() => {
+        typingRef.remove();
+      }, 2000);
+    });
+
+    messageForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = messageInput.value.trim();
+      if ((!text && !attachedImageBase64) || !selectedUser) return;
+
+      const roomId = getChatRoomId(currentSession.uid, selectedUser.uid);
+      
+      const payload = {
+        senderId: currentSession.uid,
+        receiverId: selectedUser.uid,
+        read: false,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      if (text) payload.text = text;
+      if (attachedImageBase64) payload.image = attachedImageBase64;
+
+      if (replyingMessageData) {
+        payload.replyTo = {
+          text: replyingMessageData.text || null,
+          image: replyingMessageData.image || null
+        };
+      }
+
+      messageInput.value = '';
+      attachedImageBase64 = null;
+      imageUploadInput.value = '';
+      imagePreviewBar.classList.add("hidden");
+      replyingMessageData = null;
+      replyPreviewBar.classList.add("hidden");
+      emojiPickerContainer.classList.add("hidden");
+
+      realtimeDB.ref(`typing/${roomId}/${currentSession.uid}`).remove();
+
+      playNotificationSound('send');
+      await firestore.collection('chats').doc(roomId).collection('messages').add(payload);
+    });
+  </script>
+</body>
+</html>

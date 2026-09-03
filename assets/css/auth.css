@@ -1,0 +1,5 @@
+/* assets/css/auth.css - optional popup theme */
+#userPopup {
+  transition: transform .12s ease, opacity .12s ease;
+  will-change: transform, opacity;
+}

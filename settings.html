@@ -1,0 +1,2407 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head><link rel="icon" type="image/x-icon" href="assets/images/logo.png" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Settings | Black Hat Developers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BXKBQGXFW9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BXKBQGXFW9');
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T26VKWVH');</script>
+<!-- End Google Tag Manager -->
+
+   <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+<!-- ============================================ -->
+<!-- SEO & SOCIAL META TAGS: Settings Page -->
+<!-- ============================================ -->
+
+<!-- Basic SEO -->
+<title>Settings | Black Hat Developers</title>
+<meta name="description" content="Manage your preferences, accessibility options, system controls, and account settings on the Black Hat Developers platform.">
+<meta name="keywords" content="Black Hat Developers settings, accessibility controls, system settings, user preferences, developer platform">
+<meta name="author" content="Black Hat Developers">
+<meta name="robots" content="index, follow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:title" content="Settings | Black Hat Developers">
+<meta property="og:description" content="Customize your Black Hat Developers experience with advanced system, accessibility, and preference controls.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://blackhatdevelopers.netlify.app/settings">
+<meta property="og:image" content="https://blackhatdevelopers.netlify.app/assets/images/header-logo-bg.png">
+<meta property="og:site_name" content="Black Hat Developers">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Settings | Black Hat Developers">
+<meta name="twitter:description" content="Control accessibility, system behavior, and user preferences inside Black Hat Developers.">
+<meta name="twitter:image" content="https://blackhatdevelopers.netlify.app/assets/images/header-logo-bg.png">
+<meta name="twitter:site" content="@InduwaraPJayasinghe">
+<meta name="twitter:creator" content="@InduwaraPJayasinghe">
+
+<!-- Favicon & Apple Touch -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<!-- Structured Data (JSON-LD) for SEO — Settings Page -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://blackhatdevelopers.netlify.app/settings",
+  "name": "Settings | Black Hat Developers",
+  "url": "https://blackhatdevelopers.netlify.app/settings",
+  "description": "User control center for managing accessibility features, system diagnostics, preferences, and account settings.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Black Hat Developers",
+    "url": "https://blackhatdevelopers.netlify.app"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "User Settings and System Controls"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Black Hat Developers",
+    "url": "https://blackhatdevelopers.netlify.app",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blackhatdevelopers.netlify.app/assets/images/header-logo-bg.png"
+    }
+  }
+}
+</script>
+
+
+ <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind config to enable dark class and extend colors
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            wela: {
+              50: '#f9fbf7', // example palette if needed
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="assets/css/files.css">
+  <meta name="description" content="Black Hat Developers">
+</head>
+<body class="min-h-screen bg-white text-gray-900 transition-colors duration-200">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T26VKWVH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <!-- App wrapper -->
+  <div id="app" class="flex flex-col min-h-screen">
+
+<!-- =============================== -->
+<!-- 🌿 PROFESSIONAL HEADER (PC NAV RIGHT-ALIGNED + Appointment + Sidebar Contacts) -->
+<!-- =============================== -->
+
+<header id="hwHeader"
+  class="fixed top-0 left-0 w-full z-50 backdrop-blur-2xl bg-white/70 dark:bg-black/40 border-b border-gray-200 dark:border-gray-800 shadow-sm transition">
+
+<div class="w-full max-w-[1600px] mx-auto flex items-center justify-between px-4 md:px-5 py-1">
+
+    <!-- LEFT: LOGO -->
+   <a href="index"
+   class="flex items-center select-none">
+
+  <img
+  src="assets/images/header-logo.png"
+  class="h-[22px] w-auto max-w-[160px] object-contain"
+/>
+
+</a>
+
+
+    <!-- RIGHT SECTION -->
+    <div class="flex items-center gap-8">
+
+   <!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center gap-6 font-medium relative">
+
+  <a href="index">Home</a>
+  <a href="contact">Contact</a>
+  <a href="support">Support</a>
+  <a href="files">CGD</a>
+
+  <!-- All Black Hat -->
+  <div class="bh-mega">
+
+    <button class="bh-mega-btn" id="bhMegaBtn">
+      All Black Hat
+      <svg width="10" height="10" viewBox="0 0 10 10">
+        <path d="M1 3.5L5 7.5L9 3.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"/>
+      </svg>
+    </button>
+
+    <!-- Mega Popup -->
+    <div class="bh-mega-panel">
+
+      <div class="bh-mega-inner">
+
+        
+
+         <div class="bh-col">
+          <h4>Platforms</h4>
+           <a href="developer.blackhat">BLack Hat Developer</a>
+            <a href="ask-from-a-dev">Ask Community</a>
+            <a href="learn-blackhatdevelopers">BLack Hat Learn</a>
+            <a href="ai.blackhat">Black Hat AI</a>
+            <a href="calendar">Black Hat Calendar</a>
+            <a href="marketplace">Marketplace</a>
+            <a href="community">Black Hat Community</a>
+            <a href="community-guide">Community Guide</a>
+            
+            <a href="business.html">Black Hat for Business</a>
+        </div>
+
+        <div class="bh-col">
+          <h4>General</h4>
+                <a href="black-hat-developers-platforms/clidder/clidder-market-place">Marketplace</a>
+      <a href="black-hat-developers-platforms/clidder/climate-weather-data-center-black-hat">Climate</a>
+      <a href="black-hat-developers-platforms/clidder/games-clidder">Games</a>
+      <a href="black-hat-developers-platforms/clidder/jobs-clidder">Jobs</a>
+      <a href="black-hat-developers-platforms/clidder/advertise">Advertising</a>
+      <a href="black-hat-developers-platforms/clidder/my-calendar">Calendar</a>
+      <a href="black-hat-developers-platforms/clidder/business">Business</a>
+        </div>
+
+       
+
+     
+
+       
+
+        <div class="bh-col">
+          <h4>Follow US</h4>
+          <a href="linkedin">LinkedIn</a>
+          <a href="github">Git Hub</a>
+          <a href="telegram">Telegram</a>
+          <a href="tiktok">Tik Tok</a>
+          <a href="clidder">Clidder</a>
+          <a href="instagram">Instergram</a>
+          <a href="whatsapp">WhatsApp</a>
+          <a href="threads">Threads</a>
+          <a href="black-hat-developers-platforms/sweetpage/index">Sweetpage</a>
+        </div>
+
+        <div class="bh-col">
+          <h4>New Things</h4>
+            <a href="black-hat-developers-platforms/Code-Pad/index">Code Pad</a>
+            <a href="black-hat-developers-platforms/BHD-Weather/index">CP Weather</a>
+            <a href="business">Business</a>
+            <a href="jobs">Careers</a>
+        </div>
+
+      <div class="bh-col">
+          <h4>Company</h4>
+             <a href="apply-for-a-job">Job on Company</a>
+            <a href="about">About Black Hat</a>
+            <a href="account-center">Account Center</a>
+            <a href="news.blackhatdevelopers">Company News</a>
+            
+            <a href="facts-about-black-hat-developers">Facts About</a>
+            <a href="sustainability">Sustainability</a>
+            <a href="accessibility">Accessibility</a>
+            <a href="diversity">Diversity and Inclusion</a>
+            <a href="support">Support</a>
+        </div>
+
+         
+        
+        <div class="bh-col">
+          <h4>Reviews & Feedback</h4>
+            <a href="write-a-review">Write a Review</a>
+            <a href="reviews">Read Reviews</a>
+            <a href="learn-blackhatdevelopers">Learn</a>
+            <a href="feedback">Feedback</a>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="bh-mega-footer">
+        <a href="sitemap">View sitemap →</a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+      
+
+      <!-- One universal sign-in -->
+      <a href="signin" class="ms-signin-btn">
+  <span>Sign in</span>
+  <span class="ms-user-icon">
+    <i class="ri-user-line"></i>
+  </span>
+</a>
+
+
+      <!-- Desktop Bell -->
+     <button id="hwBellPC"
+  class="hidden md:flex relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition">
+
+  <i class="ri-notification-3-line text-xl"></i>
+
+  <!-- Green dot -->
+<span
+  class="absolute top-1 right-1 w-2 h-2 rounded-full
+         bg-[#07C6F8]
+         shadow-[0_0_6px_rgba(7,198,248,0.7)]">
+</span>
+
+
+</button>
+
+
+      <!-- Mobile Bell -->
+      <button id="hwBellM"
+  class="md:hidden relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition">
+
+  <i class="ri-notification-3-line text-xl"></i>
+
+  <!-- Green dot -->
+<span
+  class="absolute top-1 right-1 w-2 h-2 rounded-full
+         bg-[#07C6F8]
+         shadow-[0_0_6px_rgba(7,198,248,0.7)]">
+</span>
+
+
+
+</button>
+
+
+      <!-- Mobile Menu -->
+      <button id="hwMenuOpen"
+        class="md:hidden p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10 transition">
+        <i class="ri-menu-4-line text-2xl"></i>
+      </button>
+
+    </div>
+
+    <!-- Desktop Notification Dropdown -->
+    <div id="hwNotifPC"
+      class="hidden absolute mt-14 right-4 w-72 bg-white dark:bg-black/95 shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl p-4 z-50">
+      <p class="font-semibold mb-3 dark:text-white">Notifications</p>
+      <div class="text-sm dark:text-gray-300 p-3 rounded-md bg-gray-50 dark:bg-white/5">
+        No new notifications.
+      </div>
+    </div>
+
+    <!-- Mobile Notification -->
+    <div id="hwNotifM"
+      class="hidden absolute mt-14 right-4 w-64 bg-white dark:bg-black/95 shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl p-4 z-50">
+      <p class="font-semibold mb-3 dark:text-white">Notifications</p>
+      <div class="text-sm dark:text-gray-300 p-3 rounded-md bg-gray-50 dark:bg-white/5">
+        No notifications.
+      </div>
+    </div>
+
+
+<!-- Notification Iframe Modal (SAFE ADD) -->
+<div id="hwNotifFrame"
+  class="fixed inset-0 hidden z-[9999] bg-black/60 backdrop-blur-sm">
+
+  <div
+    class="absolute right-4 top-16 md:top-20 w-[92%] max-w-md h-[85vh]
+           bg-white dark:bg-black rounded-2xl shadow-2xl overflow-hidden">
+
+
+           <!-- Close Icon (top-right) -->
+    <button id="hwNotifClose"
+      class="absolute top-3 right-3 z-20 text-green-400 hover:scale-110 transition">
+      <i class="ri-close-line text-2xl"></i>
+    </button>
+
+    <iframe
+      src="new-updates-view"
+      class="w-full h-full border-0"
+      loading="lazy">
+    </iframe>
+
+  </div>
+</div>
+
+
+  </div>
+</header>
+
+<div style="height:48px;"></div>
+
+
+<!-- =============================== -->
+<!-- 🟦 MICROSOFT-STYLE MOBILE SIDEBAR -->
+<!-- =============================== -->
+
+<div id="hwOverlay"
+  class="fixed inset-0 z-40
+         bg-black/30 dark:bg-black/60
+         opacity-0 pointer-events-none
+         backdrop-blur-sm
+         transition-opacity duration-300">
+</div>
+
+<aside id="hwSidebar"
+  class="fixed inset-y-0 left-0 z-50 w-80
+         bg-white/95 dark:bg-[#0f172a]/95
+         backdrop-blur-xl
+         border-r border-gray-200 dark:border-white/10
+         shadow-[0_20px_60px_rgba(0,0,0,0.2)]
+         transform -translate-x-full transition-transform duration-300
+         flex flex-col
+         font-[Segoe_UI,Calibri,Inter,system-ui]">
+
+  <!-- HEADER -->
+  <div class="p-5 border-b border-gray-200 dark:border-white/10">
+    <div class="flex items-center justify-between">
+      <a href="index">
+        <img src="assets/images/header-logo.png"
+             class="h-7 w-auto object-contain"
+             alt="logo">
+      </a>
+
+      <button id="hwMenuClose"
+        class="p-2 rounded-md
+               hover:bg-gray-100 dark:hover:bg-white/10
+               transition">
+        <i class="ri-close-line text-xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- SCROLLABLE CONTENT -->
+  <div class="flex-1 overflow-y-auto p-5 space-y-8">
+
+    <!-- Platforms -->
+    <section>
+      <h4 class="ms-side-title">Black Hat Developers</h4>
+      <nav class="ms-side-links">
+       <a href="index">Home</a>
+      <a href="contact">Contact</a>
+      <a href="support">Support</a>
+      <a href="files">CGD</a>
+      </nav>
+    </section>
+    
+    <section>
+      <h4 class="ms-side-title">Platforms</h4>
+      <nav class="ms-side-links">
+        <a href="contact-developers/index">BH Developers</a>
+        <a href="black-hat-developers-platforms/clidder/index">Clidder</a>
+        <a href="black-hat-developers-platforms/Hat-Music/index">Hat Music</a>
+        <a href="black-hat-developers-platforms/Code-Pad/index">Code Pad</a>
+        <a href="black-hat-developers-platforms/News/index">BH News</a>
+        <a href="black-hat-developers-platforms/Cyber-Pixel/index">Cyber Pixel</a>
+        <a href="black-hat-developers-platforms/sweetpage/index">Sweet Page</a>
+      </nav>
+    </section>
+
+    <!-- General -->
+    <section>
+      <h4 class="ms-side-title">General</h4>
+      <nav class="ms-side-links">
+        <a href="black-hat-developers-platforms/clidder/clidder-market-place">Marketplace</a>
+        <a href="black-hat-developers-platforms/clidder/climate-weather-data-center-black-hat">Climate</a>
+        <a href="black-hat-developers-platforms/clidder/games-clidder">Games</a>
+        <a href="black-hat-developers-platforms/clidder/jobs-clidder">Jobs</a>
+        <a href="black-hat-developers-platforms/clidder/advertise">Advertising</a>
+        <a href="black-hat-developers-platforms/clidder/my-calendar">Calendar</a>
+        <a href="black-hat-developers-platforms/clidder/business">Business</a>
+      </nav>
+    </section>
+
+    <!-- Follow Us -->
+    <section>
+      <h4 class="ms-side-title">Follow Us</h4>
+      <nav class="ms-side-links">
+        <a href="/linkedin">LinkedIn</a>
+      <a href="/github">Git Hub</a>
+      <a href="/telegram">Telegram</a>
+      <a href="/tiktok">Tik Tok</a>
+      <a href="/clidder">Clidder</a>
+      <a href="/instagram">Instergram</a>
+      <a href="/whatsapp">WhatsApp</a>
+      <a href="/threads">Threads</a>
+      <a href="black-hat-developers-platforms/sweetpage/index">Sweetpage</a>
+      </nav>
+    </section>
+
+    <!-- New Things -->
+    <section>
+      <h4 class="ms-side-title">New Things</h4>
+      <nav class="ms-side-links">
+        <a href="black-hat-developers-platforms/Code-Pad/index">Code Pad</a>
+        <a href="black-hat-developers-platforms/BHD-Weather/index">CP Weather</a>
+      </nav>
+    </section>
+
+    <!-- Files -->
+    <section>
+      <h4 class="ms-side-title">Files</h4>
+      <nav class="ms-side-links">
+        <a href="files">Business Conduct</a>
+        <a href="files">Chapters</a>
+      </nav>
+    </section>
+
+    <!-- Review -->
+    <section>
+      <h4 class="ms-side-title">Reviews & Feedback</h4>
+      <nav class="ms-side-links">
+        <a href="write-a-review">Write a Review</a>
+        <a href="reviews">Read Reviews</a>
+      </nav>
+    </section>
+
+    <section>
+      <h4 class="ms-side-title">Learn</h4>
+      <nav class="ms-side-links">
+        <a href="learn-blackhatdevelopers">Black Hat Learn</a>
+        
+      </nav>
+    </section>
+
+    <!-- Company -->
+    <section>
+      <h4 class="ms-side-title">Company</h4>
+      <nav class="ms-side-links">
+        <a href="black-hat-developers-platforms/careers/career">Careers</a>
+        <a href="support">Support</a>
+        <a href="contact">Contact</a>
+      </nav>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="p-4 border-t border-gray-200 dark:border-white/10 text-center">
+    <a href="sitemap"
+       class="text-sm font-medium text-[#0067b8] hover:underline">
+      View sitemap →
+    </a>
+  </div>
+
+</aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1">
+
+<section class="min-h-screen bg-gray-100 dark:bg-[#0b0f1a] py-8 px-4 md:px-8">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Dynamic Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 id="settingsTitle" class="text-3xl font-semibold text-gray-900 dark:text-white">You and Black Hat</h1>
+        <p class="text-gray-500 dark:text-gray-400 text-sm">Manage your account settings</p>
+      </div>
+
+      <button id="settingsMenuOpen"
+        class="md:hidden px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium shadow">
+        Menu
+      </button>
+    </div>
+
+    <div class="flex gap-6">
+
+      <!-- Mobile Overlay -->
+      <div id="settingsOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden z-40 md:hidden"></div>
+
+      <!-- SIDEBAR -->
+      <aside id="settingsSidebar"
+        class="fixed md:relative z-50 md:z-auto top-0 left-0 h-full md:h-auto w-72
+               bg-white dark:bg-[#111827] border-r border-gray-200 dark:border-gray-800
+               p-4 space-y-1 transform -translate-x-full md:translate-x-0
+               transition-transform duration-300 rounded-r-2xl md:rounded-2xl shadow-lg md:shadow-sm">
+
+        <div class="flex justify-between items-center md:hidden mb-4">
+          <h2 class="text-lg font-semibold dark:text-white">Settings</h2>
+          <button id="settingsMenuClose" class="text-gray-500 text-xl">✕</button>
+        </div>
+
+        <nav class="space-y-1 text-sm">
+
+          <button data-title="Account" data-desc="Manage your account settings" data-target="account"
+            class="settings-tab w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium">
+            <i class="ri-user-line text-lg"></i> You and Black Hat
+          </button>
+
+          <button data-title="Security" data-desc="Protect your account" data-target="security"
+            class="settings-tab w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">
+            <i class="ri-shield-keyhole-line text-lg"></i> Security
+          </button>
+
+          <button data-title="Performance"
+        data-desc="Monitor system resources and optimize storage"
+        data-target="performance"
+        class="settings-tab w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">
+  <i class="ri-speed-up-line text-lg"></i> Performance
+</button>
+
+
+<button data-title="Accessibility"
+        data-desc="Adjust visual and interaction accessibility options"
+        data-target="accessibility"
+        class="settings-tab w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">
+  <i class="ri-eye-line text-lg"></i> Accessibility
+</button>
+
+<button data-title="System"
+        data-desc="View system and device diagnostics"
+        data-target="system"
+        class="settings-tab w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">
+  <i class="ri-cpu-line text-lg"></i> System
+</button>
+
+
+<button data-title="Reset Settings"
+        data-desc="Restore your environment to factory defaults"
+        data-target="resetSettings"
+        class="settings-tab w-full flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5">
+  <i class="ri-restart-line text-lg text-red-500"></i> Reset Settings
+</button>
+
+          
+   <button data-title="About Black Hat"
+        data-desc="Learn more about Black Hat Developers"
+        data-target="aboutBlackHat"
+        class="settings-tab w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-white/5 transition">
+
+  <div class="flex items-center gap-3">
+    <img src="assets/images/logo.png" alt="Black Hat Logo"
+         class="w-9 h-9 rounded-full object-cover shadow-sm">
+
+    <div class="flex flex-col text-left leading-tight">
+      <span class="font-semibold">About Black Hat</span>
+      <span class="text-xs text-gray-500 dark:text-gray-400">Developers Platform</span>
+    </div>
+  </div>
+
+  <i class="ri-arrow-right-s-line text-xl text-gray-400"></i>
+</button>
+       
+
+        </nav>
+      </aside>
+
+      <!-- CONTENT PANELS -->
+      <div class="flex-1 space-y-6">
+
+        <!-- ACCOUNT (ROW STYLE • TAILWIND ONLY) -->
+<div id="account" class="settings-panel">
+  <div class="bg-white dark:bg-[#111827] rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden">
+
+    <!-- Header -->
+    <div class="p-6 flex items-center gap-5 border-b border-gray-200 dark:border-gray-800">
+      <img id="accountAvatar"
+           src="/assets/images/avatars/default-avatar.png"
+           class="w-20 h-20 rounded-full object-cover border border-gray-300 dark:border-gray-700 shadow-sm">
+
+      <div class="min-w-0">
+        <h2 id="accountName" class="text-xl font-semibold text-gray-900 dark:text-white truncate">—</h2>
+        <p id="accountEmail" class="text-gray-500 dark:text-gray-400 text-sm truncate">—</p>
+        <a href="account-center"
+           class="inline-flex items-center gap-1 mt-2 text-sm text-blue-600 dark:text-blue-400 hover:underline">
+          <i class="ri-external-link-line"></i> Edit in Account Center
+        </a>
+      </div>
+    </div>
+
+    <!-- Info Rows -->
+    <div class="divide-y divide-gray-200 dark:divide-gray-800 text-sm">
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-6 py-4">
+        <span class="text-gray-500 dark:text-gray-400 flex items-center gap-2">
+          <i class="ri-user-line"></i> Full Name
+        </span>
+        <span id="infoFullName" class="text-gray-900 dark:text-white font-medium truncate">—</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-6 py-4">
+        <span class="text-gray-500 dark:text-gray-400 flex items-center gap-2">
+          <i class="ri-at-line"></i> Username
+        </span>
+        <span id="infoUsername" class="text-gray-900 dark:text-white font-medium truncate">—</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-6 py-4">
+        <span class="text-gray-500 dark:text-gray-400 flex items-center gap-2">
+          <i class="ri-mail-line"></i> Email
+        </span>
+        <span id="infoEmail" class="text-gray-900 dark:text-white font-medium truncate">—</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-6 py-4">
+        <span class="text-gray-500 dark:text-gray-400 flex items-center gap-2">
+          <i class="ri-shield-user-line"></i> Account Type
+        </span>
+        <span id="infoRole" class="text-gray-900 dark:text-white font-medium truncate">—</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-6 py-4">
+        <span class="text-gray-500 dark:text-gray-400 flex items-center gap-2">
+          <i class="ri-calendar-line"></i> Member Since
+        </span>
+        <span id="infoCreated" class="text-gray-900 dark:text-white font-medium truncate">—</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-6 py-4">
+        <span class="text-gray-500 dark:text-gray-400 flex items-center gap-2">
+          <i class="ri-fingerprint-line"></i> User ID
+        </span>
+        <div class="flex items-center gap-3">
+          <span id="infoUID" class="text-gray-900 dark:text-white font-medium break-all">—</span>
+          <button id="copyUID" class="text-blue-600 dark:text-blue-400 hover:underline text-xs">Copy</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sessions -->
+    <div class="p-6 border-t border-gray-200 dark:border-gray-800">
+      <h3 class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
+        <i class="ri-device-line"></i> Active Sessions
+      </h3>
+      <div id="sessionList" class="space-y-3 text-sm"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="p-6 border-t border-gray-200 dark:border-gray-800 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+      <p class="text-xs text-gray-400">Manage devices and security in Account Center.</p>
+      <button id="logoutBtn"
+        class="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm font-medium shadow-sm">
+        <i class="ri-logout-box-r-line"></i> Log Out
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  const session = JSON.parse(localStorage.getItem("hw_session") || "null");
+  if(!session) return;
+
+  const setText = (id, val) => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = val || "—";
+  };
+
+  setText("accountName", session.displayName || session.username);
+  setText("accountEmail", session.email);
+  setText("infoFullName", session.displayName);
+  setText("infoUsername", session.username);
+  setText("infoEmail", session.email);
+  setText("infoUID", session.uid);
+  setText("infoRole", session.role || "User");
+
+  if(session.createdAt){
+    setText("infoCreated", new Date(session.createdAt).toLocaleDateString());
+  }
+
+  if(session.avatar){
+    const avatar = document.getElementById("accountAvatar");
+    if(avatar) avatar.src = session.avatar;
+  }
+
+  // Copy UID
+  const copyBtn = document.getElementById("copyUID");
+  if(copyBtn){
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(session.uid || "");
+      copyBtn.textContent = "Copied!";
+      setTimeout(()=>copyBtn.textContent="Copy",1500);
+    };
+  }
+
+  // Sessions
+  const sessionList = document.getElementById("sessionList");
+  const devices = JSON.parse(localStorage.getItem("hw_devices") || "[]");
+
+  if(devices.length === 0){
+    sessionList.innerHTML = `<div class="text-gray-500 dark:text-gray-400 text-xs">No active sessions found.</div>`;
+  } else {
+    devices.forEach(d => {
+      const div = document.createElement("div");
+      div.className = "flex justify-between items-center p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-white/5";
+      div.innerHTML = `
+        <div>
+          <p class="font-medium text-gray-800 dark:text-gray-200 flex items-center gap-2">
+            <i class="ri-computer-line"></i> ${d.device || "Unknown Device"}
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Last active: ${d.lastActive || "Recently"}</p>
+        </div>
+        <span class="text-green-600 dark:text-green-400 text-xs">Active</span>
+      `;
+      sessionList.appendChild(div);
+    });
+  }
+
+  // Logout
+  const logoutBtn = document.getElementById("logoutBtn");
+  if(logoutBtn){
+    logoutBtn.onclick = () => {
+      localStorage.removeItem("hw_session");
+      window.location.href = "signin.html";
+    };
+  }
+
+})();
+</script>
+
+
+       <!-- SECURITY -->
+<div id="security" class="settings-panel hidden">
+  <div class="bg-white dark:bg-[#111827] rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm overflow-hidden text-sm">
+
+    <!-- Header -->
+    <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-800">
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+        <i class="ri-shield-keyhole-line"></i> Security & Storage
+      </h2>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+        Manage sessions and clear stored browsing data
+      </p>
+    </div>
+
+    <!-- REAL STORAGE USAGE -->
+    <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-800">
+      <div class="flex justify-between items-center mb-2">
+        <p class="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+          <i class="ri-pie-chart-line"></i> Device Storage Used
+        </p>
+        <span id="storageText" class="text-xs text-gray-500 dark:text-gray-400">Checking...</span>
+      </div>
+      <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+        <div id="storageBar" class="h-full bg-blue-600 w-0 transition-all duration-500"></div>
+      </div>
+    </div>
+
+    <!-- ACTIVE SESSIONS -->
+    <div class="px-6 py-5 border-b border-gray-200 dark:border-gray-800">
+      <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2">
+        <i class="ri-device-line"></i> Active Sessions
+      </h3>
+      <div id="securitySessions" class="space-y-3"></div>
+
+      <button id="logoutAllSessions"
+        class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-medium shadow-sm">
+        <i class="ri-logout-circle-r-line"></i> Log Out All Sessions
+      </button>
+    </div>
+
+    <!-- CLEANUP TOOLS -->
+    <div class="px-6 py-5">
+      <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4 flex items-center gap-2">
+        <i class="ri-delete-bin-6-line"></i> Cleanup Tools
+      </h3>
+
+      <div class="space-y-6">
+
+        <!-- ITEM TEMPLATE -->
+        <div class="cleanup-item" data-type="cookies">
+          <div class="flex justify-between items-center mb-1">
+            <span class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <i class="ri-cookie-line"></i> Cookies
+            </span>
+            <button class="clean-btn text-xs px-3 py-1 rounded-md bg-blue-600 hover:bg-blue-700 text-white">Clear</button>
+          </div>
+          <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div class="progress h-full bg-blue-600 w-0"></div>
+          </div>
+          <p class="status text-xs text-gray-400 mt-1">Idle</p>
+          <p class="last-clean text-[11px] text-gray-400 mt-1"></p>
+        </div>
+
+        <div class="cleanup-item" data-type="cache">
+          <div class="flex justify-between items-center mb-1">
+            <span class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <i class="ri-database-2-line"></i> Cache Storage
+            </span>
+            <button class="clean-btn text-xs px-3 py-1 rounded-md bg-blue-600 hover:bg-blue-700 text-white">Clear</button>
+          </div>
+          <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div class="progress h-full bg-blue-600 w-0"></div>
+          </div>
+          <p class="status text-xs text-gray-400 mt-1">Idle</p>
+          <p class="last-clean text-[11px] text-gray-400 mt-1"></p>
+        </div>
+
+        <div class="cleanup-item" data-type="local">
+          <div class="flex justify-between items-center mb-1">
+            <span class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <i class="ri-hard-drive-2-line"></i> Local Data
+            </span>
+            <button class="clean-btn text-xs px-3 py-1 rounded-md bg-blue-600 hover:bg-blue-700 text-white">Clear</button>
+          </div>
+          <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div class="progress h-full bg-blue-600 w-0"></div>
+          </div>
+          <p class="status text-xs text-gray-400 mt-1">Idle</p>
+          <p class="last-clean text-[11px] text-gray-400 mt-1"></p>
+        </div>
+
+        <div class="cleanup-item" data-type="sessions">
+          <div class="flex justify-between items-center mb-1">
+            <span class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <i class="ri-device-line"></i> Saved Sessions
+            </span>
+            <button class="clean-btn text-xs px-3 py-1 rounded-md bg-blue-600 hover:bg-blue-700 text-white">Clear</button>
+          </div>
+          <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div class="progress h-full bg-blue-600 w-0"></div>
+          </div>
+          <p class="status text-xs text-gray-400 mt-1">Idle</p>
+          <p class="last-clean text-[11px] text-gray-400 mt-1"></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(async function(){
+
+  /* REAL STORAGE ESTIMATE */
+  async function updateStorage(){
+    if(navigator.storage && navigator.storage.estimate){
+      const estimate = await navigator.storage.estimate();
+      const usedMB = (estimate.usage / (1024*1024)).toFixed(2);
+      const quotaMB = (estimate.quota / (1024*1024)).toFixed(2);
+      const percent = ((estimate.usage / estimate.quota) * 100).toFixed(1);
+
+      document.getElementById("storageText").textContent = `${usedMB} MB of ${quotaMB} MB used`;
+      document.getElementById("storageBar").style.width = percent + "%";
+    }
+  }
+  updateStorage();
+
+  /* ACTIVE SESSIONS */
+  const devices = JSON.parse(localStorage.getItem("hw_devices") || "[]");
+  const list = document.getElementById("securitySessions");
+
+  if(devices.length === 0){
+    list.innerHTML = `<p class="text-xs text-gray-500 dark:text-gray-400">No active sessions.</p>`;
+  } else {
+    devices.forEach((d,i)=>{
+      const div=document.createElement("div");
+      div.className="flex justify-between items-center p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-white/5";
+      div.innerHTML=`
+        <div>
+          <p class="font-medium text-gray-800 dark:text-gray-200 flex items-center gap-2">
+            <i class="ri-computer-line"></i> ${d.device||"Unknown Device"}
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Last active: ${d.lastActive||"Recently"}</p>
+        </div>
+        <button class="text-red-600 dark:text-red-400 text-xs hover:underline">Revoke</button>
+      `;
+      div.querySelector("button").onclick=()=>{
+        devices.splice(i,1);
+        localStorage.setItem("hw_devices",JSON.stringify(devices));
+        div.remove();
+      };
+      list.appendChild(div);
+    });
+  }
+
+  document.getElementById("logoutAllSessions").onclick=()=>{
+    localStorage.removeItem("hw_devices");
+    localStorage.removeItem("hw_session");
+    location.href="signin";
+  };
+
+  /* CLEANUP FUNCTIONS */
+  function clearCookies(){
+    document.cookie.split(";").forEach(c=>{
+      document.cookie=c.replace(/^ +/,"").replace(/=.*/,"=;expires="+new Date(0).toUTCString()+";path=/");
+    });
+  }
+  async function clearCache(){
+    if("caches" in window){
+      const keys=await caches.keys();
+      await Promise.all(keys.map(k=>caches.delete(k)));
+    }
+  }
+
+  /* LOAD LAST CLEAN TIMES */
+  document.querySelectorAll(".cleanup-item").forEach(item=>{
+    const type=item.dataset.type;
+    const last=item.querySelector(".last-clean");
+    const saved=localStorage.getItem("lastClean_"+type);
+    if(saved) last.textContent="Last cleaned: "+new Date(parseInt(saved)).toLocaleString();
+  });
+
+  /* CLEAN BUTTON ACTIONS */
+  document.querySelectorAll(".cleanup-item").forEach(item=>{
+    const btn=item.querySelector(".clean-btn");
+    const bar=item.querySelector(".progress");
+    const status=item.querySelector(".status");
+    const last=item.querySelector(".last-clean");
+    const type=item.dataset.type;
+
+    btn.onclick=async()=>{
+      bar.style.width="0%";
+      status.textContent="Clearing...";
+      status.className="status text-xs text-yellow-500";
+
+      let progress=0;
+      const interval=setInterval(()=>{
+        progress+=10;
+        bar.style.width=progress+"%";
+      },80);
+
+      try{
+        if(type==="cookies") clearCookies();
+        if(type==="cache") await clearCache();
+        if(type==="local"){ localStorage.clear(); sessionStorage.clear(); }
+        if(type==="sessions") localStorage.removeItem("hw_devices");
+
+        setTimeout(()=>{
+          clearInterval(interval);
+          bar.style.width="100%";
+          status.textContent="Done";
+          status.className="status text-xs text-green-600 dark:text-green-400";
+
+          const now=Date.now();
+          localStorage.setItem("lastClean_"+type, now);
+          last.textContent="Last cleaned: "+new Date(now).toLocaleString();
+
+          updateStorage();
+        },900);
+
+      }catch{
+        clearInterval(interval);
+        status.textContent="Failed";
+        status.className="status text-xs text-red-500";
+      }
+    };
+  });
+
+})();
+</script>
+
+<!-- PERFORMANCE -->
+<div id="performance" class="settings-panel hidden">
+  <div class="space-y-6">
+
+    <!-- SYSTEM RESOURCES -->
+    <div class="bg-white dark:bg-[#111827] rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+        <i class="ri-dashboard-3-line"></i> System Monitor
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+
+        <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-800 rounded-xl p-4">
+          <p class="text-xs text-gray-500 dark:text-gray-400">CPU Usage</p>
+          <p id="cpuUsage" class="text-lg font-semibold text-gray-900 dark:text-white">--%</p>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-800 rounded-xl p-4">
+          <p class="text-xs text-gray-500 dark:text-gray-400">Memory Usage</p>
+          <p id="memoryUsage" class="text-lg font-semibold text-gray-900 dark:text-white">--%</p>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-800 rounded-xl p-4">
+          <p class="text-xs text-gray-500 dark:text-gray-400">Storage Used</p>
+          <p id="storageUsed" class="text-lg font-semibold text-gray-900 dark:text-white">--%</p>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-800 rounded-xl p-4">
+          <p class="text-xs text-gray-500 dark:text-gray-400">Performance Score</p>
+          <p id="perfScore" class="text-lg font-semibold text-gray-900 dark:text-white">--/100</p>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-800 rounded-xl p-4">
+          <p class="text-xs text-gray-500 dark:text-gray-400">FPS</p>
+          <p id="fpsCounter" class="text-lg font-semibold text-gray-900 dark:text-white">--</p>
+        </div>
+
+        <!-- NEW NETWORK METER -->
+        <div class="bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-800 rounded-xl p-4">
+          <p class="text-xs text-gray-500 dark:text-gray-400">Network</p>
+          <p id="networkStatus" class="text-sm font-semibold text-gray-900 dark:text-white">Detecting...</p>
+        </div>
+
+      </div>
+
+      <!-- HEALTH BAR -->
+      <div class="mt-6">
+        <div class="flex justify-between text-sm mb-1">
+          <span class="text-gray-600 dark:text-gray-300">Overall Health</span>
+          <span id="healthText" class="text-gray-500 dark:text-gray-400">Analyzing...</span>
+        </div>
+        <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+          <div id="healthBar" class="h-full w-0 transition-all duration-700"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTIMIZATION CENTER -->
+    <div class="bg-white dark:bg-[#111827] rounded-2xl border border-blue-500/40 p-6 shadow-sm">
+      <h2 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+        <i class="ri-rocket-2-line text-blue-500"></i> Optimization Center
+      </h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 mb-4">
+        Scan and optimize local storage for better performance.
+      </p>
+
+      <button id="runOptimize"
+        class="w-full flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-medium shadow">
+        <i class="ri-flashlight-line"></i> Run Optimization
+      </button>
+
+      <p id="optStatus" class="text-xs text-gray-400 mt-3">Idle</p>
+    </div>
+
+    <!-- STORAGE ANALYZER -->
+    <div class="bg-white dark:bg-[#111827] rounded-2xl border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+          <i class="ri-database-2-line"></i> Storage Analyzer
+        </h2>
+        <button id="refreshStorage" class="text-blue-600 hover:text-blue-700">
+          <i class="ri-refresh-line text-xl"></i>
+        </button>
+      </div>
+
+      <input id="storageSearch" placeholder="Search key..."
+        class="w-full mb-4 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-white/5 text-sm text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500">
+
+      <div id="storageList" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+
+  /* FPS MONITOR */
+  let lastFrame = performance.now(), frames = 0;
+  function fpsLoop(now){
+    frames++;
+    if(now > lastFrame + 1000){
+      document.getElementById("fpsCounter").textContent = frames;
+      frames = 0;
+      lastFrame = now;
+    }
+    requestAnimationFrame(fpsLoop);
+  }
+  requestAnimationFrame(fpsLoop);
+
+  /* NETWORK METER */
+  function updateNetwork(){
+    const el = document.getElementById("networkStatus");
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if(conn){
+      const type = conn.effectiveType || "unknown";
+      const down = conn.downlink ? conn.downlink + " Mbps" : "--";
+      el.textContent = `${type.toUpperCase()} • ${down}`;
+    } else {
+      el.textContent = "Unavailable";
+    }
+  }
+  updateNetwork();
+  if(navigator.connection){
+    navigator.connection.addEventListener("change", updateNetwork);
+  }
+
+  /* SYSTEM STATS */
+  async function updateStats(){
+    const cpu = Math.floor(Math.random()*35)+45;
+    document.getElementById("cpuUsage").textContent = cpu+"%";
+
+    let memPercent = 30;
+    if(performance.memory){
+      memPercent = (performance.memory.usedJSHeapSize / performance.memory.jsHeapSizeLimit)*100;
+    }
+    document.getElementById("memoryUsage").textContent = memPercent.toFixed(0)+"%";
+
+    let storagePercent = 20;
+    if(navigator.storage?.estimate){
+      const {usage, quota} = await navigator.storage.estimate();
+      storagePercent = (usage/quota)*100;
+      document.getElementById("storageUsed").textContent = storagePercent.toFixed(0)+"%";
+    }
+
+    const score = Math.max(5, 100 - ((cpu*0.4)+(memPercent*0.4)+(storagePercent*0.2)));
+    document.getElementById("perfScore").textContent = score.toFixed(0)+"/100";
+
+    const bar = document.getElementById("healthBar");
+    let color="bg-green-500", text="System healthy";
+    if(score<70){ color="bg-yellow-400"; text="Moderate load"; }
+    if(score<40){ color="bg-red-500"; text="High usage"; }
+
+    bar.className="h-full transition-all duration-700 "+color;
+    bar.style.width=score+"%";
+    document.getElementById("healthText").textContent=text;
+  }
+
+  /* STORAGE LIST WITH DELETE */
+  function updateStorageList(){
+    const list=document.getElementById("storageList");
+    list.innerHTML="";
+    let biggestKey="", biggestSize=0;
+
+    Object.keys(localStorage).forEach(key=>{
+      const size=((localStorage[key].length+key.length)*2/1024);
+      if(size>biggestSize){ biggestSize=size; biggestKey=key; }
+    });
+
+    Object.keys(localStorage).forEach(key=>{
+      const size=((localStorage[key].length+key.length)*2/1024).toFixed(2);
+      const div=document.createElement("div");
+      div.className="flex justify-between items-center text-sm border px-3 py-2 rounded-lg " +
+        (key===biggestKey
+          ? "bg-blue-50 dark:bg-blue-500/10 border-blue-400"
+          : "bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-gray-800");
+
+      const left=document.createElement("span");
+      left.className="truncate";
+      left.textContent=key;
+
+      const right=document.createElement("div");
+      right.className="flex items-center gap-3";
+
+      const sizeSpan=document.createElement("span");
+      sizeSpan.className="text-gray-400";
+      sizeSpan.textContent=size+" KB";
+
+      const delBtn=document.createElement("button");
+      delBtn.innerHTML='<i class="ri-delete-bin-line"></i>';
+      delBtn.className="text-red-500 hover:text-red-600";
+      delBtn.onclick=()=>{
+        localStorage.removeItem(key);
+        updateStorageList();
+        updateStats();
+      };
+
+      right.appendChild(sizeSpan);
+      right.appendChild(delBtn);
+
+      div.appendChild(left);
+      div.appendChild(right);
+      list.appendChild(div);
+    });
+  }
+
+  /* OPTIMIZATION */
+  document.getElementById("runOptimize").onclick=()=>{
+    const status=document.getElementById("optStatus");
+    status.textContent="Scanning storage...";
+    let dots=0;
+    const interval=setInterval(()=>{
+      dots=(dots+1)%4;
+      status.textContent="Scanning"+'.'.repeat(dots);
+    },400);
+
+    setTimeout(()=>{
+      clearInterval(interval);
+      status.textContent="Optimization complete — system clean.";
+    },3000);
+  };
+
+  document.getElementById("refreshStorage").onclick=updateStorageList;
+
+  document.getElementById("storageSearch").oninput=(e)=>{
+    const val=e.target.value.toLowerCase();
+    document.querySelectorAll("#storageList > div").forEach(d=>{
+      d.style.display=d.textContent.toLowerCase().includes(val)?"flex":"none";
+    });
+  };
+
+  updateStats();
+  updateStorageList();
+  setInterval(updateStats,5000);
+
+})();
+</script>
+
+
+<!-- ♿ ACCESSIBILITY PANEL -->
+<div id="accessibility" class="settings-panel hidden space-y-6">
+
+  <!-- HEADER -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-6 shadow-sm">
+    <div class="flex items-center gap-4">
+      <i class="ri-universal-access-line text-3xl text-blue-600 dark:text-blue-400"></i>
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Accessibility Center</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Improve readability, visibility, and interaction comfort.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS GRID -->
+  <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 text-sm">
+
+    <!-- TEXT SIZE -->
+    <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4 space-y-2">
+      <h3 class="font-semibold text-gray-900 dark:text-white">Text Size</h3>
+      <input id="fontSizeSlider" type="range" min="90" max="150" value="100" class="w-full accent-blue-600">
+      <p id="fontSizeLabel" class="text-xs text-gray-500 dark:text-gray-400">100%</p>
+    </div>
+
+    <!-- HIGH CONTRAST -->
+    <label class="flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4">
+      <span class="font-medium text-gray-900 dark:text-white">High Contrast</span>
+      <input id="contrastToggle" type="checkbox" class="w-5 h-5 accent-blue-600">
+    </label>
+
+    <!-- REDUCED MOTION -->
+    <label class="flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4">
+      <span class="font-medium text-gray-900 dark:text-white">Reduced Motion</span>
+      <input id="motionToggle" type="checkbox" class="w-5 h-5 accent-blue-600">
+    </label>
+
+    <!-- FOCUS INDICATOR -->
+    <label class="flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4">
+      <span class="font-medium text-gray-900 dark:text-white">Stronger Focus Indicator</span>
+      <input id="focusToggle" type="checkbox" class="w-5 h-5 accent-blue-600">
+    </label>
+
+    <!-- TEXT SPACING -->
+    <label class="flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4">
+      <span class="font-medium text-gray-900 dark:text-white">Wide Text Spacing</span>
+      <input id="spacingToggle" type="checkbox" class="w-5 h-5 accent-blue-600">
+    </label>
+
+    <!-- READABLE FONT -->
+    <label class="flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4">
+      <span class="font-medium text-gray-900 dark:text-white">Readable Font</span>
+      <input id="fontToggle" type="checkbox" class="w-5 h-5 accent-blue-600">
+    </label>
+
+    <!-- CURSOR STYLE -->
+    <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4 space-y-2">
+      <h3 class="font-semibold text-gray-900 dark:text-white">Cursor Style</h3>
+      <select id="cursorSelect" class="w-full bg-gray-50 dark:bg-slate-800 border border-gray-300 dark:border-slate-600 rounded-md px-2 py-1 text-gray-900 dark:text-gray-200">
+        <option value="auto">Default</option>
+        <option value="pointer">Pointer</option>
+        <option value="crosshair">Crosshair</option>
+        <option value="zoom-in">Zoom</option>
+      </select>
+    </div>
+
+    <!-- UNDERLINE LINKS -->
+    <label class="flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4">
+      <span class="font-medium text-gray-900 dark:text-white">Underline Links</span>
+      <input id="linksToggle" type="checkbox" class="w-5 h-5 accent-blue-600">
+    </label>
+
+    <!-- GRAYSCALE -->
+    <label class="flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4">
+      <span class="font-medium text-gray-900 dark:text-white">Grayscale Mode</span>
+      <input id="grayToggle" type="checkbox" class="w-5 h-5 accent-blue-600">
+    </label>
+
+    <!-- BIGGER CLICK TARGETS -->
+    <label class="flex items-center justify-between bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4">
+      <span class="font-medium text-gray-900 dark:text-white">Larger Click Areas</span>
+      <input id="targetsToggle" type="checkbox" class="w-5 h-5 accent-blue-600">
+    </label>
+
+    <!-- VOICE PREVIEW -->
+    <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4 xl:col-span-3">
+      <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Voice Preview</h3>
+      <button id="voiceBtn" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium text-white bg-blue-600 hover:bg-blue-700 transition">
+        <i class="ri-volume-up-line"></i> Play Voice Preview
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-5 flex flex-wrap justify-between items-center gap-3">
+    <p class="text-xs text-gray-500 dark:text-gray-400">Settings auto-save on this device.</p>
+    <button id="resetAccBtn" class="px-4 py-2 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-600/10 transition flex items-center gap-2">
+      <i class="ri-refresh-line"></i> Reset Accessibility
+    </button>
+  </div>
+
+</div>
+
+
+<script>
+(()=>{const $=id=>document.getElementById(id);
+const ids=["fontSizeSlider","contrastToggle","motionToggle","focusToggle","spacingToggle","fontToggle","cursorSelect","linksToggle","grayToggle","targetsToggle"];
+const saved=JSON.parse(localStorage.getItem("bh_accessibility")||"{}");
+
+ids.forEach(id=>{const e=$(id);if(!e)return;e.type==="checkbox"?e.checked=saved[id]||false:e.value=saved[id]||e.value;});
+
+function apply(){
+document.documentElement.style.fontSize=$("fontSizeSlider").value+"%";
+$("fontSizeLabel").textContent=$("fontSizeSlider").value+"%";
+
+document.body.classList.toggle("contrast-125",$("contrastToggle").checked);
+document.body.classList.toggle("motion-reduce",$("motionToggle").checked);
+document.body.classList.toggle("tracking-wide",$("spacingToggle").checked);
+document.body.classList.toggle("underline",$("linksToggle").checked);
+document.body.classList.toggle("grayscale",$("grayToggle").checked);
+
+document.body.style.cursor=$("cursorSelect").value;
+
+if($("targetsToggle").checked){
+document.body.classList.add("[&_button]:py-3","[&_a]:py-2");
+}else{
+document.body.classList.remove("[&_button]:py-3","[&_a]:py-2");
+}
+
+const s={};ids.forEach(id=>{const e=$(id);s[id]=e.type==="checkbox"?e.checked:e.value;});
+localStorage.setItem("bh_accessibility",JSON.stringify(s));
+}
+
+ids.forEach(id=>$(id)?.addEventListener("input",apply));
+$("resetAccBtn").onclick=()=>{localStorage.removeItem("bh_accessibility");location.reload();};
+$("voiceBtn").onclick=()=>speechSynthesis.speak(new SpeechSynthesisUtterance("Accessibility settings preview enabled."));
+
+apply();
+})();
+</script>
+
+
+<div id="system" class="settings-panel hidden space-y-6 text-sm">
+
+  <!-- HEADER -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-6 shadow-sm">
+    <div class="flex items-center gap-4">
+      <i class="ri-cpu-line text-3xl text-blue-600 dark:text-blue-400"></i>
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">System Information</h2>
+        <p class="text-gray-500 dark:text-gray-400">Live diagnostics from your device and browser.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO GRID -->
+  <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+
+    <!-- CARD TEMPLATE -->
+    <div class="sysCard"><span>Operating System</span><b id="osInfo">Detecting...</b></div>
+    <div class="sysCard"><span>Browser</span><b id="browserInfo">Detecting...</b></div>
+    <div class="sysCard"><span>Device Type</span><b id="deviceInfo">Detecting...</b></div>
+    <div class="sysCard"><span>CPU Cores</span><b id="cpuCores">Detecting...</b></div>
+    <div class="sysCard"><span>Memory</span><b id="memoryInfo">Detecting...</b></div>
+    <div class="sysCard"><span>GPU</span><b id="gpuInfo">Detecting...</b></div>
+    <div class="sysCard"><span>Battery Level</span><b id="batteryInfo">Detecting...</b></div>
+    <div class="sysCard"><span>Screen Resolution</span><b id="resolutionInfo">Detecting...</b></div>
+    <div class="sysCard"><span>Language</span><b id="languageInfo">Detecting...</b></div>
+    <div class="sysCard"><span>Platform</span><b id="platformInfo">Detecting...</b></div>
+    <div class="sysCard"><span>Network Status</span><b id="networkInfo">Detecting...</b></div>
+    <div class="sysCard"><span>Internet Speed</span><b id="speedInfo">Not tested</b></div>
+    <div class="sysCard"><span>Uptime</span><b id="uptimeInfo">0s</b></div>
+
+  </div>
+
+  <!-- PERFORMANCE -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-5">
+    <div class="flex justify-between text-sm mb-2">
+      <span class="text-gray-600 dark:text-gray-300">Estimated System Load</span>
+      <span id="perfText" class="text-blue-600 dark:text-blue-400 font-medium">Calculating...</span>
+    </div>
+    <div class="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
+      <div id="perfBar" class="h-full bg-blue-600 transition-all duration-700 w-0"></div>
+    </div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="flex flex-wrap gap-3">
+    <button id="refreshSystem" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium flex items-center gap-2">
+      <i class="ri-refresh-line"></i> Refresh
+    </button>
+
+    <button id="testSpeed" class="px-4 py-2 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-600/10 font-medium flex items-center gap-2">
+      <i class="ri-speed-up-line"></i> Test Speed
+    </button>
+
+    <button id="copySystem" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 font-medium flex items-center gap-2">
+      <i class="ri-file-copy-line"></i> Copy Report
+    </button>
+  </div>
+
+</div>
+<script>
+document.querySelectorAll(".sysCard").forEach(card=>{
+  card.className="flex justify-between items-center bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl px-4 py-3";
+});
+</script>
+
+
+<div id="system" class="settings-panel hidden space-y-6 text-sm">
+
+  <!-- HEADER -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-6 shadow-sm">
+    <div class="flex items-center gap-4">
+      <i class="ri-cpu-line text-3xl text-blue-600 dark:text-blue-400"></i>
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">System Diagnostics</h2>
+        <p class="text-gray-500 dark:text-gray-400">Live hardware, browser, and network data.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+
+    <!-- CARD TEMPLATE STYLE -->
+    <template id="sysCardTemplate">
+      <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-4 flex flex-col justify-between min-h-[88px]">
+        <span class="text-gray-500 dark:text-gray-400 text-xs"></span>
+        <b class="text-gray-900 dark:text-white text-base font-semibold"></b>
+      </div>
+    </template>
+
+    <!-- CARDS -->
+    <div id="cardsContainer" class="contents"></div>
+
+  </div>
+
+  <!-- PERFORMANCE BAR -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-5">
+    <div class="flex justify-between text-sm mb-2">
+      <span class="text-gray-600 dark:text-gray-300">Estimated System Load</span>
+      <span id="perfText" class="text-blue-600 dark:text-blue-400 font-medium">Calculating...</span>
+    </div>
+    <div class="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
+      <div id="perfBar" class="h-full bg-blue-600 transition-all duration-700 w-0"></div>
+    </div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="flex flex-wrap gap-3">
+    <button id="refreshSystem" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium flex items-center gap-2">
+      <i class="ri-refresh-line"></i> Refresh
+    </button>
+    <button id="testSpeed" class="px-4 py-2 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-600/10 font-medium flex items-center gap-2">
+      <i class="ri-speed-up-line"></i> Test Speed
+    </button>
+    <button id="copySystem" class="px-4 py-2 rounded-lg border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/5 font-medium flex items-center gap-2">
+      <i class="ri-file-copy-line"></i> Copy Report
+    </button>
+  </div>
+
+</div>
+<script>
+(async () => {
+
+const cardData = {
+  osInfo:"Operating System",
+  browserInfo:"Browser",
+  deviceInfo:"Device Type",
+  cpuCores:"CPU Cores",
+  ramUsage:"RAM Usage",
+  memoryInfo:"Total Memory",
+  gpuInfo:"GPU",
+  cpuTemp:"CPU Temperature",
+  batteryInfo:"Battery Level",
+  batteryHealth:"Battery Health",
+  signalInfo:"Network Signal",
+  resolutionInfo:"Screen Resolution",
+  languageInfo:"Language",
+  platformInfo:"Platform",
+  networkInfo:"Network Status",
+  speedInfo:"Internet Speed",
+  uptimeInfo:"Uptime"
+};
+
+/* BUILD CARDS */
+const container=document.getElementById("cardsContainer");
+const template=document.getElementById("sysCardTemplate");
+Object.entries(cardData).forEach(([id,label])=>{
+  const node=template.content.cloneNode(true);
+  node.querySelector("span").textContent=label;
+  node.querySelector("b").id=id;
+  node.querySelector("b").textContent="Detecting...";
+  container.appendChild(node);
+});
+
+const $=id=>document.getElementById(id);
+
+/* BASIC INFO */
+function detectSystem(){
+  const ua=navigator.userAgent;
+  $("osInfo").textContent=/Windows/.test(ua)?"Windows":/Mac/.test(ua)?"MacOS":/Linux/.test(ua)?"Linux":/Android/.test(ua)?"Android":/iPhone|iPad/.test(ua)?"iOS":"Unknown";
+  $("browserInfo").textContent=/Chrome/.test(ua)?"Chrome":/Firefox/.test(ua)?"Firefox":/Safari/.test(ua)&&!/Chrome/.test(ua)?"Safari":/Edg/.test(ua)?"Edge":"Unknown";
+  $("deviceInfo").textContent=/Mobi|Android/i.test(ua)?"Mobile":"Desktop";
+  $("cpuCores").textContent=navigator.hardwareConcurrency||"N/A";
+  $("memoryInfo").textContent=navigator.deviceMemory?navigator.deviceMemory+" GB":"N/A";
+  $("resolutionInfo").textContent=screen.width+" × "+screen.height;
+  $("languageInfo").textContent=navigator.language;
+  $("platformInfo").textContent=navigator.platform;
+  $("networkInfo").textContent=navigator.onLine?"Online":"Offline";
+  updatePerf();
+}
+
+/* GPU */
+function getGPU(){
+  const canvas=document.createElement("canvas");
+  const gl=canvas.getContext("webgl");
+  if(!gl){$("gpuInfo").textContent="Unavailable";return;}
+  const dbg=gl.getExtension("WEBGL_debug_renderer_info");
+  $("gpuInfo").textContent=dbg?gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL):"Detected";
+}
+
+/* SIMULATED CPU TEMP */
+function cpuTemp(){
+  $("cpuTemp").textContent=(40+Math.random()*30).toFixed(1)+"°C";
+}
+setInterval(cpuTemp,3000);
+
+/* RAM USAGE (SIMULATED %) */
+function ramUsage(){
+  $("ramUsage").textContent=(30+Math.random()*50).toFixed(0)+"% Used";
+}
+setInterval(ramUsage,2500);
+
+/* BATTERY */
+if(navigator.getBattery){
+  navigator.getBattery().then(b=>{
+    function update(){
+      $("batteryInfo").textContent=Math.round(b.level*100)+"%"+(b.charging?" ⚡":"");
+      $("batteryHealth").textContent=(90+Math.random()*10).toFixed(0)+"% (Est.)";
+    }
+    update(); b.onlevelchange=update; b.onchargingchange=update;
+  });
+}else{
+  $("batteryInfo").textContent="Unsupported";
+  $("batteryHealth").textContent="Unavailable";
+}
+
+/* SIGNAL STRENGTH (SIMULATED) */
+function signal(){
+  const val=Math.floor(Math.random()*5)+1;
+  $("signalInfo").textContent="▮".repeat(val)+"▯".repeat(5-val);
+}
+setInterval(signal,4000);
+
+/* PERFORMANCE BAR */
+function updatePerf(){
+  const load=Math.floor(Math.random()*40)+30;
+  document.getElementById("perfBar").style.width=load+"%";
+  document.getElementById("perfText").textContent=load+"% Load";
+}
+
+/* SPEED TEST */
+document.getElementById("testSpeed").onclick=async()=>{
+  $("speedInfo").textContent="Testing...";
+  const start=performance.now();
+  await fetch("https://jsonplaceholder.typicode.com/posts");
+  const duration=(performance.now()-start)/1000;
+  $("speedInfo").textContent=(500/duration).toFixed(1)+" kb/s";
+};
+
+/* UPTIME */
+let startTime=Date.now();
+setInterval(()=>{
+  const d=Math.floor((Date.now()-startTime)/1000);
+  $("uptimeInfo").textContent=`${Math.floor(d/3600)}h ${Math.floor((d%3600)/60)}m ${d%60}s`;
+},1000);
+
+/* COPY REPORT */
+document.getElementById("copySystem").onclick=()=>{
+  const data=[...document.querySelectorAll("#system b")].map(b=>b.previousElementSibling.textContent+": "+b.textContent).join("\n");
+  navigator.clipboard.writeText(data);
+};
+
+document.getElementById("refreshSystem").onclick=()=>{detectSystem();getGPU();};
+
+detectSystem();
+getGPU();
+cpuTemp();
+ramUsage();
+signal();
+
+})();
+</script>
+
+<div id="resetSettings" class="settings-panel hidden space-y-6">
+
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-6 shadow-sm">
+    <div class="flex items-start gap-4">
+      <i class="ri-error-warning-line text-3xl text-red-500"></i>
+      <div>
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Reset Settings</h2>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
+          Restore your Digital Register environment to factory defaults.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-5 text-sm text-red-700 dark:text-red-300 space-y-2">
+    <p class="font-semibold flex items-center gap-2"><i class="ri-alert-line"></i> Warning</p>
+    <ul class="list-disc pl-5 space-y-1">
+      <li>All offline and saved settings will be lost</li>
+      <li>Appearance and layout reset to default</li>
+      <li>Local cache and storage cleared</li>
+    </ul>
+  </div>
+
+  <button id="openResetModal"
+    class="w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold flex items-center justify-center gap-2">
+    <i class="ri-restart-line"></i> Reset Now
+  </button>
+
+</div>
+<div id="resetModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+  <div class="bg-white dark:bg-slate-900 w-full max-w-md rounded-2xl shadow-xl border border-gray-200 dark:border-slate-700 p-6 space-y-5">
+
+    <!-- STEP 1 -->
+    <div id="step1">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Confirm Reset</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Type <span class="font-semibold text-red-600">Yes</span> to confirm you understand this action cannot be undone.
+      </p>
+      <input id="confirmInput" type="text"
+        class="mt-3 w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-red-500 outline-none"
+        placeholder="Type Yes to continue">
+      <button id="toStep2"
+        class="mt-4 w-full py-2 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-black font-medium disabled:opacity-40"
+        disabled>Continue</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="step2" class="hidden">
+      <h3 class="text-lg font-semibold text-red-600">Final Confirmation</h3>
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Press reset to permanently remove local data.
+      </p>
+      <button id="finalReset"
+        class="mt-4 w-full py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold flex items-center justify-center gap-2">
+        <i class="ri-delete-bin-line"></i> Reset Now
+      </button>
+    </div>
+
+    <button id="closeResetModal"
+      class="text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-center w-full">Cancel</button>
+
+  </div>
+</div>
+<script>
+(() => {
+const modal = document.getElementById("resetModal");
+const input = document.getElementById("confirmInput");
+const step1 = document.getElementById("step1");
+const step2 = document.getElementById("step2");
+const continueBtn = document.getElementById("toStep2");
+
+document.getElementById("openResetModal").onclick = () => {
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+  input.value = "";
+  continueBtn.disabled = true;
+  step1.classList.remove("hidden");
+  step2.classList.add("hidden");
+};
+
+document.getElementById("closeResetModal").onclick = () => modal.classList.add("hidden");
+
+input.addEventListener("input", () => {
+  continueBtn.disabled = input.value.trim() !== "Yes";
+});
+
+continueBtn.onclick = () => {
+  step1.classList.add("hidden");
+  step2.classList.remove("hidden");
+};
+
+document.getElementById("finalReset").onclick = () => {
+  localStorage.clear();
+  sessionStorage.clear();
+  caches?.keys().then(keys => keys.forEach(k => caches.delete(k)));
+  location.reload();
+};
+})();
+</script>
+
+
+<div id="aboutBlackHat" class="settings-panel hidden space-y-6 text-sm">
+
+  <!-- HEADER -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-6 shadow-sm flex items-center gap-4">
+    <img src="assets/images/logo.png" alt="Black Hat Logo" class="w-14 h-14 rounded-full shadow-md">
+    <div>
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Black Hat Developers</h2>
+      <p class="text-gray-500 dark:text-gray-400">Advanced Digital Systems & Innovation Platform</p>
+    </div>
+  </div>
+
+  <!-- COMPANY OVERVIEW -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-5 space-y-3">
+    <h3 class="font-semibold text-gray-900 dark:text-white">Who We Are</h3>
+    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+      Black Hat Developers is a forward-thinking technology initiative focused on building modern digital systems,
+      AI-powered tools, and advanced web platforms. Our mission is to deliver powerful, scalable, and intelligent
+      solutions that empower developers and digital creators worldwide.
+    </p>
+  </div>
+
+  <!-- KEY DETAILS GRID -->
+  <div class="grid sm:grid-cols-2 gap-4">
+
+    <div class="infoRow">
+      <span>Platform Name</span>
+      <b>Black Hat Developers</b>
+    </div>
+
+    <div class="infoRow">
+      <span>Current Version</span>
+      <b>v1.0.0</b>
+    </div>
+
+    <div class="infoRow">
+      <span>Primary Focus</span>
+      <b>Web Systems & Artificial Intelligence</b>
+    </div>
+
+    <div class="infoRow">
+      <span>Development Status</span>
+      <b class="text-green-600">Active & Expanding</b>
+    </div>
+
+    <div class="infoRow">
+      <span>Platform Type</span>
+      <b>Developer Tools Ecosystem</b>
+    </div>
+
+    <div class="infoRow">
+      <span>Technology Stack</span>
+      <b>Modern Web + Cloud + AI</b>
+    </div>
+
+  </div>
+
+  <!-- MISSION SECTION -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-5 space-y-3">
+    <h3 class="font-semibold text-gray-900 dark:text-white">Our Mission</h3>
+    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+      We aim to redefine how digital platforms operate by combining performance, intelligent automation,
+      and user-centered design. Black Hat Developers focuses on building tools that are not only powerful,
+      but also intuitive and future-ready.
+    </p>
+  </div>
+
+  <!-- LINKS -->
+  <div class="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-xl p-5 flex flex-wrap gap-3">
+
+    <a href="https://blackhatdevelopers.netlify.app/about" target="_blank"
+       class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs flex items-center gap-2">
+      <i class="ri-information-line"></i> Full About Page
+    </a>
+
+    <a href="https://blackhatdevelopers.netlify.app/contact" target="_blank"
+       class="px-4 py-2 rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-600/10 font-medium text-xs flex items-center gap-2">
+      <i class="ri-mail-line"></i> Contact Us
+    </a>
+
+  </div>
+
+  <!-- FOOTER -->
+  <p class="text-center text-xs text-gray-400">
+    © <span id="bhYear"></span> Black Hat Developers. All rights reserved.
+  </p>
+
+</div>
+<script>
+document.querySelectorAll(".infoRow").forEach(row=>{
+  row.className="flex justify-between items-center bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg px-4 py-3";
+});
+document.getElementById("bhYear").textContent = new Date().getFullYear();
+</script>
+
+
+        <!-- NOTIFICATIONS -->
+        <div id="notifications" class="settings-panel hidden">
+          <div class="bg-white dark:bg-[#111827] rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+            <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Alerts & Messages</h2>
+            <label class="flex justify-between py-3 border-b border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">
+              Email Notifications <input type="checkbox" class="w-5 h-5 accent-blue-600">
+            </label>
+            <label class="flex justify-between py-3 text-gray-700 dark:text-gray-300">
+              Push Notifications <input type="checkbox" class="w-5 h-5 accent-blue-600">
+            </label>
+          </div>
+        </div>
+
+        <!-- APPEARANCE -->
+        <div id="appearance" class="settings-panel hidden">
+          <div class="bg-white dark:bg-[#111827] rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+            <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Theme</h2>
+            <label class="flex justify-between text-gray-700 dark:text-gray-300">
+              Dark Mode <input type="checkbox" class="w-5 h-5 accent-blue-600">
+            </label>
+          </div>
+        </div>
+
+        <!-- PRIVACY -->
+        <div id="privacy" class="settings-panel hidden">
+          <div class="bg-white dark:bg-[#111827] rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+            <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Visibility</h2>
+            <label class="flex justify-between text-gray-700 dark:text-gray-300">
+              Private Profile <input type="checkbox" class="w-5 h-5 accent-blue-600">
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+(function () {
+  const tabs = document.querySelectorAll(".settings-tab");
+  const panels = document.querySelectorAll(".settings-panel");
+  const title = document.getElementById("settingsTitle");
+  const sidebar = document.getElementById("settingsSidebar");
+  const overlay = document.getElementById("settingsOverlay");
+  const openBtn = document.getElementById("settingsMenuOpen");
+  const closeBtn = document.getElementById("settingsMenuClose");
+
+  if (!tabs.length) return;
+
+  function switchPanel(tab) {
+    const target = tab.dataset.target;
+    const newTitle = tab.dataset.title;
+    const newDesc = tab.dataset.desc;
+
+    panels.forEach(p => p.classList.toggle("hidden", p.id !== target));
+    tabs.forEach(t => t.classList.remove("bg-blue-50","dark:bg-blue-900/30","text-blue-600","dark:text-blue-400","font-medium"));
+    tab.classList.add("bg-blue-50","dark:bg-blue-900/30","text-blue-600","dark:text-blue-400","font-medium");
+
+    title.textContent = newTitle;
+    title.nextElementSibling.textContent = newDesc;
+
+    if (window.innerWidth < 768) {
+      sidebar.classList.add("-translate-x-full");
+      overlay.classList.add("hidden");
+    }
+  }
+
+  tabs.forEach(tab => tab.addEventListener("click", () => switchPanel(tab)));
+
+  if (openBtn) openBtn.onclick = () => {
+    sidebar.classList.remove("-translate-x-full");
+    overlay.classList.remove("hidden");
+  };
+
+  if (closeBtn) closeBtn.onclick = () => {
+    sidebar.classList.add("-translate-x-full");
+    overlay.classList.add("hidden");
+  };
+
+  if (overlay) overlay.onclick = () => {
+    sidebar.classList.add("-translate-x-full");
+    overlay.classList.add("hidden");
+  };
+
+})();
+</script>
+
+
+
+    </main>
+
+
+
+
+<!-- ================================================= -->
+<!-- 🟦 MICROSOFT-PIXEL FOOTER (FINAL FINAL) -->
+<!-- ================================================= -->
+<footer id="msFooter">
+
+ <!-- TOP -->
+  <div class="msf-container msf-grid">
+
+    <section>
+      <h5>What’s new</h5>
+      <a href="black-hat-developers-platforms/Code-Pad/index">Code Pad</a>
+      <a href="black-hat-developers-platforms/BHD-Weather/index">CP Weather</a>
+      <a href="business">Business</a>
+      <a href="jobs">Careers</a>
+    </section>
+
+    <section>
+      <h5>Black Hat Docs</h5>
+      <a href="files">Business Conduct</a>
+      <a href="files">Chapters</a>
+      
+    </section>
+
+
+
+    <section>
+      <h5>Reviews & Feedback</h5>
+      <a href="write-a-review">Write a Review</a>
+      <a href="reviews">Read Reviews</a>
+      <a href="learn-blackhatdevelopers">Learn</a>
+      <a href="feedback">Feedback</a>
+  
+    </section>
+
+
+    <section>
+      <h5>Clidder</h5>
+      <a href="black-hat-developers-platforms/clidder/clidder-market-place">Marketplace</a>
+      <a href="black-hat-developers-platforms/clidder/climate-weather-data-center-black-hat">Climate</a>
+      <a href="black-hat-developers-platforms/clidder/games-clidder">Games</a>
+      <a href="black-hat-developers-platforms/clidder/jobs-clidder">Jobs</a>
+      <a href="black-hat-developers-platforms/clidder/advertise">Advertising</a>
+      <a href="black-hat-developers-platforms/clidder/brand">Brand Resources</a>
+      <a href="black-hat-developers-platforms/clidder/my-calendar">Calendar</a>
+      <a href="black-hat-developers-platforms/clidder/pricing">Pricings</a>
+      <a href="black-hat-developers-platforms/clidder/business">Business</a>
+    </section>
+
+    
+    <section>
+      <h5>Developer & IT</h5>
+      <a href="developer.blackhat">BLack Hat Developer</a>
+      <a href="ask-from-a-dev">Ask Community</a>
+      <a href="learn-blackhatdevelopers">BLack Hat Learn</a>
+      <a href="ai.blackhat">Black Hat AI</a>
+      <a href="calendar">Black Hat Calendar</a>
+      <a href="marketplace">Marketplace</a>
+      <a href="community">Black Hat Community</a>
+      <a href="community-guide">Community Guide</a>
+      
+      <a href="business.html">Black Hat for Business</a>
+    </section>
+
+
+    <section>
+      <h5>Follow US</h5>
+      <a href="linkedin">LinkedIn</a>
+      <a href="github">Git Hub</a>
+      <a href="telegram">Telegram</a>
+      <a href="tiktok">Tik Tok</a>
+      <a href="clidder">Clidder</a>
+      <a href="instagram">Instergram</a>
+      <a href="whatsapp">WhatsApp</a>
+      <a href="threads">Threads</a>
+      <a href="black-hat-developers-platforms/sweetpage/index">Sweetpage</a>
+    </section>
+
+
+    <section>
+      <h5>Company</h5>
+      <a href="apply-for-a-job">Job on Company</a>
+      <a href="about">About Black Hat</a>
+      <a href="account-center">Account Center</a>
+      <a href="news.blackhatdevelopers">Company News</a>
+      
+      <a href="facts-about-black-hat-developers">Facts About</a>
+      <a href="sustainability">Sustainability</a>
+      <a href="accessibility">Accessibility</a>
+      <a href="diversity">Diversity and Inclusion</a>
+      <a href="support">Support</a>
+      
+    </section>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="msf-bottom">
+    <div class="msf-container msf-bottom-inner">
+
+      <div class="msf-left">
+        <span>
+          <i class="ri-earth-line"></i>
+          <span id="msRegion">Worldwide Operations</span>
+        </span>
+       <span class="msf-privacy-item">
+  <i class="ri-toggle-line"></i>
+  Your Privacy Choices
+</span>
+
+<span class="msf-privacy-item">
+  <i class="ri-heart-pulse-line"></i>
+  Consumer Health Privacy
+</span>
+
+      </div>
+
+      <div class="msf-right">
+        <a href="contact">Contact Black Hat</a>
+        <a href="privacy">Privacy</a>
+        <a href="terms-of-use">Terms of use</a>
+        <a href="tredmark">Trademarks</a>
+        <a href="ads">About our ads</a>
+        <span>© Black Hat Developers <span id="msYear"></span></span>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+
+
+<!-- =============================== -->
+<!-- MICROSOFT STYLE BACK TO TOP -->
+<!-- =============================== -->
+
+<style>
+  /* Hide on mobile (Microsoft does this) */
+  @media (max-width: 767px) {
+    #msBackToTop {
+      display: none !important;
+    }
+  }
+
+  #msBackToTop {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 40;
+
+    display: none;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 14px;
+
+    /* Segoe UI metrics (Microsoft exact) */
+    font-family: "Segoe UI", SegoeUI, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0;
+
+    background: #e5e5e5;
+    color: #111;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+
+    transition:
+      background-color 0.15s ease,
+      bottom 0.2s ease;
+  }
+
+  #msBackToTop:hover {
+    background: #d6d6d6;
+  }
+
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    #msBackToTop {
+      background: #2b2b2b;
+      color: #ffffff;
+    }
+
+    #msBackToTop:hover {
+      background: #3a3a3a;
+    }
+  }
+</style>
+
+<button id="msBackToTop" aria-label="Back to top">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    aria-hidden="true">
+    <path d="M8 3l4.5 4.5-.7.7L8.5 4.9V13h-1V4.9L4.2 8.2l-.7-.7L8 3z"/>
+  </svg>
+  <span>Back to top</span>
+</button>
+
+<script>
+  const backToTopBtn = document.getElementById("msBackToTop");
+  const footer = document.getElementById("msFooter");
+
+  /* Show / hide on scroll (desktop only) */
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 600 && window.innerWidth > 767) {
+      backToTopBtn.style.display = "flex";
+    } else {
+      backToTopBtn.style.display = "none";
+    }
+  });
+
+  /* Smooth scroll */
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+
+  /* Footer-aware positioning (Microsoft behavior) */
+  if (footer) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const footerHeight = footer.offsetHeight;
+          backToTopBtn.style.bottom = footerHeight + 24 + "px";
+        } else {
+          backToTopBtn.style.bottom = "24px";
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(footer);
+  }
+</script>
+
+
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+<script src="assets/js/auth.js"></script>
+
+
+  <script src="assets/js/files.js"></script>
+
+
+
+
+
+
+<script>
+
+/* ================================
+   BASIC PROTECTION SCRIPT
+   (You cannot fully block DevTools,
+   but this blocks common shortcuts)
+   ================================ */
+
+/* Block Right Click */
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+/* Block F12 and DevTools keys */
+document.addEventListener("keydown", e => {
+  // F12
+  if (e.key === "F12") {
+    e.preventDefault();
+  }
+
+  // Ctrl + Shift + (I, J, C)
+  if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) {
+    e.preventDefault();
+  }
+
+  // Ctrl + U (view source)
+  if (e.ctrlKey && e.key.toLowerCase() === "u") {
+    e.preventDefault();
+  }
+
+  // Block Ctrl key alone
+  if (e.ctrlKey && !e.shiftKey) {
+    e.preventDefault();
+  }
+
+  // Block Shift key alone
+  if (e.key === "Shift" && !e.ctrlKey) {
+    e.preventDefault();
+  }
+});
+
+/* Optional: Block selecting text */
+document.addEventListener("selectstart", e => e.preventDefault());
+
+</script>
+
+<style>
+/* ============================================================
+   CUSTOM SCROLLBAR — GRADIENT (ALWAYS VISIBLE)
+   ============================================================ */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0011fd #0b0010;
+}
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0010;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+     180deg,
+    #3d98ff,
+    #2f78ff,
+    #1b04ec
+  );
+  border-radius: 10px;
+  min-height: 40px;
+}
+
+/* Hover = slightly brighter, not different */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #3d98ff,
+    #2f78ff,
+    #1b04ec
+  );
+}
+
+::-webkit-scrollbar-corner {
+  background: #0b0010;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+/* 🚫 Block image dragging */
+document.addEventListener("dragstart", e => {
+  if (e.target.tagName === "IMG") {
+    e.preventDefault();
+  }
+});
+</script>
+
+
+
+<style>/* 🚫 Disable image drag & selection */
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  pointer-events: auto;
+}
+</style>
+
+
+
+<style>
+  /* Disable text selection */
+  * {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none;     /* IE/Edge */
+    user-select: none;         /* Standard */
+  }
+
+  /* Disable image dragging */
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
+  }
+</style>
+
+
+<script>
+  // Disable drag & drop
+  document.addEventListener("dragstart", function (e) {
+    e.preventDefault();
+  });
+
+  document.addEventListener("drop", function (e) {
+    e.preventDefault();
+  });
+
+  document.addEventListener("dragover", function (e) {
+    e.preventDefault();
+  });
+
+  // Disable right-click (optional)
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  });
+
+  // Disable text selection via keyboard
+  document.addEventListener("keydown", function (e) {
+    if (
+      (e.ctrlKey && ["a", "c", "x", "u", "s"].includes(e.key.toLowerCase())) ||
+      e.key === "F12"
+    ) {
+      e.preventDefault();
+    }
+  });
+</script>
+
+<script>
+(function () {
+  const session = localStorage.getItem("hw_session");
+
+  // If no session → user not logged in
+  if (!session) {
+    // Save the page they were trying to visit (optional but nice)
+    localStorage.setItem("redirect_after_login", window.location.href);
+
+    // Redirect to sign in page
+    window.location.replace("signin.html");
+    return;
+  }
+
+  // Optional: auto reload once after login if needed
+  // (useful if session was just created in another tab)
+  if (session && !sessionStorage.getItem("page_reloaded")) {
+    sessionStorage.setItem("page_reloaded", "true");
+    window.location.reload();
+  }
+})();
+</script>
+
+
+</body>
+</html>

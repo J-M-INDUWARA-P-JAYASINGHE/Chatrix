@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="assets/images/logo.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BXKBQGXFW9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BXKBQGXFW9');
+</script>
+    
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T26VKWVH');</script>
+<!-- End Google Tag Manager -->
+
+    <title>Account Password Recovery & Identity Validation Terminal</title>
+    <meta name="description" content="Securely recover your enterprise account password. Access the multi-tiered identity verification matrix to validate directory credentials and request authorized reset codes.">
+    <meta name="keywords" content="Password Recovery, Account Reset, Identity Verification, Secure Directory Access, Credential Sync">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:url" content="https://verify.enterprise-access.org/recovery">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Account Password Recovery & Identity Validation Terminal">
+    <meta property="og:description" content="Securely recover your enterprise account password. Access the multi-tiered identity verification matrix to validate directory credentials.">
+    <meta property="og:image" content="https://img.icons8.com/fluent/512/microsoft-control-panel.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="verify.enterprise-access.org">
+    <meta property="twitter:url" content="https://verify.enterprise-access.org/recovery">
+    <meta name="twitter:title" content="Account Password Recovery & Identity Validation Terminal">
+    <meta name="twitter:description" content="Securely recover your enterprise account password. Access the multi-tiered identity verification matrix to validate directory credentials.">
+    <meta name="twitter:image" content="https://img.icons8.com/fluent/512/microsoft-control-panel.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --glass-bg: rgba(9, 15, 30, 0.82);
+            --glass-border: rgba(255, 255, 255, 0.07);
+            --glass-inner: rgba(255, 255, 255, 0.02);
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: url('assets/images/bgp.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .main-dashboard {
+            width: 100%;
+            max-width: 540px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.65);
+            box-sizing: border-box;
+            transition: max-width 0.4s ease, padding 0.4s ease;
+        }
+
+        @media (min-width: 768px) {
+            .main-dashboard {
+                max-width: 620px;
+                padding: 45px;
+            }
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .app-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .app-header h2 i { color: var(--primary); }
+        .app-header p { color: var(--text-muted); font-size: 14px; margin: 8px 0 0 0; }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i.input-icon {
+            position: absolute;
+            left: 16px;
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            background: rgba(0, 0, 0, 0.45);
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .input:focus {
+            border-color: var(--primary);
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            background: var(--primary);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover:not(:disabled) { background: var(--primary-hover); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #f1f5f9;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .btn-danger:hover { background: rgba(239, 68, 68, 0.3); }
+
+        .account-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass-inner);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 18px 22px;
+            border-radius: 16px;
+            cursor: pointer;
+            margin-top: 14px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .account-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--primary);
+        }
+
+        .account-info { display: flex; align-items: center; gap: 16px; }
+        .avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255, 255, 255, 0.1); }
+        .account-name { font-weight: 600; font-size: 16px; }
+
+        .banner-badge {
+            padding: 14px 18px;
+            border-radius: 14px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        .banner-badge.warning { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.18); color: #fde047; }
+        .banner-badge.info { background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.18); color: #93c5fd; }
+        .banner-badge.error { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.18); color: #fca5a5; }
+
+        .email-preview-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 16px;
+            margin: 18px 0;
+            font-family: monospace;
+            font-size: 13px;
+            color: #cbd5e1;
+            white-space: pre-wrap;
+            text-align: left;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .loader-box { display: flex; flex-direction: column; align-items: center; padding: 30px 0; gap: 12px; }
+        .spinner { width: 28px; height: 28px; border: 3px solid rgba(255, 255, 255, 0.1); border-radius: 50%; border-top-color: var(--primary); animation: spin 0.8s linear infinite; }
+        .feedback-msg { text-align: center; padding: 15px 0; color: var(--text-muted); font-size: 14px; }
+
+        .stage { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .hidden { display: none !important; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Security Restrictions Overrides */
+        * {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        input {
+            -webkit-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        img {
+            -webkit-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T26VKWVH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="main-dashboard">
+    
+    <div class="app-header" id="appHeader">
+        <h2><i class="ri-shield-user-fill"></i> Account Recovery Terminal</h2>
+        <p id="headerDesc">Locate your profile record and step through identity verification matrix</p>
+    </div>
+
+    <div id="stageSearch" class="stage">
+        <div class="input-group">
+            <label id="searchLabel">Account Primary Identifier</label>
+            <div class="input-wrapper">
+                <i class="ri-user-search-line input-icon"></i>
+                <input id="searchInput" class="input" placeholder="Enter username or primary email address" onkeydown="if(event.key==='Enter') findAccounts()">
+            </div>
+        </div>
+        
+        <div style="margin: -10px 0 20px 5px; font-size: 13px;">
+            <span id="toggleSearchMode" style="color: var(--primary); cursor: pointer; text-decoration: underline;" onclick="toggleSearchFields()">Forgot username/email? Search via recovery email/mobile instead</span>
+        </div>
+
+        <button class="btn" id="searchBtn" onclick="findAccounts()">
+            <span>Query Directory</span><i class="ri-arrow-right-line"></i>
+        </button>
+        <div id="resultsWrapper"></div>
+    </div>
+
+    <div id="stageRecoveryGate" class="stage hidden">
+        <div class="banner-badge info">
+            <i class="ri-shield-flash-line" style="font-size:22px;"></i>
+            <span>Verification Matrix: Level 1. Provide the registry-linked recovery email or mobile number mapped to this profile node.</span>
+        </div>
+        <div class="input-group">
+            <label>Registered Recovery Email / Mobile String</label>
+            <div class="input-wrapper">
+                <i class="ri-mail-line input-icon"></i>
+                <input id="recoveryGateInput" class="input" placeholder="Enter recovery email or mobile number">
+            </div>
+        </div>
+        <div id="recoveryGateFeedback"></div>
+
+        <div style="display:flex; gap:14px; margin-top:25px;">
+            <button class="btn btn-secondary" style="flex:1" onclick="backToSearch()"><i class="ri-arrow-left-line"></i> Back</button>
+            <button class="btn" style="flex:1" onclick="verifyRecoveryGate()"><span>Validate Recovery</span><i class="ri-arrow-right-line"></i></button>
+        </div>
+    </div>
+
+    <div id="stageBirthdayGate" class="stage hidden">
+        <div class="banner-badge info">
+            <i class="ri-calendar-todo-line" style="font-size:22px;"></i>
+            <span>Verification Matrix: Level 2. Provide the registry-linked birth sequence mapped to this file node.</span>
+        </div>
+        <div class="input-group">
+            <label>Registered Date of Birth (Numbers & Hyphens Only)</label>
+            <div class="input-wrapper">
+                <i class="ri-calendar-line input-icon"></i>
+                <input id="birthdayInput" class="input" type="text" inputmode="numeric" pattern="[0-9\-]*" placeholder="YYYY-MM-DD (e.g., 1995-10-24)" oninput="this.value = this.value.replace(/[^0-9\-]/g, '')">
+            </div>
+        </div>
+        <div id="birthdayFeedback"></div>
+
+        <div style="display:flex; gap:14px; margin-top:25px;">
+            <button class="btn btn-secondary" style="flex:1" onclick="backToRecoveryGate()"><i class="ri-arrow-left-line"></i> Back</button>
+            <button class="btn" style="flex:1" onclick="verifyBirthdayGate()"><span>Validate Metric</span><i class="ri-arrow-right-line"></i></button>
+        </div>
+    </div>
+
+    <div id="stageSecurityGate" class="stage hidden">
+        <div class="banner-badge warning">
+            <i class="ri-question-line" style="font-size:22px;"></i>
+            <span>Verification Matrix: Level 3 (Required). Supply the configured answer matching the query parameter challenge below.</span>
+        </div>
+        <div class="input-group">
+            <label id="securityQuestionLabel">Security Parameter Challenge</label>
+            <div class="input-wrapper">
+                <i class="ri-key-line input-icon"></i>
+                <input id="securityAnswerInput" class="input" placeholder="Enter security question answer">
+            </div>
+        </div>
+        <div id="securityFeedback"></div>
+
+        <div style="display:flex; gap:14px; margin-top:25px;">
+            <button class="btn btn-secondary" style="flex:1" onclick="backToBirthdayGate()"><i class="ri-arrow-left-line"></i> Back</button>
+            <button class="btn" style="flex:1" onclick="verifySecurityGate()"><span>Advance Validation</span><i class="ri-arrow-right-line"></i></button>
+        </div>
+    </div>
+
+    <div id="stageGenderGate" class="stage hidden">
+        <div class="banner-badge info">
+            <i class="ri-user-settings-line" style="font-size:22px;"></i>
+            <span>Verification Matrix: Level 4. Specify the profile structural classification marker entry mapped to this file node.</span>
+        </div>
+        <div class="input-group">
+            <label>Registered Gender Designation</label>
+            <div class="input-wrapper">
+                <i class="ri-genderless-line input-icon"></i>
+                <input id="genderInput" class="input" placeholder="e.g., Male, Female, Other">
+            </div>
+        </div>
+        <div id="genderFeedback"></div>
+
+        <div style="display:flex; gap:14px; margin-top:25px;">
+            <button class="btn btn-secondary" style="flex:1" onclick="backToSecurityGate()"><i class="ri-arrow-left-line"></i> Back</button>
+            <button class="btn" style="flex:1" onclick="verifyGenderGate()"><span>Finalize Schema</span><i class="ri-arrow-right-line"></i></button>
+        </div>
+    </div>
+
+    <div id="stageCountryGate" class="stage hidden">
+        <div class="banner-badge info">
+            <i class="ri-global-line" style="font-size:22px;"></i>
+            <span>Verification Matrix: Level 5. State the active country/geographic locality configured inside this ledger data set.</span>
+        </div>
+        <div class="input-group">
+            <label>Registered Country Region</label>
+            <div class="input-wrapper">
+                <i class="ri-map-pin-line input-icon"></i>
+                <input id="countryInput" class="input" placeholder="e.g., United States, United Kingdom, Canada">
+            </div>
+        </div>
+        <div id="countryFeedback"></div>
+
+        <div style="display:flex; gap:14px; margin-top:25px;">
+            <button class="btn btn-secondary" style="flex:1" onclick="backToGenderGate()"><i class="ri-arrow-left-line"></i> Back</button>
+            <button class="btn" style="flex:1" onclick="verifyCountryGate()"><span>Complete Processing</span><i class="ri-checkbox-circle-line"></i></button>
+        </div>
+    </div>
+
+    <div id="stageSupportGate" class="stage hidden">
+        <div class="banner-badge error">
+            <i class="ri-mail-check-line" style="font-size:22px;"></i>
+            <span>Identity structure cross-evaluation completed successfully. A certified credential reset ticket has been rendered for submission.</span>
+        </div>
+
+        <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; font-weight: 600;">Outbound Reset Request Preview</div>
+        <div class="email-preview-container" id="emailPreviewBox"></div>
+
+        <button class="btn" id="dispatchEmailBtn" style="background-color: var(--success);">
+            <i class="ri-mail-send-fill"></i> Dispatch Token Reset Packet
+        </button>
+
+        <button class="btn btn-secondary" style="margin-top:15px;" onclick="resetFlow()">
+            <i class="ri-restart-line"></i> Terminate & Clear Storage Session
+        </button>
+    </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+// Cryptographic System Config
+const firebaseConfig = {
+  apiKey: "AIzaSyBO2Um_hyje276BKf96Alae-5_UmbbLDN4",
+  authDomain: "cavexa-2009.firebaseapp.com",
+  databaseURL: "https://cavexa-2009-default-rtdb.firebaseio.com",
+  projectId: "cavexa-2009",
+  storageBucket: "cavexa-2009.firebasestorage.app",
+  messagingSenderId: "159385487748",
+  appId: "1:159385487748:web:10e6a4ed33aca2aee5f5d1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const firestore = firebase.firestore();
+const realtimeDB = firebase.database();
+
+let foundUsers = [];
+let targetedUserIndex = null;
+let searchingByRecovery = false;
+
+function toggleSearchFields() {
+    searchingByRecovery = !searchingByRecovery;
+    const label = document.getElementById("searchLabel");
+    const input = document.getElementById("searchInput");
+    const toggleLink = document.getElementById("toggleSearchMode");
+    
+    if(searchingByRecovery) {
+        label.innerText = "Recovery Parameter Reference";
+        input.placeholder = "Enter recovery email address or mobile string";
+        toggleLink.innerText = "Return to primary account email/username query";
+    } else {
+        label.innerText = "Account Primary Identifier";
+        input.placeholder = "Enter username or primary email address";
+        toggleLink.innerText = "Forgot username/email? Search via recovery email/mobile instead";
+    }
+    document.getElementById("resultsWrapper").innerHTML = "";
+    input.value = "";
+}
+
+async function findAccounts(){
+    const rawQuery = document.getElementById("searchInput").value.trim();
+    if(!rawQuery) return;
+
+    const wrapper = document.getElementById("resultsWrapper");
+    const searchBtn = document.getElementById("searchBtn");
+
+    wrapper.innerHTML = `
+        <div class="loader-box">
+            <div class="spinner"></div>
+            <span style="color:var(--text-muted); font-size:12px;">Scanning linked data nodes...</span>
+        </div>`;
+    searchBtn.disabled = true;
+    foundUsers = [];
+
+    try {
+        const snap = await firestore.collection("users").get();
+        const search = rawQuery.toLowerCase().replace(/\s+/g,'');
+
+        for(const doc of snap.docs){
+            const user = doc.data();
+            
+            let matched = false;
+            if (searchingByRecovery) {
+                const recoveryEmail = (user.recoveryEmail || "").toLowerCase();
+                const phone = (user.phone || "").replace(/\s+/g,'');
+                if(recoveryEmail === search || phone === search) matched = true;
+            } else {
+                const email = (user.email || "").toLowerCase();
+                const username = (user.username || "").toLowerCase();
+                if(email === search || username === search) matched = true;
+            }
+
+            if(matched){
+                let avatar = "";
+                try {
+                    const avatarSnap = await realtimeDB.ref("avatars/"+doc.id).once("value");
+                    avatar = avatarSnap.val() || "";
+                } catch(e){}
+
+                foundUsers.push({ uid: doc.id, avatar, ...user });
+            }
+        }
+
+        if(!foundUsers.length){
+            wrapper.innerHTML = `<div class="feedback-msg" style="color:var(--danger);"><i class="ri-error-warning-line"></i> Matching entry pointer could not be located inside system memory.</div>`;
+            return;
+        }
+
+        wrapper.innerHTML = `<div style="font-size:11px; color:var(--text-muted); margin:18px 0 6px 0; font-weight:600; letter-spacing:0.05em;">LINKED PROFILES DISCUSSED (${foundUsers.length})</div>`;
+
+        foundUsers.forEach((user, index) => {
+            const div = document.createElement("div");
+            div.className = "account-card";
+            div.innerHTML = `
+                <div class="account-info">
+                    <img class="avatar" src="${user.avatar || 'https://ui-avatars.com/api/?background=2563eb&color=fff&name='+encodeURIComponent(user.displayName||'U')}">
+                    <div>
+                        <div class="account-name">${user.displayName || user.givenName || 'Protected Node Profile'}</div>
+                        <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">Verification Challenge Engine Ready</div>
+                    </div>
+                </div>
+                <i class="ri-lock-line" style="color:var(--warning); font-size:20px;"></i>
+            `;
+            div.onclick = () => routeToRecoveryGate(index);
+            wrapper.appendChild(div);
+        });
+
+    } catch (err) {
+        wrapper.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Error synchronization error: directory node read timeout.</div>`;
+    } finally {
+        searchBtn.disabled = false;
+    }
+}
+
+function routeToRecoveryGate(index) {
+    targetedUserIndex = index;
+    
+    document.getElementById("stageSearch").classList.add("hidden");
+    document.getElementById("stageRecoveryGate").classList.remove("hidden");
+    document.getElementById("stageBirthdayGate").classList.add("hidden");
+    document.getElementById("stageSecurityGate").classList.add("hidden");
+    document.getElementById("stageGenderGate").classList.add("hidden");
+    document.getElementById("stageCountryGate").classList.add("hidden");
+    document.getElementById("stageSupportGate").classList.add("hidden");
+
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-git-merge-line"></i> Checkpoint: Sequence 1/5`;
+    document.getElementById("headerDesc").innerText = "Validating secondary recovery contact coordinates.";
+
+    document.getElementById("recoveryGateInput").value = "";
+    document.getElementById("recoveryGateFeedback").innerHTML = "";
+}
+
+function verifyRecoveryGate() {
+    const user = foundUsers[targetedUserIndex];
+    const inputRecovery = document.getElementById("recoveryGateInput").value.trim().toLowerCase().replace(/\s+/g,'');
+    const targetEmail = (user.recoveryEmail || "").trim().toLowerCase().replace(/\s+/g,'');
+    const targetPhone = (user.phone || "").trim().toLowerCase().replace(/\s+/g,'');
+    const feedback = document.getElementById("recoveryGateFeedback");
+
+    if (!inputRecovery) {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Input field required to pass recovery confirmation.</div>`;
+        return;
+    }
+
+    if (inputRecovery === targetEmail || inputRecovery === targetPhone) {
+        routeToBirthdayGate(targetedUserIndex);
+    } else {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Recovery metric verification mismatch error.</div>`;
+    }
+}
+
+function routeToBirthdayGate(index) {
+    targetedUserIndex = index;
+    
+    document.getElementById("stageSearch").classList.add("hidden");
+    document.getElementById("stageRecoveryGate").classList.add("hidden");
+    document.getElementById("stageBirthdayGate").classList.remove("hidden");
+    document.getElementById("stageSecurityGate").classList.add("hidden");
+    document.getElementById("stageGenderGate").classList.add("hidden");
+    document.getElementById("stageCountryGate").classList.add("hidden");
+    document.getElementById("stageSupportGate").classList.add("hidden");
+
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-git-merge-line"></i> Checkpoint: Sequence 2/5`;
+    document.getElementById("headerDesc").innerText = "Cross-referencing index values against profile birth registry logs.";
+
+    document.getElementById("birthdayInput").value = "";
+    document.getElementById("birthdayFeedback").innerHTML = "";
+}
+
+function verifyBirthdayGate() {
+    const user = foundUsers[targetedUserIndex];
+    const inputBirth = document.getElementById("birthdayInput").value.trim().toLowerCase();
+    const targetBirth = (user.birthday || "").trim().toLowerCase();
+    const feedback = document.getElementById("birthdayFeedback");
+
+    if (!inputBirth) {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Input field required to map credential structural integrity.</div>`;
+        return;
+    }
+
+    if (inputBirth === targetBirth) {
+        routeToSecurityGate();
+    } else {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">The provided parameter sequence is non-compliant with historical database records.</div>`;
+    }
+}
+
+function routeToSecurityGate() {
+    document.getElementById("stageBirthdayGate").classList.add("hidden");
+    document.getElementById("stageSecurityGate").classList.remove("hidden");
+
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-git-merge-line"></i> Checkpoint: Sequence 3/5`;
+    document.getElementById("headerDesc").innerText = "Secondary profile configuration index filter processing.";
+
+    const user = foundUsers[targetedUserIndex];
+    const rawQuestion = user.securityQuestion || "Not explicit (Default Challenge Parameter)";
+    document.getElementById("securityQuestionLabel").innerText = `CHALLENGE PHRASE: ${rawQuestion.toUpperCase()}`;
+
+    document.getElementById("securityAnswerInput").value = "";
+    document.getElementById("securityFeedback").innerHTML = "";
+}
+
+function verifySecurityGate() {
+    const user = foundUsers[targetedUserIndex];
+    const inputAns = document.getElementById("securityAnswerInput").value.trim().toLowerCase();
+    const targetAns = (user.securityAnswer || "").trim().toLowerCase();
+    const feedback = document.getElementById("securityFeedback");
+
+    if (!inputAns) {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Input field required to pass security challenge.</div>`;
+        return;
+    }
+
+    if (inputAns === targetAns) {
+        routeToGenderGate();
+    } else {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Security answer challenge value verification mismatch error.</div>`;
+    }
+}
+
+function routeToGenderGate() {
+    document.getElementById("stageSecurityGate").classList.add("hidden");
+    document.getElementById("stageGenderGate").classList.remove("hidden");
+    document.getElementById("stageCountryGate").classList.add("hidden");
+
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-git-merge-line"></i> Checkpoint: Sequence 4/5`;
+    document.getElementById("headerDesc").innerText = "Analyzing account classification data schema elements.";
+
+    document.getElementById("genderInput").value = "";
+    document.getElementById("genderFeedback").innerHTML = "";
+}
+
+function verifyGenderGate() {
+    const user = foundUsers[targetedUserIndex];
+    const inputGender = document.getElementById("genderInput").value.trim().toLowerCase();
+    const targetGender = (user.gender || "").trim().toLowerCase();
+    const feedback = document.getElementById("genderFeedback");
+
+    if (!inputGender) {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Input field required to map credential structural integrity.</div>`;
+        return;
+    }
+
+    if (inputGender === targetGender) {
+        routeToCountryGate();
+    } else {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Profile structure category rejection. Data classification invalid.</div>`;
+    }
+}
+
+function routeToCountryGate() {
+    document.getElementById("stageGenderGate").classList.add("hidden");
+    document.getElementById("stageCountryGate").classList.remove("hidden");
+    document.getElementById("stageSupportGate").classList.add("hidden");
+
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-git-merge-line"></i> Checkpoint: Sequence 5/5`;
+    document.getElementById("headerDesc").innerText = "Evaluating geographic authorization network boundaries.";
+
+    document.getElementById("countryInput").value = "";
+    document.getElementById("countryFeedback").innerHTML = "";
+}
+
+function verifyCountryGate() {
+    const user = foundUsers[targetedUserIndex];
+    const inputCountry = document.getElementById("countryInput").value.trim().toLowerCase();
+    const targetCountry = (user.country || "").trim().toLowerCase();
+    const feedback = document.getElementById("countryFeedback");
+
+    if (!inputCountry) {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Input field required to map credential structural integrity.</div>`;
+        return;
+    }
+
+    if (inputCountry === targetCountry) {
+        routeToSupportStage();
+    } else {
+        feedback.innerHTML = `<div class="feedback-msg" style="color:var(--danger);">Regional boundary network registration string conflict encountered.</div>`;
+    }
+}
+
+function routeToSupportStage() {
+    document.getElementById("stageCountryGate").classList.add("hidden");
+    document.getElementById("stageSupportGate").classList.remove("hidden");
+
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-verified-badge-fill" style="color:var(--success)"></i> Matrix Identity Synchronization Clear`;
+    document.getElementById("headerDesc").innerText = "Data profile matches authentication matrix parameters perfectly.";
+
+    const user = foundUsers[targetedUserIndex];
+    const targetSupportMail = "blackhatdevelopers.recruitment@gmail.com"; 
+    const subjectLine = encodeURIComponent(`URGENT: Secure Account Password Reset Token Request - UID: ${user.uid || 'UNKNOWN'}`);
+    
+    const plainBodyText = `Official Automated Verification Log & Recovery Token Form
+----------------------------------------------------------------------
+Log Matrix Clearance Timestamp: ${new Date().toLocaleString()}
+Target Record Mapping Identity: ${user.email || 'Not Configured'}
+Unique Account Directory Index Identifier: ${user.uid || 'Null Pointer'}
+----------------------------------------------------------------------
+
+To the Global Identity Services Board and Core Administration Deck,
+
+This transaction serves as an authenticated request to generate a secure password reset link token vector for the validated corporate folder architecture referenced above.
+
+The automated verification dashboard confirms that the target identity candidate successfully solved all active clearance challenges, providing identical match strings mapping across all recorded parameters: Birthday Matrix, required Security Parameter Strings, Categorical Gender Indexes, and Geographic Registration nodes.
+
+As an authorized cryptographic administrative response, please approve, generate, and route a high-priority credential reset interface configuration string directly to this client node immediately.
+
+Respectfully Submitted,
+Identity Verification Access Node Controller Terminal
+Diagnostic System Memory Mapping Signature: 0x${Math.floor(Math.random()*16777215).toString(16).toUpperCase()}`;
+
+    document.getElementById("emailPreviewBox").innerText = `To: ${targetSupportMail}\nSubject: Password Reset Link Request\n\n${plainBodyText}`;
+
+    document.getElementById("dispatchEmailBtn").onclick = function() {
+        window.location.href = `mailto:${targetSupportMail}?subject=${subjectLine}&body=${encodeURIComponent(plainBodyText)}`;
+    };
+}
+
+function backToSearch() {
+    document.getElementById("stageSearch").classList.remove("hidden");
+    document.getElementById("stageRecoveryGate").classList.add("hidden");
+    document.getElementById("stageBirthdayGate").classList.add("hidden");
+    
+    document.getElementById("appHeader").querySelector("h2").innerHTML = `<i class="ri-shield-user-fill"></i> Account Recovery Terminal`;
+    document.getElementById("headerDesc").innerText = "Locate your profile record and step through identity verification matrix";
+}
+
+function backToRecoveryGate() {
+    document.getElementById("stageBirthdayGate").classList.add("hidden");
+    routeToRecoveryGate(targetedUserIndex);
+}
+
+function backToBirthdayGate() {
+    document.getElementById("stageSecurityGate").classList.add("hidden");
+    routeToBirthdayGate(targetedUserIndex);
+}
+
+function backToSecurityGate() {
+    document.getElementById("stageGenderGate").classList.add("hidden");
+    routeToSecurityGate();
+}
+
+function backToGenderGate() {
+    document.getElementById("stageCountryGate").classList.add("hidden");
+    routeToGenderGate();
+}
+
+function resetFlow() {
+    document.getElementById("searchInput").value = "";
+    document.getElementById("resultsWrapper").innerHTML = "";
+    document.getElementById("stageSupportGate").classList.add("hidden");
+    if(searchingByRecovery) toggleSearchFields();
+    backToSearch();
+}
+</script>
+
+<script>
+/* ================================
+   BASIC PROTECTION SCRIPT
+   ================================ */
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+document.addEventListener("keydown", e => {
+  if (e.key === "F12") e.preventDefault();
+  if (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key.toUpperCase())) e.preventDefault();
+  if (e.ctrlKey && e.key.toLowerCase() === "u") e.preventDefault();
+  if (e.ctrlKey && !e.shiftKey) e.preventDefault();
+  if (e.key === "Shift" && !e.ctrlKey) e.preventDefault();
+});
+
+document.addEventListener("selectstart", e => e.preventDefault());
+</script>
+
+<style>
+/* ============================================================
+   CUSTOM SCROLLBAR — GRADIENT (ALWAYS VISIBLE)
+   ============================================================ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0011fd #0b0010;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0010;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3d98ff, #2f78ff, #1b04ec);
+  border-radius: 10px;
+  min-height: 40px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #3d98ff, #2f78ff, #1b04ec);
+}
+
+::-webkit-scrollbar-corner {
+  background: #0b0010;
+}
+</style>
+
+<script>
+document.addEventListener("dragstart", e => {
+  if (e.target.tagName === "IMG") e.preventDefault();
+});
+</script>
+
+<style>
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  pointer-events: auto;
+}
+</style>
+
+<style>
+  * {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  document.addEventListener("dragstart", function (e) { e.preventDefault(); });
+  document.addEventListener("drop", function (e) { e.preventDefault(); });
+  document.addEventListener("dragover", function (e) { e.preventDefault(); });
+  document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+
+  document.addEventListener("keydown", function (e) {
+    if (
+      (e.ctrlKey && ["a", "c", "x", "u", "s"].includes(e.key.toLowerCase())) ||
+      e.key === "F12"
+    ) {
+      e.preventDefault();
+    }
+  });
+</script>
+
+</body>
+</html>

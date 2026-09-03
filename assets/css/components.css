@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #0d0f14;
+  color: #fff;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.panel {
+  width: 50%;
+  padding: 20px;
+  background: #11131a;
+  overflow-y: auto;
+}
+
+.preview-panel {
+  background: #0b0d12;
+}
+
+h2 {
+  margin-bottom: 15px;
+}
+
+input, textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  background: #181b25;
+  border: 1px solid #2a2e3d;
+  color: #fff;
+  border-radius: 6px;
+}
+
+textarea {
+  min-height: 90px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #6c63ff, #857cff);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+iframe {
+  width: 100%;
+  height: calc(100% - 40px);
+  border: none;
+  background: white;
+  border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+  .panel {
+    width: 100%;
+    height: 50%;
+  }
+}
