@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,6 +112,9 @@
 
   <!-- LIGHTBOX MODAL -->
   <div id="lightbox-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden backdrop-blur-md transition-all duration-300">
+    <button id="lightbox-save-btn" class="absolute top-4 right-16 text-white p-2 hover:opacity-75 cursor-pointer bg-white/10 rounded-full" title="Save Image As...">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
+    </button>
     <button id="lightbox-close-btn" class="absolute top-4 right-4 text-white text-3xl font-bold p-2 hover:opacity-75 cursor-pointer">&times;</button>
     <img id="lightbox-img" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl" src="" alt="Enlarged preview">
   </div>
@@ -135,19 +139,33 @@
   <!-- Scrollable Profile Content -->
   <div class="overflow-y-auto flex-1 p-4 space-y-4">
     
-    <!-- Profile Avatar & Info Section -->
-    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 text-center shadow-sm">
-      <div class="relative inline-block">
-        <img id="profile-modal-avatar" class="w-28 h-28 rounded-full object-cover shadow-sm mx-auto bg-slate-200 dark:bg-slate-800" src="" alt="Profile Avatar" />
-        <button id="avatar-edit-trigger" class="hidden absolute bottom-0 right-0 bg-slate-100 dark:bg-slate-800 p-2 rounded-full shadow hover:scale-105 transition text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h0.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 001.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-            <circle cx="12" cy="13" r="3"/>
-          </svg>
-        </button>
-      </div>
+<!-- Cover Photo Banner (WhatsApp Business style) -->
+<div id="profile-cover-wrap" class="relative rounded-3xl shadow-sm h-36 mb-12 bg-gradient-to-r from-sky-400 via-tg-blue to-purple-500">
+  <!-- Cover image with overflow clipping applied here instead -->
+  <img id="profile-modal-cover" class="w-full h-full object-cover hidden rounded-3xl" src="" alt="Cover Photo" />
+  
+  <button id="cover-edit-trigger" class="hidden absolute bottom-2 right-2 bg-black/45 hover:bg-black/60 text-white p-2 rounded-full shadow transition backdrop-blur-sm z-20">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h0.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 001.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+      <circle cx="12" cy="13" r="3"/>
+    </svg>
+  </button>
 
-      <h3 id="profile-modal-name" class="font-bold text-xl text-slate-900 dark:text-white mt-4 truncate flex items-center justify-center gap-1.5">
+  <!-- Avatar container (now fully visible outside the cover boundary) -->
+  <div class="absolute left-1/2 -translate-x-1/2 -bottom-12 z-20">
+    <img id="profile-modal-avatar" class="w-24 h-24 rounded-full object-cover shadow-lg ring-4 ring-white dark:ring-slate-950 bg-slate-200 dark:bg-slate-800" src="" alt="Profile Avatar" />
+    <button id="avatar-edit-trigger" class="hidden absolute bottom-0 right-0 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-full shadow hover:scale-105 transition text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 9a2 2 0 012-2h0.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 001.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+        <circle cx="12" cy="13" r="3"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+    <!-- Profile Avatar & Info Section -->
+    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 pt-14 text-center shadow-sm relative z-10">
+      <h3 id="profile-modal-name" class="font-bold text-xl text-slate-900 dark:text-white mt-0 truncate flex items-center justify-center gap-1.5">
         <span>User Name</span>
         <img id="profile-verified-badge" class="w-5 h-5 hidden" src="https://upload.wikimedia.org/wikipedia/commons/archive/e/e4/20211123214858%21Twitter_Verified_Badge.svg" alt="Verified" />
       </h3>
@@ -272,6 +290,14 @@
         <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         <span>Forward</span>
       </button>
+      <button id="modal-saveas-btn" class="hidden w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
+        <svg class="w-4 h-4 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
+        <span>Save Image As...</span>
+      </button>
+      <button id="modal-select-btn" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
+        <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Select</span>
+      </button>
       <button id="modal-delete-me-btn" class="w-full text-left px-4 py-3 text-sm text-amber-600 dark:text-amber-400 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
         <span>Delete for Me</span>
@@ -317,6 +343,10 @@
       <button id="chat-opt-unread" class="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center space-x-3">
         <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         <span id="chat-opt-unread-label">Mark as Unread</span>
+      </button>
+      <button id="chat-opt-block" class="w-full text-left px-4 py-3 text-sm text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/20 flex items-center space-x-3">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 105.636 5.636a9 9 0 0012.728 12.728zM5.636 5.636l12.728 12.728"/></svg>
+        <span id="chat-opt-block-label">Block User</span>
       </button>
       <button id="chat-opt-delete" class="w-full text-left px-4 py-3 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center space-x-3">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -396,12 +426,12 @@
   <div class="flex h-screen w-full">
     
     <!-- LEFT SIDEBAR -->
-    <div id="sidebar-panel" class="w-full md:w-80 lg:w-96 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col h-full z-10">
+    <div id="sidebar-panel" class="w-full md:w-80 lg:w-96 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col h-full z-10 shadow-sm">
       
       <!-- Top Navigation Bar -->
-      <div class="p-3 bg-slate-100 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+      <div class="p-3.5 bg-white/95 dark:bg-slate-950/95 tg-glass border-b border-slate-200 dark:border-slate-800 flex justify-between items-center sticky top-0 z-20">
         <div class="flex items-center space-x-2">
-          <button id="drawer-toggle-btn" class="p-1.5 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl">
+          <button id="drawer-toggle-btn" class="p-1.5 text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
           <div class="flex items-center gap-3">
@@ -459,15 +489,15 @@
       </div>
 
       <!-- Search Bar -->
-      <div class="p-2.5 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+      <div class="p-3 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
         <div class="relative flex items-center">
-          <svg class="w-4 h-4 absolute left-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-          <input type="text" id="search-input" placeholder="Search name, username, email..." class="w-full pl-9 pr-4 py-1.5 bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 text-xs rounded-full border border-transparent focus:border-tg-blue focus:outline-none transition">
+          <svg class="w-4 h-4 absolute left-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" id="search-input" placeholder="Search name, username, email..." class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-100 text-xs rounded-full border border-transparent focus:border-tg-blue focus:bg-white dark:focus:bg-slate-900 focus:outline-none focus:shadow-sm transition-all">
         </div>
       </div>
 
       <!-- User List -->
-      <div id="users-container" class="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/50"></div>
+      <div id="users-container" class="flex-1 overflow-y-auto p-1.5 space-y-0.5"></div>
     </div>
 
     <!-- MAIN CHAT PANEL -->
@@ -506,7 +536,7 @@
       </div>
 
       <!-- OPENED CHAT HEADER -->
-      <div id="chat-header" class="hidden p-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-slate-400 text-sm">
+      <div id="chat-header" class="hidden p-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-slate-400 text-sm shadow-sm z-10">
       </div>
 
       <!-- SEARCH IN CHAT BAR -->
@@ -517,6 +547,12 @@
 
       <!-- MESSAGES SCROLL CONTAINER -->
       <div id="messages-container" class="hidden flex-1 overflow-y-auto p-4 space-y-3 flex flex-col"></div>
+
+      <!-- Blocked Chat Banner -->
+      <div id="blocked-chat-banner" class="hidden px-4 py-3 bg-orange-50 dark:bg-orange-950/30 border-t border-orange-200 dark:border-orange-800/50 flex items-center justify-between">
+        <p id="blocked-chat-banner-text" class="text-xs font-semibold text-orange-700 dark:text-orange-300"></p>
+        <button id="unblock-chat-btn" class="hidden px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-xs font-bold shadow transition">Unblock</button>
+      </div>
 
       <!-- Reply Preview Bar -->
       <div id="reply-preview-bar" class="hidden px-4 py-2 bg-slate-200 dark:bg-slate-800 border-t border-slate-300 dark:border-slate-700 flex items-center justify-between">
@@ -591,6 +627,23 @@
     let replyingMessageData = null;
     let targetUploadContext = 'avatar';
 
+    // BLOCK CHAT FEATURE (synced with account via Firestore)
+    let blockedUids = new Set();
+
+    // Per-open-chat realtime listeners so switching/closing chats detaches old ones cleanly
+    let activeChatRealtimeRefs = [];
+    function detachChatRealtimeListeners() {
+      activeChatRealtimeRefs.forEach(({ ref, event }) => { try { ref.off(event || 'value'); } catch(e){} });
+      activeChatRealtimeRefs = [];
+    }
+    function trackChatRealtimeListener(ref, event) {
+      activeChatRealtimeRefs.push({ ref, event: event || 'value' });
+    }
+
+    // Incremental message rendering state (avoids full re-render flicker on every snapshot)
+    let renderedMessageEls = new Map();
+    let currentRenderedRoomId = null;
+
     // MULTI SELECT MESSAGES
     let selectedMessageIds = new Set();
     let isMultiSelectMode = false;
@@ -611,6 +664,9 @@
     const usersContainer = document.getElementById("users-container");
     const chatHeader = document.getElementById("chat-header");
     const messagesContainer = document.getElementById("messages-container");
+    const blockedChatBanner = document.getElementById("blocked-chat-banner");
+    const blockedChatBannerText = document.getElementById("blocked-chat-banner-text");
+    const unblockChatBtn = document.getElementById("unblock-chat-btn");
     const messageForm = document.getElementById("message-form");
     const messageInput = document.getElementById("message-input");
     const searchInput = document.getElementById("search-input");
@@ -634,6 +690,8 @@
     const profileRightDrawer = document.getElementById("profile-right-drawer");
     const profileDrawerClose = document.getElementById("profile-drawer-close");
     const profileModalAvatar = document.getElementById("profile-modal-avatar");
+    const profileModalCover = document.getElementById("profile-modal-cover");
+    const coverEditTrigger = document.getElementById("cover-edit-trigger");
     const profileModalName = document.getElementById("profile-modal-name");
     const profileVerifiedBadge = document.getElementById("profile-verified-badge");
     const profileModalStatus = document.getElementById("profile-modal-status");
@@ -667,6 +725,8 @@
     const modalStarText = document.getElementById("modal-star-text");
     const modalEditBtn = document.getElementById("modal-edit-btn");
     const modalForwardBtn = document.getElementById("modal-forward-btn");
+    const modalSaveAsBtn = document.getElementById("modal-saveas-btn");
+    const modalSelectBtn = document.getElementById("modal-select-btn");
     const modalDeleteMeBtn = document.getElementById("modal-delete-me-btn");
     const modalDeleteEveryoneBtn = document.getElementById("modal-delete-everyone-btn");
 
@@ -685,6 +745,8 @@
     const chatOptUnread = document.getElementById("chat-opt-unread");
     const chatOptUnreadLabel = document.getElementById("chat-opt-unread-label");
     const chatOptDelete = document.getElementById("chat-opt-delete");
+    const chatOptBlock = document.getElementById("chat-opt-block");
+    const chatOptBlockLabel = document.getElementById("chat-opt-block-label");
     const chatOptCancel = document.getElementById("chat-opt-cancel");
 
     const lockedChatsBar = document.getElementById("locked-chats-bar");
@@ -979,6 +1041,24 @@
       return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
+    // FORMAT REAL "LAST SEEN" TIMESTAMP LIKE TELEGRAM
+    function formatLastSeen(ts) {
+      if (!ts) return "last seen recently";
+      const date = new Date(ts);
+      const now = new Date();
+      const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      const isToday = date.toDateString() === now.toDateString();
+      if (isToday) return `last seen today at ${timeStr}`;
+
+      const yesterday = new Date(now);
+      yesterday.setDate(now.getDate() - 1);
+      if (date.toDateString() === yesterday.toDateString()) return `last seen yesterday at ${timeStr}`;
+
+      const dateStr = date.toLocaleDateString([], { day: '2-digit', month: 'short', year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined });
+      return `last seen ${dateStr} at ${timeStr}`;
+    }
+
     function getChatRoomId(uid1, uid2) {
       return uid1 < uid2 ? `${uid1}_${uid2}` : `${uid2}_${uid1}`;
     }
@@ -997,6 +1077,37 @@
       });
 
       listenForUsersList();
+      listenLockedChatsSync();
+    }
+
+    // SYNC LOCKED CHATS ACROSS DEVICES/SESSIONS VIA FIRESTORE
+    function syncLockedChatsToFirestore() {
+      localStorage.setItem('chatrix_locked_chats', JSON.stringify([...lockedChatUids]));
+      firestore.collection("users").doc(currentSession.uid).set({
+        lockedChats: [...lockedChatUids]
+      }, { merge: true });
+    }
+
+    function listenLockedChatsSync() {
+      firestore.collection("users").doc(currentSession.uid).onSnapshot((doc) => {
+        if (!doc.exists) return;
+        const data = doc.data();
+        if (Array.isArray(data.lockedChats)) {
+          lockedChatUids = new Set(data.lockedChats);
+          localStorage.setItem('chatrix_locked_chats', JSON.stringify([...lockedChatUids]));
+        }
+        if (Array.isArray(data.blockedUsers)) {
+          blockedUids = new Set(data.blockedUsers);
+        }
+        renderSortedUsersMap();
+      });
+    }
+
+    // SYNC BLOCKED USERS ACROSS DEVICES/SESSIONS VIA FIRESTORE (part of the user's account)
+    function syncBlockedUsersToFirestore() {
+      firestore.collection("users").doc(currentSession.uid).set({
+        blockedUsers: [...blockedUids]
+      }, { merge: true });
     }
 
     document.getElementById("logout-btn").addEventListener("click", () => {
@@ -1190,7 +1301,7 @@
 
       itemsToDisplay.forEach(({ user, lastMsg, unreadCount }) => {
         const userEl = document.createElement('div');
-        userEl.className = `flex items-center space-x-3 p-3 hover:bg-slate-100 dark:hover:bg-slate-800/60 cursor-pointer transition ${selectedUser && selectedUser.uid === user.uid ? 'bg-sky-50 dark:bg-slate-800/80 border-l-4 border-tg-blue' : ''}`;
+        userEl.className = `flex items-center space-x-3 p-2.5 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800/60 cursor-pointer transition-all ${selectedUser && selectedUser.uid === user.uid ? 'bg-sky-50 dark:bg-slate-800/80 ring-1 ring-tg-blue/40' : ''}`;
         
         let lastMsgText = user.email || "@" + (user.username || "chatrix");
         if (lastMsg) {
@@ -1202,7 +1313,7 @@
 
         userEl.innerHTML = `
           <div class="relative flex-shrink-0">
-            <img id="avatar-${user.uid}" class="w-11 h-11 rounded-full object-cover bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700" src="${DEFAULT_AVATAR}" />
+            <img id="avatar-${user.uid}" class="w-12 h-12 rounded-full object-cover bg-slate-200 dark:bg-slate-800 ring-2 ring-white dark:ring-slate-900 shadow-sm" src="${DEFAULT_AVATAR}" />
             <span id="status-dot-${user.uid}" class="w-3 h-3 bg-gray-400 border-2 border-white dark:border-slate-900 rounded-full absolute bottom-0 right-0 hidden"></span>
           </div>
           <div class="flex-1 min-w-0">
@@ -1239,7 +1350,13 @@
         });
 
         userEl.addEventListener('click', () => {
-          openChatWithUser(user);
+          // Locked chats found via search (or anywhere outside the unlocked folder view)
+          // still require the passcode before opening, same as opening the folder itself.
+          if (lockedChatUids.has(user.uid) && !isShowingLockedFolder) {
+            promptPinModal(() => openChatWithUser(user));
+          } else {
+            openChatWithUser(user);
+          }
         });
 
         userEl.addEventListener('contextmenu', (e) => {
@@ -1322,9 +1439,25 @@
       chatOptLockLabel.innerText = lockedChatUids.has(user.uid) ? "Unlock Chat" : "Lock Chat";
       chatOptArchiveLabel.innerText = archivedChatUids.has(user.uid) ? "Unarchive Chat" : "Archive Chat";
       chatOptUnreadLabel.innerText = manualUnreadUids.has(user.uid) ? "Mark as Read" : "Mark as Unread";
+      chatOptBlockLabel.innerText = blockedUids.has(user.uid) ? "Unblock User" : "Block User";
 
       chatItemModal.classList.remove("hidden");
     }
+
+    chatOptBlock.addEventListener("click", () => {
+      if (!activeChatItemUser) return;
+      if (blockedUids.has(activeChatItemUser.uid)) {
+        blockedUids.delete(activeChatItemUser.uid);
+      } else {
+        blockedUids.add(activeChatItemUser.uid);
+      }
+      syncBlockedUsersToFirestore();
+      chatItemModal.classList.add("hidden");
+      if (selectedUser && selectedUser.uid === activeChatItemUser.uid) {
+        updateBlockedBanner(selectedUser);
+      }
+      renderSortedUsersMap();
+    });
 
     chatOptCancel.addEventListener("click", () => chatItemModal.classList.add("hidden"));
 
@@ -1335,7 +1468,7 @@
       } else {
         lockedChatUids.add(activeChatItemUser.uid);
       }
-      localStorage.setItem('chatrix_locked_chats', JSON.stringify([...lockedChatUids]));
+      syncLockedChatsToFirestore();
       chatItemModal.classList.add("hidden");
       renderSortedUsersMap();
     });
@@ -1387,6 +1520,11 @@
     });
 
     async function openChatWithUser(user) {
+      // Detach any realtime listeners (avatar/status/typing) left over from a previously
+      // open chat before wiring up new ones for this one — prevents the pile-up of stale
+      // listeners that made reopening a chat feel like it was re-loading everything.
+      detachChatRealtimeListeners();
+
       if (manualUnreadUids.has(user.uid)) {
         manualUnreadUids.delete(user.uid);
         localStorage.setItem('chatrix_unread_chats', JSON.stringify([...manualUnreadUids]));
@@ -1444,6 +1582,10 @@
               <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/></svg>
               <span>${mutedChatUids.has(user.uid) ? 'Unmute Notifications' : 'Mute Notifications'}</span>
             </button>
+            <button id="tool-block-chat" class="w-full text-left px-4 py-2 text-xs text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/20 flex items-center space-x-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 105.636 5.636a9 9 0 0012.728 12.728zM5.636 5.636l12.728 12.728"/></svg>
+              <span>${blockedUids.has(user.uid) ? 'Unblock User' : 'Block User'}</span>
+            </button>
             <button id="tool-clear-history" class="w-full text-left px-4 py-2 text-xs text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center space-x-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               <span>Clear History</span>
@@ -1463,7 +1605,7 @@
       document.getElementById("tool-lock-chat").addEventListener("click", () => {
         if (lockedChatUids.has(user.uid)) lockedChatUids.delete(user.uid);
         else lockedChatUids.add(user.uid);
-        localStorage.setItem('chatrix_locked_chats', JSON.stringify([...lockedChatUids]));
+        syncLockedChatsToFirestore();
         renderSortedUsersMap();
       });
 
@@ -1495,13 +1637,20 @@
         });
       });
 
+      document.getElementById("tool-block-chat").addEventListener("click", () => {
+        if (blockedUids.has(user.uid)) blockedUids.delete(user.uid);
+        else blockedUids.add(user.uid);
+        syncBlockedUsersToFirestore();
+        updateBlockedBanner(user);
+        renderSortedUsersMap();
+      });
+
       const toolsBtn = document.getElementById("chat-tools-btn");
       const toolsMenu = document.getElementById("chat-tools-menu");
       toolsBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         toolsMenu.classList.toggle("hidden");
       });
-      document.addEventListener("click", () => toolsMenu.classList.add("hidden"));
 
       document.getElementById("tool-search-chat").addEventListener("click", () => {
         chatSearchBar.classList.remove("hidden");
@@ -1512,40 +1661,51 @@
       if (backBtn) {
         backBtn.addEventListener("click", (e) => {
           e.stopPropagation();
+          detachChatRealtimeListeners();
+          if (unsubscribeMessages) { unsubscribeMessages(); unsubscribeMessages = null; }
           selectedUser = null;
+          renderedMessageEls.clear();
+          currentRenderedRoomId = null;
           chatPanel.classList.add("hidden");
           sidebarPanel.classList.remove("hidden");
           renderSortedUsersMap();
         });
       }
 
-      realtimeDB.ref("avatars/" + user.uid).on("value", (snap) => {
+      const avatarRef = realtimeDB.ref("avatars/" + user.uid);
+      avatarRef.on("value", (snap) => {
         const avatarVal = parseAvatarFromSnapshot(snap.exists() ? snap.val() : null);
         const avatarImg = document.getElementById('chat-header-avatar');
         if (avatarImg) avatarImg.src = avatarVal;
       });
+      trackChatRealtimeListener(avatarRef);
 
-      realtimeDB.ref("status/" + user.uid).on("value", (snap) => {
+      const statusRef = realtimeDB.ref("status/" + user.uid);
+      statusRef.on("value", (snap) => {
         const statusEl = document.getElementById("chat-header-status");
         if (statusEl && snap.exists()) {
-          if (snap.val().state === "online") {
+          const statusVal = snap.val();
+          if (statusVal.state === "online") {
             statusEl.innerText = "online";
             statusEl.className = "text-xs text-tg-blue font-medium";
           } else {
-            statusEl.innerText = "last seen recently";
+            statusEl.innerText = formatLastSeen(statusVal.last_seen);
             statusEl.className = "text-xs text-slate-400";
           }
         }
       });
+      trackChatRealtimeListener(statusRef);
 
       const roomId = getChatRoomId(currentSession.uid, user.uid);
-      realtimeDB.ref(`typing/${roomId}/${user.uid}`).on("value", (snap) => {
+      const typingRef = realtimeDB.ref(`typing/${roomId}/${user.uid}`);
+      typingRef.on("value", (snap) => {
         const statusEl = document.getElementById("chat-header-status");
         if (statusEl && snap.exists() && snap.val() === true) {
           statusEl.innerText = "typing...";
           statusEl.className = "text-xs text-tg-blue font-bold animate-pulse";
         }
       });
+      trackChatRealtimeListener(typingRef);
 
       const unreadMsgs = await firestore.collection('chats')
         .doc(roomId)
@@ -1556,12 +1716,54 @@
 
       unreadMsgs.forEach((doc) => doc.ref.update({ read: true }));
 
+      updateBlockedBanner(user);
       renderSortedUsersMap();
       listenForMessages();
     }
 
+    // BLOCK CHAT: reflect block state (mine or theirs) in a banner and lock the composer
+    function updateBlockedBanner(user) {
+      const iBlockedThem = blockedUids.has(user.uid);
+      const theyBlockedMe = Array.isArray(user.blockedUsers) && user.blockedUsers.includes(currentSession.uid);
+
+      if (iBlockedThem) {
+        blockedChatBannerText.innerText = `You blocked ${user.displayName || user.username}. Unblock to send messages.`;
+        unblockChatBtn.classList.remove("hidden");
+        blockedChatBanner.classList.remove("hidden");
+        messageForm.classList.add("hidden");
+      } else if (theyBlockedMe) {
+        blockedChatBannerText.innerText = "You can no longer send messages to this contact.";
+        unblockChatBtn.classList.add("hidden");
+        blockedChatBanner.classList.remove("hidden");
+        messageForm.classList.add("hidden");
+      } else {
+        blockedChatBanner.classList.add("hidden");
+        messageForm.classList.remove("hidden");
+      }
+
+      unblockChatBtn.onclick = () => {
+        blockedUids.delete(user.uid);
+        syncBlockedUsersToFirestore();
+        updateBlockedBanner(user);
+      };
+    }
+
+    // Single global handler closes whichever chat-tools-menu is currently open (avoids
+    // stacking a new document click listener every time a chat is opened)
+    document.addEventListener("click", () => {
+      const openToolsMenu = document.getElementById("chat-tools-menu");
+      if (openToolsMenu) openToolsMenu.classList.add("hidden");
+    });
+
     // OPEN USER PROFILE MODAL - LAYOUT ONLY VIEW (DO NOT DISPLAY CODE TAGS IN PROFILE VIEW)
+    let activeProfileRealtimeRefs = [];
+    function detachProfileRealtimeListeners() {
+      activeProfileRealtimeRefs.forEach(ref => { try { ref.off('value'); } catch(e){} });
+      activeProfileRealtimeRefs = [];
+    }
+
     async function openUserProfileModal(uid, isSelf) {
+      detachProfileRealtimeListeners();
       const uDoc = await firestore.collection("users").doc(uid).get();
       if (!uDoc.exists) return;
       const uData = uDoc.data();
@@ -1574,9 +1776,24 @@
         profileVerifiedBadge.classList.add("hidden");
       }
 
-      realtimeDB.ref("avatars/" + uid).on("value", (snap) => {
+      const profAvatarRef = realtimeDB.ref("avatars/" + uid);
+      profAvatarRef.on("value", (snap) => {
         profileModalAvatar.src = parseAvatarFromSnapshot(snap.exists() ? snap.val() : null);
       });
+      activeProfileRealtimeRefs.push(profAvatarRef);
+
+      const profCoverRef = realtimeDB.ref("covers/" + uid);
+      profCoverRef.on("value", (snap) => {
+        const coverVal = snap.exists() ? snap.val() : null;
+        if (coverVal && coverVal.img) {
+          profileModalCover.src = coverVal.img;
+          profileModalCover.classList.remove("hidden");
+        } else {
+          profileModalCover.src = "";
+          profileModalCover.classList.add("hidden");
+        }
+      });
+      activeProfileRealtimeRefs.push(profCoverRef);
 
       if (isSelf) {
         avatarEditTrigger.classList.remove("hidden");
@@ -1585,9 +1802,16 @@
           mediaSourceTitle.innerText = "Set Profile Photo";
           mediaSourceModal.classList.remove("hidden");
         };
+        coverEditTrigger.classList.remove("hidden");
+        coverEditTrigger.onclick = () => {
+          targetUploadContext = 'cover';
+          mediaSourceTitle.innerText = "Set Cover Photo";
+          mediaSourceModal.classList.remove("hidden");
+        };
         profileEditActions.classList.remove("hidden");
       } else {
         avatarEditTrigger.classList.add("hidden");
+        coverEditTrigger.classList.add("hidden");
         profileEditActions.classList.add("hidden");
       }
 
@@ -1679,6 +1903,13 @@
               showAlert("Profile photo updated!");
             }
           });
+        } else if (targetUploadContext === 'cover') {
+          // SAVE COVER PHOTO IN RTDB AS IMG
+          realtimeDB.ref("covers/" + currentSession.uid).set({ img: base64Str }, (err) => {
+            if (!err) {
+              showAlert("Cover photo updated!");
+            }
+          });
         } else {
           attachedImageBase64 = base64Str;
           imagePreviewThumb.src = base64Str;
@@ -1696,6 +1927,18 @@
     });
 
     // LIGHTBOX
+    const lightboxSaveBtn = document.getElementById("lightbox-save-btn");
+    lightboxSaveBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (lightboxImg.src) {
+        const link = document.createElement("a");
+        link.href = lightboxImg.src;
+        link.download = `chatrix-image-${Date.now()}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    });
     lightboxCloseBtn.addEventListener("click", () => lightboxModal.classList.add("hidden"));
     lightboxModal.addEventListener("click", (e) => {
       if (e.target === lightboxModal) lightboxModal.classList.add("hidden");
@@ -1757,6 +2000,8 @@
             let bodyContent = '';
             const msgText = msg.text || '';
             const onlyEmoji = isOnlyEmojis(stripFormattingTags(msgText)) && !msg.image;
+            // TELEGRAM-STYLE: pure image messages (no caption/reply) render with NO bubble background at all
+            const isImageOnly = !msg.deleted && !!msg.image && !msgText && !msg.replyTo;
 
             if (msg.deleted) {
               bodyContent = `<p class="italic text-slate-400 text-xs">This message was deleted</p>`;
@@ -1770,47 +2015,70 @@
                 `;
               }
 
-              if (msg.image) {
-                bodyContent += `<img src="${msg.image}" class="max-w-xs max-h-60 rounded-xl mb-1 cursor-pointer object-cover shadow" onclick="openLightbox('${msg.image}')" />`;
+              if (msg.image && !isImageOnly) {
+                bodyContent += `<img src="${msg.image}" class="max-w-xs max-h-60 rounded-xl mb-1 cursor-pointer object-cover shadow" onclick="event.stopPropagation(); openLightbox('${msg.image}')" data-image-msg="1" />`;
               }
 
               if (msgText) {
                 if (onlyEmoji) {
                   bodyContent += `<div class="animated-emoji-msg">${escapeHTML(msgText)}</div>`;
                 } else {
-                  bodyContent += `<div class="msg-content text-xs leading-relaxed">${parseFormattedText(msgText)}</div>`;
+                  bodyContent += `<div class="msg-content text-sm leading-relaxed">${parseFormattedText(msgText)}</div>`;
                 }
               }
             }
 
             const timeStr = msg.timestamp ? formatChatTime(msg.timestamp) : '';
             const isStarred = starredMessageIds.has(msgId);
+            const starSvg = '<svg class="w-3 h-3 text-amber-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+            const starSvgOverlay = '<svg class="w-3 h-3 text-amber-300 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
 
             let statusTicks = '';
+            let statusTicksOverlay = '';
             if (isMine && !msg.deleted) {
               if (msg.read) {
                 statusTicks = `<svg class="w-3.5 h-3.5 text-sky-400 inline ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>`;
+                statusTicksOverlay = `<svg class="w-3.5 h-3.5 text-sky-300 inline" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>`;
               } else {
                 statusTicks = `<svg class="w-3.5 h-3.5 text-slate-400 inline ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>`;
+                statusTicksOverlay = `<svg class="w-3.5 h-3.5 text-slate-200 inline" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>`;
               }
             }
 
-            const bubbleClass = onlyEmoji
-              ? "p-1"
-              : (isMine 
-                ? "bg-tg-sentBubble dark:bg-tg-sentBubbleDark text-slate-800 dark:text-slate-100 rounded-2xl rounded-tr-none shadow-sm px-3.5 py-2 max-w-[85%] md:max-w-[70%]"
-                : "bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-2xl rounded-tl-none shadow-sm px-3.5 py-2 max-w-[85%] md:max-w-[70%]");
+            const bubbleClass = isImageOnly
+              ? "p-0 bg-transparent shadow-none max-w-[75%] md:max-w-[60%] rounded-2xl overflow-hidden"
+              : onlyEmoji
+                ? "p-1"
+                : (isMine 
+                  ? "bg-tg-sentBubble dark:bg-tg-sentBubbleDark text-slate-800 dark:text-slate-100 rounded-2xl rounded-tr-none shadow-sm px-3.5 py-2 max-w-[85%] md:max-w-[70%]"
+                  : "bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-2xl rounded-tl-none shadow-sm px-3.5 py-2 max-w-[85%] md:max-w-[70%]");
+
+            // Telegram-style: photo-only bubbles show the image edge-to-edge with time/ticks overlaid, no background box
+            const innerContentHTML = isImageOnly
+              ? `
+                <div class="relative cursor-pointer">
+                  <img src="${msg.image}" class="block w-full max-h-80 object-cover" onclick="event.stopPropagation(); openLightbox('${msg.image}')" data-image-msg="1" />
+                  <div class="absolute bottom-1.5 right-1.5 flex items-center gap-1 text-[10px] font-medium text-white bg-black/45 px-1.5 py-0.5 rounded-full backdrop-blur-sm">
+                    ${isStarred ? starSvgOverlay : ''}
+                    <span>${timeStr}</span>
+                    ${statusTicksOverlay}
+                  </div>
+                </div>
+              `
+              : `
+                ${bodyContent}
+                <div class="flex items-center justify-end space-x-1 mt-0.5 text-[10px] text-slate-400">
+                  ${isStarred ? starSvg : ''}
+                  <span>${timeStr}</span>
+                  ${statusTicks}
+                </div>
+              `;
 
             msgWrapper.innerHTML = `
               <div class="flex items-center ${isMine ? 'flex-row-reverse' : 'flex-row'} w-full">
                 ${selectCheckHTML}
                 <div class="msg-bubble-container ${bubbleClass} relative transition-transform duration-150">
-                  ${bodyContent}
-                  <div class="flex items-center justify-end space-x-1 mt-0.5 text-[10px] text-slate-400">
-                    ${isStarred ? '<svg class="w-3 h-3 text-amber-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' : ''}
-                    <span>${timeStr}</span>
-                    ${statusTicks}
-                  </div>
+                  ${innerContentHTML}
                 </div>
               </div>
             `;
@@ -1921,8 +2189,35 @@
         modalStarText.innerText = "Star Message";
       }
 
+      if (msg.image && !msg.deleted) {
+        modalSaveAsBtn.classList.remove("hidden");
+      } else {
+        modalSaveAsBtn.classList.add("hidden");
+      }
+
       messageModal.classList.remove("hidden");
     }
+
+    // SAVE IMAGE AS (DOWNLOAD)
+    modalSaveAsBtn.addEventListener("click", () => {
+      if (activeMessageContext && activeMessageContext.msg.image) {
+        const link = document.createElement("a");
+        link.href = activeMessageContext.msg.image;
+        link.download = `chatrix-image-${activeMessageContext.msgId}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      messageModal.classList.add("hidden");
+    });
+
+    // ENTER MULTI-SELECT MODE STARTING WITH THIS MESSAGE
+    modalSelectBtn.addEventListener("click", () => {
+      if (activeMessageContext) {
+        enterMultiSelectMode(activeMessageContext.msgId);
+      }
+      messageModal.classList.add("hidden");
+    });
 
     modalCloseBtn.addEventListener("click", () => messageModal.classList.add("hidden"));
 
